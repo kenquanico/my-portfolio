@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { LiquidGlassDock } from "./dock/LiquidGlassDock";
 import Logo from "../assets/kenldry.svg";
-import Plasma from "./Plasma";
 import LiquidEther from "./LiquidEther.tsx";
+import TrueFocus from "./TrueFocus.tsx";
+import { GlassFilter } from "./dock/GlassFilter.tsx";
 
-/* ─── Color Palette ─────────────────────────────────────────────────────────── */
-// #635985  — mid-violet (accent / interactive)
-// #443C68  — deep grape (card / glass tint)
-// #393053  — dark plum (border / subtle bg)
-// #18122B  — near-black indigo (base background)
+type DockItemConfig = {
+    icon: React.ReactNode;
+    label: string;
+    onClick: () => void;
+};
 
 const PALETTE = {
     base:    "#000",
@@ -20,33 +21,43 @@ const PALETTE = {
     glow:    "rgba(99,89,133,0.18)",
 };
 
-/* ─── Global styles ─────────────────────────────────────────────────────────── */
 const GLOBAL_CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=Syne:wght@300;400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=Syne:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body { background: ${PALETTE.base}; overflow-x: hidden; }
   ::selection { background: ${PALETTE.accent}; color: #fff; }
-
-  @keyframes scroll-bounce {
-    0%,100% { transform: translateY(0); opacity: 0.4; }
-    50%      { transform: translateY(8px); opacity: 0.9; }
-  }
-  @keyframes pulse-dot {
-    0%,100% { opacity: 0.4; }
-    50%      { opacity: 1; }
-  }
-  @keyframes shimmer-accent {
-    0%   { background-position: -400px 0; }
-    100% { background-position: 400px 0; }
-  }
 `;
 
-/* ─── GlassCard ─────────────────────────────────────────────────────────────── */
+let _glassFilterId = 0;
+function useGlassFilterId() {
+    const ref = useRef<string | null>(null);
+    if (!ref.current) ref.current = `glass-filter-${_glassFilterId++}`;
+    return ref.current;
+}
+
+// Matches LiquidGlassDock's ultra-thin outer ring + inset specular ring
+const CARD_SHADOW_BASE = `
+  0 0 0 0.5px rgba(255,255,255,0.06),
+  inset  1px  1px 0 0.5px rgba(255,255,255,0.45),
+  inset -1px -1px 0 0.5px rgba(255,255,255,0.12),
+  0 4px 32px rgba(0,0,0,0.6)
+`;
+const CARD_SHADOW_HOVERED = `
+  0 0 0 0.5px rgba(255,255,255,0.10),
+  inset  1px  1px 0 0.5px rgba(255,255,255,0.60),
+  inset -1px -1px 0 0.5px rgba(255,255,255,0.18),
+  0 12px 56px rgba(0,0,0,0.8),
+  0 0 40px rgba(99,89,133,0.10)
+`;
+
 function GlassCard({ children, style = {}, delay = 0 }: { children: React.ReactNode; style?: React.CSSProperties; delay?: number }) {
     const [hovered, setHovered] = useState(false);
+    const filterId = useGlassFilterId();
+
     return (
         <motion.div
+            data-glass-host
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
@@ -54,74 +65,60 @@ function GlassCard({ children, style = {}, delay = 0 }: { children: React.ReactN
             onMouseLeave={() => setHovered(false)}
             style={{
                 position: "relative",
-                borderRadius: 14,
-                padding: "28px 32px",
-                backdropFilter: "blur(40px) saturate(160%)",
-                WebkitBackdropFilter: "blur(40px) saturate(160%)",
+                borderRadius: 18,
+                padding: "32px 36px",
+                // Base BG: subtle tinted glass fill
+                backdropFilter: `url(#${filterId}) blur(0.5px) saturate(140%)`,
+                WebkitBackdropFilter: "blur(28px) saturate(160%) brightness(1.08)",
                 background: hovered
-                    ? `linear-gradient(135deg, rgba(99,89,133,0.18) 0%, rgba(68,60,104,0.12) 100%)`
-                    : `linear-gradient(135deg, rgba(68,60,104,0.1) 0%, rgba(57,48,83,0.07) 100%)`,
-                border: hovered
-                    ? `1px solid rgba(99,89,133,0.4)`
-                    : `1px solid rgba(99,89,133,0.16)`,
-                boxShadow: hovered
-                    ? `0 10px 50px rgba(0,0,0,0.8), inset 0 1.5px 0 rgba(99,89,133,0.3), 0 0 40px rgba(99,89,133,0.08)`
-                    : `0 2px 24px rgba(0,0,0,0.6), inset 0 1px 0 rgba(99,89,133,0.12)`,
+                    ? `linear-gradient(135deg, rgba(99,89,133,0.16) 0%, rgba(68,60,104,0.10) 100%)`
+                    : `linear-gradient(135deg, rgba(68,60,104,0.09) 0%, rgba(57,48,83,0.05) 100%)`,
+                // Dock-style ring: no explicit border, use box-shadow inset rings instead
+                border: "none",
+                boxShadow: hovered ? CARD_SHADOW_HOVERED : CARD_SHADOW_BASE,
                 transition: "all 0.38s cubic-bezier(0.16,1,0.3,1)",
                 overflow: "hidden",
                 ...style,
             }}
         >
-            <div style={{
-                position: "absolute", top: 0, left: "8%", right: "8%", height: "1px",
-                background: `linear-gradient(90deg, transparent, rgba(99,89,133,0.45), transparent)`,
-                pointerEvents: "none",
-            }} />
+            {/* Liquid glass chromatic-aberration displacement filter */}
+            <GlassFilter
+                id={filterId}
+                borderRadius={18}
+                brightness={52}
+                blur={10}
+                opacity={0.88}
+                distortionScale={-160}
+            />
+
+            {/* Specular highlight — bright arc top-left, soft glow bottom-right (matches Dock) */}
+            <div
+                aria-hidden
+                style={{
+                    position: "absolute",
+                    inset: 0,
+                    borderRadius: "inherit",
+                    pointerEvents: "none",
+                    background: `
+                        radial-gradient(ellipse 70% 30% at 16% 0%,
+                          rgba(255,255,255,${hovered ? "0.46" : "0.34"}) 0%,
+                          rgba(255,255,255,0.08) 55%,
+                          transparent 100%
+                        ),
+                        radial-gradient(ellipse 55% 28% at 84% 100%,
+                          rgba(255,255,255,${hovered ? "0.18" : "0.10"}) 0%,
+                          transparent 70%
+                        )
+                    `,
+                    transition: "background 0.38s ease",
+                }}
+            />
+
             {children}
         </motion.div>
     );
 }
 
-/* ─── SkillPill ─────────────────────────────────────────────────────────────── */
-function SkillPill({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-    const [hovered, setHovered] = useState(false);
-    return (
-        <motion.span
-            initial={{ opacity: 0, scale: 0.88 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay }}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            style={{
-                display: "inline-block",
-                padding: "5px 15px",
-                borderRadius: 999,
-                fontSize: 10,
-                fontFamily: "'Syne', sans-serif",
-                fontWeight: 400,
-                letterSpacing: "0.07em",
-                color: hovered ? "#d4cee8" : "rgba(177,165,210,0.45)",
-                backdropFilter: "blur(12px)",
-                WebkitBackdropFilter: "blur(12px)",
-                background: hovered
-                    ? `linear-gradient(135deg, rgba(99,89,133,0.28) 0%, rgba(68,60,104,0.18) 100%)`
-                    : `rgba(68,60,104,0.12)`,
-                border: hovered
-                    ? `1px solid rgba(99,89,133,0.5)`
-                    : `1px solid rgba(99,89,133,0.2)`,
-                boxShadow: hovered
-                    ? `inset 0 1px 0 rgba(99,89,133,0.3), 0 0 12px rgba(99,89,133,0.12)`
-                    : "none",
-                transition: "all 0.2s ease",
-                cursor: "default",
-            }}
-        >
-            {children}
-        </motion.span>
-    );
-}
-
-/* ─── WorkRow ────────────────────────────────────────────────────────────────── */
 function WorkRow({ title, category, year, desc, index }: { title: string; category: string; year: string; desc: string; index: number }) {
     const [hovered, setHovered] = useState(false);
     return (
@@ -133,10 +130,10 @@ function WorkRow({ title, category, year, desc, index }: { title: string; catego
             onMouseLeave={() => setHovered(false)}
             style={{
                 display: "grid",
-                gridTemplateColumns: "48px 1fr 80px",
+                gridTemplateColumns: "56px 1fr 80px",
                 alignItems: "start",
                 gap: 24,
-                padding: "22px 24px",
+                padding: "28px 24px",
                 borderRadius: 12,
                 background: hovered
                     ? `linear-gradient(135deg, rgba(99,89,133,0.1) 0%, rgba(68,60,104,0.06) 100%)`
@@ -154,41 +151,57 @@ function WorkRow({ title, category, year, desc, index }: { title: string; catego
             }}
         >
             <span style={{
-                fontFamily: "'Syne', sans-serif", fontSize: 10, letterSpacing: "0.05em",
-                color: hovered ? "rgba(99,89,133,0.7)" : "rgba(99,89,133,0.3)",
-                paddingTop: 2,
+                fontFamily: "'Syne', sans-serif",
+                fontSize: "clamp(11px, 1.2vw, 13px)",
+                fontWeight: 400,
+                letterSpacing: "0.12em",
+                color: hovered ? "rgba(99,89,133,0.9)" : "rgba(99,89,133,0.6)",
+                paddingTop: 3,
                 transition: "color 0.2s",
             }}>
                 0{index + 1}
             </span>
             <div>
-                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 7, flexWrap: "wrap" }}>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 10, flexWrap: "wrap" }}>
                     <span style={{
                         fontFamily: "'Playfair Display', serif",
-                        fontSize: 18, fontWeight: 400,
-                        color: hovered ? "#e8e2f4" : "rgba(212,200,235,0.78)",
+                        fontSize: "clamp(22px, 2.4vw, 28px)",
+                        fontWeight: 400,
+                        letterSpacing: "-0.01em",
+                        color: hovered ? "#fff" : "rgba(230,220,255,0.92)",
                         transition: "color 0.2s",
                     }}>{title}</span>
                     <span style={{
                         fontFamily: "'Syne', sans-serif",
-                        fontSize: 9, letterSpacing: "0.12em",
-                        color: "rgba(99,89,133,0.7)",
-                        border: `1px solid rgba(99,89,133,0.28)`,
-                        borderRadius: 3, padding: "2px 8px",
-                        background: "rgba(68,60,104,0.15)",
+                        fontSize: "clamp(9px, 1vw, 11px)",
+                        fontWeight: 500,
+                        letterSpacing: "0.16em",
+                        textTransform: "uppercase",
+                        color: "rgba(180,165,220,0.9)",
+                        border: `1px solid rgba(99,89,133,0.45)`,
+                        borderRadius: 3,
+                        padding: "3px 9px",
+                        background: "rgba(68,60,104,0.3)",
                     }}>{category}</span>
                 </div>
                 <p style={{
-                    fontFamily: "'Syne', sans-serif", fontSize: 12, lineHeight: 1.7,
-                    color: "rgba(177,165,210,0.32)", letterSpacing: "0.01em",
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "clamp(14px, 1.4vw, 16px)",
+                    fontWeight: 300,
+                    lineHeight: 1.7,
+                    color: "rgba(196,182,228,0.78)",
                 }}>
                     {desc}
                 </p>
             </div>
             <span style={{
-                fontFamily: "'Syne', sans-serif", fontSize: 10,
-                color: "rgba(99,89,133,0.4)", letterSpacing: "0.05em",
-                paddingTop: 2, textAlign: "right",
+                fontFamily: "'Syne', sans-serif",
+                fontSize: "clamp(11px, 1.2vw, 13px)",
+                fontWeight: 400,
+                letterSpacing: "0.1em",
+                color: "rgba(99,89,133,0.75)",
+                paddingTop: 3,
+                textAlign: "right",
             }}>
                 {year}
             </span>
@@ -196,12 +209,11 @@ function WorkRow({ title, category, year, desc, index }: { title: string; catego
     );
 }
 
-/* ─── Divider / SectionLabel ─────────────────────────────────────────────────── */
 const Divider = () => (
     <div style={{
         height: "1px",
-        background: `linear-gradient(90deg, transparent, rgba(99,89,133,0.28), transparent)`,
-        margin: "0 0 60px",
+        background: `linear-gradient(90deg, transparent, rgba(99,89,133,0.24), transparent)`,
+        margin: "0 0 72px",
     }} />
 );
 
@@ -209,18 +221,22 @@ const SectionLabel = ({ children }: { children: React.ReactNode }) => (
     <motion.p
         initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}
         style={{
-            fontFamily: "'Syne', sans-serif", fontSize: 9, letterSpacing: "0.24em",
-            color: "rgba(99,89,133,0.55)", marginBottom: 32,
-            textTransform: "uppercase", textAlign: "center",
+            fontFamily: "'Syne', sans-serif",
+            fontSize: "clamp(11px, 1.2vw, 13px)",
+            fontWeight: 500,
+            letterSpacing: "0.28em",
+            color: "rgba(160,145,200,0.85)",
+            marginBottom: 36,
+            textTransform: "uppercase",
+            textAlign: "center",
         }}
     >
         {children}
     </motion.p>
 );
 
-/* ─── Icons ──────────────────────────────────────────────────────────────────── */
-const Ico = ({ path, size = 18 }: { path: string; size?: number }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+const Ico = ({ path, size = 16 }: { path: string; size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d={path} />
     </svg>
 );
@@ -232,26 +248,22 @@ const ICONS = {
     arrow: "M5 12h14 M12 5l7 7-7 7",
 };
 
-const GitHubIcon = ({ size = 18 }: { size?: number }) => (
+const GitHubIcon = ({ size = 16 }: { size?: number }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
     </svg>
 );
 
-/* ─── Data ───────────────────────────────────────────────────────────────────── */
-const SKILLS = ["React", "TypeScript", "Node.js", "Figma", "Next.js", "GraphQL", "Motion", "Three.js", "Tailwind", "PostgreSQL", "Rust", "WebGL"];
-
 const WORKS = [
-    { title: "Prismatic",  category: "WEB APP",   year: "2025", desc: "A design system built around light refraction principles. Dark-mode first with glass morphism throughout." },
-    { title: "Velvet CMS", category: "FULLSTACK", year: "2024", desc: "Headless content management platform serving 50k+ editors. Custom rich text engine, real-time collaboration." },
-    { title: "Orbital",    category: "MOBILE",    year: "2024", desc: "Task management app with spatial UI. Nodes float in 3D space, grouped by gravity and context." },
-    { title: "Solstice",   category: "BRANDING",  year: "2023", desc: "Full brand identity for a luxury wellness startup. Type, color, motion guidelines." },
+    { title: "Prismatic",  category: "Web App",   year: "2025", desc: "A design system built around light refraction principles. Dark-mode first with glass morphism throughout." },
+    { title: "Velvet CMS", category: "Fullstack", year: "2024", desc: "Headless content management platform serving 50k+ editors. Custom rich text engine, real-time collaboration." },
+    { title: "Orbital",    category: "Mobile",    year: "2024", desc: "Task management app with spatial UI. Nodes float in 3D space, grouped by gravity and context." },
+    { title: "Solstice",   category: "Branding",  year: "2023", desc: "Full brand identity for a luxury wellness startup. Type, color, motion guidelines." },
 ];
 
-/* ─── Portfolio ──────────────────────────────────────────────────────────────── */
-export default function Portfolio() {
-    const dockItems = [
-        { icon: <Ico path={ICONS.user} />, label: "About",   onClick: () => {} },
+export default function Portfolio({ onNavigateToAbout }: { onNavigateToAbout: () => void }) {
+    const dockItems: DockItemConfig[] = [
+        { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
         { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: () => {} },
         { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: () => {} },
         { icon: <GitHubIcon />,            label: "GitHub",  onClick: () => {} },
@@ -261,8 +273,7 @@ export default function Portfolio() {
         <div style={{ minHeight: "100vh", background: "#000", position: "relative" }}>
             <style>{GLOBAL_CSS}</style>
 
-            {/* ── PLASMA BACKGROUND ─────────────────────────────────────────────── */}
-            {/* ── PLASMA BACKGROUND ─────────────────────────────────────────────── */}
+            {/* BACKGROUND */}
             <div style={{ position: "fixed", inset: 0, zIndex: 0, width: "100vw", height: "100vh" }}>
                 <LiquidEther
                     style={{ width: "100%", height: "100%" }}
@@ -281,30 +292,27 @@ export default function Portfolio() {
                     takeoverDuration={0.25}
                     autoResumeDelay={3000}
                     autoRampDuration={0.6}
-                    color0="#393053"
-                    color1="#443C68"
-                    color2="#635985"
                 />
             </div>
 
-            {/* ── DEEP VIGNETTE OVERLAY ─────────────────────────────────────────── */}
+            {/* VIGNETTE */}
             <div style={{
                 position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none",
-                background: `radial-gradient(ellipse at 50% 40%, rgba(68,60,104,0.12) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.82) 100%)`,
+                background: `radial-gradient(ellipse at 50% 40%, rgba(68,60,104,0.12) 0%, rgba(0,0,0,0.58) 60%, rgba(0,0,0,0.86) 100%)`,
             }} />
 
-            {/* ── NAV ───────────────────────────────────────────────────────────── */}
+            {/* NAV */}
             <nav style={{
                 position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-                padding: "18px 52px",
+                padding: "20px 56px",
                 display: "flex", alignItems: "center", justifyContent: "space-between",
             }}>
-                <img src={Logo} style={{ height: 45, width: "auto", display: "block" }} />
+                <img src={Logo} alt="Ken Aldrey Quanico logo" style={{ height: 42, width: "auto", display: "block" }} />
                 <LiquidGlassDock items={dockItems} />
             </nav>
 
-            {/* ── MAIN ──────────────────────────────────────────────────────────── */}
-            <main style={{ position: "relative", zIndex: 10, padding: "0 52px" }}>
+            {/* MAIN */}
+            <main style={{ position: "relative", zIndex: 10, padding: "0 56px" }}>
 
                 {/* HERO */}
                 <section style={{
@@ -316,72 +324,123 @@ export default function Portfolio() {
                     textAlign: "center",
                     paddingTop: 80,
                 }}>
+                    {/* Eyebrow */}
+                    <motion.p
+                        initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                        style={{
+                            fontFamily: "'Syne', sans-serif",
+                            fontSize: "clamp(11px, 1.2vw, 14px)",
+                            fontWeight: 500,
+                            letterSpacing: "0.3em",
+                            textTransform: "uppercase",
+                            color: "rgba(160,145,200,0.85)",
+                            marginBottom: 28,
+                        }}
+                    >
+                        Portfolio — 2026
+                    </motion.p>
+
+                    {/* Name — slightly reduced: was clamp(58px, 7.5vw, 108px), now clamp(46px, 6vw, 88px) */}
                     <motion.h1
                         initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1.1, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 1.1, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
                         style={{
                             fontFamily: "'Playfair Display', serif",
-                            fontSize: "clamp(46px, 5.5vw, 84px)", fontWeight: 300,
-                            lineHeight: 1.0, letterSpacing: "-0.035em",
-                            color: "#e8e2f4",
-                            marginBottom: 4,
+                            fontSize: "clamp(46px, 6vw, 88px)",
+                            fontWeight: 300,
+                            lineHeight: 1.0,
+                            letterSpacing: "-0.04em",
+                            color: "#ffffff",
+                            marginBottom: 6,
                         }}
                     >
                         Ken Aldrey Quanico
                     </motion.h1>
 
+                    {/* Role — matching the reduced name size */}
                     <motion.h2
                         initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 1.1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 1.1, delay: 0.44, ease: [0.16, 1, 0.3, 1] }}
                         style={{
                             fontFamily: "'Playfair Display', serif",
-                            fontSize: "clamp(46px, 5.5vw, 84px)", fontWeight: 300,
-                            fontStyle: "italic", lineHeight: 1.0, letterSpacing: "-0.035em",
-                            color: "rgba(99,89,133,0.45)",
-                            marginBottom: 40,
+                            fontSize: "clamp(46px, 6vw, 88px)",
+                            fontWeight: 300,
+                            fontStyle: "italic",
+                            lineHeight: 1.0,
+                            letterSpacing: "-0.04em",
+                            color: "rgba(160,145,200,0.72)",
+                            marginBottom: 48,
                         }}
                     >
                         designer & dev.
                     </motion.h2>
 
+                    {/* Bio — slightly reduced: was clamp(16px, 1.6vw, 20px), now clamp(14px, 1.3vw, 17px) */}
                     <motion.p
-                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.68 }}
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.62 }}
                         style={{
-                            fontFamily: "'Syne', sans-serif", fontSize: 14, lineHeight: 1.9,
-                            color: "rgba(177,165,210,0.4)", maxWidth: 480,
-                            letterSpacing: "0.01em", marginBottom: 44,
+                            fontFamily: "'DM Sans', sans-serif",
+                            fontSize: "clamp(14px, 1.3vw, 17px)",
+                            fontWeight: 300,
+                            lineHeight: 1.75,
+                            color: "rgba(210,200,235,0.82)",
+                            maxWidth: 480,
+                            marginBottom: 52,
                         }}
                     >
-                        I craft thoughtful digital experiences at the intersection of visual design and engineering — with obsessive attention to motion, light, and feel.
+                        Crafting thoughtful digital experiences at the intersection of visual design and engineering — with obsessive attention to motion, light, and feel.
                     </motion.p>
 
+                    {/* TrueFocus */}
                     <motion.div
-                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.82 }}
-                        style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 48, justifyContent: "center", maxWidth: 560 }}
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.78 }}
                     >
-                        {SKILLS.map((s, i) => <SkillPill key={s} delay={0.82 + i * 0.03}>{s}</SkillPill>)}
+                        <TrueFocus
+                            sentence="Designer Developer"
+                            manualMode={false}
+                            blurAmount={6}
+                            borderColor="#635985"
+                            glowColor="rgba(99,89,133,0.5)"
+                            animationDuration={0.6}
+                            pauseBetweenAnimations={1.5}
+                        />
                     </motion.div>
                 </section>
 
                 {/* WORK */}
-                <section style={{ paddingBottom: 100, maxWidth: 860, margin: "0 auto" }}>
+                <section style={{ paddingBottom: 110, maxWidth: 920, margin: "0 auto" }}>
                     <Divider />
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 8 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
                         <SectionLabel>Selected Work</SectionLabel>
-                        <span style={{ fontFamily: "'Syne', sans-serif", fontSize: 9, letterSpacing: "0.12em", color: "rgba(99,89,133,0.4)" }}>
-                            {WORKS.length} PROJECTS
+                        <span style={{
+                            fontFamily: "'Syne', sans-serif",
+                            fontSize: "clamp(11px, 1.2vw, 13px)",
+                            fontWeight: 400,
+                            letterSpacing: "0.14em",
+                            color: "rgba(160,145,200,0.7)",
+                        }}>
+                            {WORKS.length} Projects
                         </span>
                     </div>
                     <div style={{
-                        display: "grid", gridTemplateColumns: "48px 1fr 80px",
-                        gap: 24, padding: "0 24px 16px",
-                        borderBottom: `1px solid rgba(99,89,133,0.14)`,
+                        display: "grid",
+                        gridTemplateColumns: "56px 1fr 80px",
+                        gap: 24,
+                        padding: "0 24px 14px",
+                        borderBottom: `1px solid rgba(99,89,133,0.22)`,
                         marginBottom: 4,
                     }}>
-                        {["#", "Project", "Year"].map(h => (
+                        {["No.", "Project", "Year"].map(h => (
                             <span key={h} style={{
-                                fontFamily: "'Syne', sans-serif", fontSize: 9,
-                                letterSpacing: "0.14em", color: "rgba(99,89,133,0.38)",
+                                fontFamily: "'Syne', sans-serif",
+                                fontSize: "clamp(10px, 1.1vw, 12px)",
+                                fontWeight: 500,
+                                letterSpacing: "0.18em",
+                                textTransform: "uppercase",
+                                color: "rgba(160,145,200,0.65)",
                             }}>{h}</span>
                         ))}
                     </div>
@@ -389,61 +448,72 @@ export default function Portfolio() {
                 </section>
 
                 {/* CONTACT */}
-                <section style={{ paddingBottom: 120, maxWidth: 860, margin: "0 auto" }}>
+                <section style={{ paddingBottom: 130, maxWidth: 920, margin: "0 auto" }}>
                     <Divider />
-                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 40 }}>
+                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 44 }}>
                         <div>
                             <SectionLabel>Contact</SectionLabel>
                             <p style={{
                                 fontFamily: "'Playfair Display', serif",
-                                fontSize: "clamp(28px, 3.5vw, 52px)", fontWeight: 300,
-                                fontStyle: "italic", color: "rgba(212,200,235,0.7)",
-                                lineHeight: 1.25, letterSpacing: "-0.02em",
+                                fontSize: "clamp(30px, 3.8vw, 58px)",
+                                fontWeight: 300,
+                                fontStyle: "italic",
+                                color: "rgba(225,215,248,0.88)",
+                                lineHeight: 1.2,
+                                letterSpacing: "-0.02em",
                             }}>
                                 Let's make something beautiful together.
                             </p>
                         </div>
-                        <GlassCard style={{ width: "100%", maxWidth: 520, textAlign: "left" }}>
+                        <GlassCard style={{ width: "100%", maxWidth: 540, textAlign: "left" }}>
                             <p style={{
-                                fontFamily: "'Syne', sans-serif", fontSize: 12, lineHeight: 1.8,
-                                color: "rgba(177,165,210,0.38)", marginBottom: 24, letterSpacing: "0.01em",
+                                fontFamily: "'DM Sans', sans-serif",
+                                fontSize: "clamp(15px, 1.5vw, 18px)",
+                                fontWeight: 300,
+                                lineHeight: 1.75,
+                                color: "rgba(210,198,235,0.82)",
+                                marginBottom: 28,
                             }}>
                                 Open for select freelance projects, collaborations, and full-time roles starting Q3 2025.
                             </p>
                             <div style={{ display: "flex", justifyContent: "center" }}>
-                                <a href="mailto:hello@kenaldrey.co"
+                                <a href="nekquanico@gmail.com"
                                    style={{
                                        display: "inline-flex",
                                        alignItems: "center",
                                        gap: 10,
-                                       padding: "10px 22px",
+                                       padding: "13px 28px",
                                        borderRadius: 999,
                                        backdropFilter: "blur(16px)",
                                        WebkitBackdropFilter: "blur(16px)",
-                                       background: `rgba(99,89,133,0.14)`,
-                                       border: `1px solid rgba(99,89,133,0.32)`,
-                                       boxShadow: `inset 0 1px 0 rgba(99,89,133,0.22)`,
+                                       background: `rgba(99,89,133,0.18)`,
+                                       border: `1px solid rgba(99,89,133,0.4)`,
+                                       boxShadow: `inset 0 1px 0 rgba(99,89,133,0.2)`,
                                        fontFamily: "'Syne', sans-serif",
-                                       fontSize: 11,
-                                       letterSpacing: "0.06em",
-                                       color: "rgba(177,165,210,0.7)",
+                                       fontSize: "clamp(11px, 1.2vw, 13px)",
+                                       fontWeight: 500,
+                                       letterSpacing: "0.1em",
+                                       textTransform: "uppercase",
+                                       color: "rgba(210,198,235,0.9)",
                                        textDecoration: "none",
                                        transition: "all 0.2s ease",
                                    }}
                                    onMouseEnter={e => {
-                                       (e.currentTarget as HTMLAnchorElement).style.background = `rgba(99,89,133,0.28)`;
-                                       (e.currentTarget as HTMLAnchorElement).style.color = "#e8e2f4";
-                                       (e.currentTarget as HTMLAnchorElement).style.borderColor = `rgba(99,89,133,0.55)`;
-                                       (e.currentTarget as HTMLAnchorElement).style.boxShadow = `inset 0 1px 0 rgba(99,89,133,0.3), 0 0 20px rgba(99,89,133,0.15)`;
+                                       const el = e.currentTarget as HTMLAnchorElement;
+                                       el.style.background = `rgba(99,89,133,0.32)`;
+                                       el.style.color = "#ffffff";
+                                       el.style.borderColor = `rgba(99,89,133,0.65)`;
+                                       el.style.boxShadow = `inset 0 1px 0 rgba(99,89,133,0.28), 0 0 20px rgba(99,89,133,0.18)`;
                                    }}
                                    onMouseLeave={e => {
-                                       (e.currentTarget as HTMLAnchorElement).style.background = `rgba(99,89,133,0.14)`;
-                                       (e.currentTarget as HTMLAnchorElement).style.color = "rgba(177,165,210,0.7)";
-                                       (e.currentTarget as HTMLAnchorElement).style.borderColor = `rgba(99,89,133,0.32)`;
-                                       (e.currentTarget as HTMLAnchorElement).style.boxShadow = `inset 0 1px 0 rgba(99,89,133,0.22)`;
+                                       const el = e.currentTarget as HTMLAnchorElement;
+                                       el.style.background = `rgba(99,89,133,0.18)`;
+                                       el.style.color = "rgba(210,198,235,0.9)";
+                                       el.style.borderColor = `rgba(99,89,133,0.4)`;
+                                       el.style.boxShadow = `inset 0 1px 0 rgba(99,89,133,0.2)`;
                                    }}
                                 >
-                                    hello@kenaldrey.co <Ico path={ICONS.arrow} size={11} />
+                                    hello@kenaldrey.co <Ico path={ICONS.arrow} size={12} />
                                 </a>
                             </div>
                         </GlassCard>
@@ -451,16 +521,28 @@ export default function Portfolio() {
 
                     {/* Footer */}
                     <motion.div
-                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.4 }}
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                        transition={{ duration: 1, delay: 0.4 }}
                         style={{
-                            marginTop: 80, display: "flex", justifyContent: "space-between",
-                            alignItems: "center", flexWrap: "wrap", gap: 16,
-                            borderTop: `1px solid rgba(99,89,133,0.1)`,
+                            marginTop: 88,
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "baseline",
+                            flexWrap: "wrap",
+                            gap: 16,
+                            borderTop: `1px solid rgba(99,89,133,0.15)`,
                             paddingTop: 28,
                         }}
                     >
-                        <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 16, color: "rgba(99,89,133,0.55)", letterSpacing: "0.04em" }}>ken.</span>
-                        <span style={{ fontFamily: "'Syne', sans-serif", fontSize: 9, letterSpacing: "0.14em", color: "rgba(99,89,133,0.28)" }}>© 2025 — ALL RIGHTS RESERVED</span>
+                        <img src={Logo} alt="Ken Aldrey Quanico logo" style={{ height: 42, width: "auto", display: "block" }}/>
+                        <span style={{
+                            fontFamily: "'Syne', sans-serif",
+                            fontSize: "clamp(10px, 1.1vw, 12px)",
+                            fontWeight: 400,
+                            letterSpacing: "0.18em",
+                            textTransform: "uppercase",
+                            color: "rgba(160,145,200,0.55)",
+                        }}>© 2026 — All Rights Reserved</span>
                     </motion.div>
                 </section>
             </main>

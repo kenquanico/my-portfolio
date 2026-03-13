@@ -3,6 +3,16 @@ import { motion, useMotionValue } from "framer-motion";
 import { GlassFilter } from "./GlassFilter";
 import { DockItem }    from "./DockItem";
 
+type DockEntry = {
+    icon: React.ReactNode;
+    label: string;
+    onClick: () => void;
+};
+
+type LiquidGlassDockProps = {
+    items?: DockEntry[];
+};
+
 const SPRING = { mass: 0.1, stiffness: 220, damping: 16 };
 
 // Apple liquid glass: bright specular arc top-left, soft glow bottom-right,
@@ -32,7 +42,7 @@ const DIVIDER_STYLE = {
  *     ...
  *   ]} />
  */
-export function LiquidGlassDock({ items = [] }) {
+export function LiquidGlassDock({ items = [] }: LiquidGlassDockProps) {
     const mouseX    = useMotionValue(Infinity);
     const filterId  = useId().replace(/:/g, "-") + "-dock";
 

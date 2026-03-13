@@ -1,10 +1,21 @@
 import { useRef, useState, useId } from "react";
-import { motion, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useTransform, useSpring, AnimatePresence, type MotionValue, type SpringOptions } from "framer-motion";
 import { GlassFilter } from "./GlassFilter";
+
+type DockItemProps = {
+    children: React.ReactNode;
+    mouseX: MotionValue<number>;
+    spring: SpringOptions;
+    distance: number;
+    magnification: number;
+    baseItemSize: number;
+    label: string;
+    onClick: () => void;
+};
 
 const TOOLTIP_STYLE = {
     marginTop:      8,
-    whiteSpace:     "nowrap",
+    whiteSpace:     "nowrap" as const,
     padding:        "5px 12px",
     borderRadius:   8,
     fontSize:       10,
@@ -16,7 +27,7 @@ const TOOLTIP_STYLE = {
     border:         "1px solid rgba(255,255,255,0.2)",
     boxShadow:      "0 4px 20px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.2)",
     color:          "rgba(255,255,255,0.85)",
-    pointerEvents:  "none",
+    pointerEvents:  "none" as const,
     zIndex:         20,
 };
 
@@ -59,8 +70,8 @@ export function DockItem({
                              baseItemSize,
                              label,
                              onClick,
-                         }) {
-    const ref        = useRef(null);
+                         }: DockItemProps) {
+    const ref = useRef<HTMLDivElement | null>(null);
     const [hovered, setHovered] = useState(false);
     const filterId   = useId().replace(/:/g, "-") + "-item";
 
