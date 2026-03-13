@@ -4,22 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="add initial components and setup for landing page, plasma effect, and color blends">
-      <change afterPath="$PROJECT_DIR$/src/assets/s2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/About.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/CardSwap.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/GraphicsSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/LogosSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/TrueFocus.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/WebsiteSection.tsx" afterDir="false" />
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="add new components for About page, CardSwap, TrueFocus, and GraphicsSection; update LiquidGlassDock and GlassFilter with new props">
+      <change afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/LogoLoop.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/About.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Projects.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dock/DockItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/DockItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dock/GlassFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/GlassFilter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dock/LiquidGlassDock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/LiquidGlassDock.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,6 +94,7 @@
       <workItem from="1773326958859" duration="6617000" />
       <workItem from="1773337357715" duration="9304000" />
       <workItem from="1773367426555" duration="2052000" />
+      <workItem from="1773370341651" duration="3902000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />
@@ -112,7 +104,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773327472037</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add new components for About page, CardSwap, TrueFocus, and GraphicsSection; update LiquidGlassDock and GlassFilter with new props">
+      <option name="closed" value="true" />
+      <created>1773370383062</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1773370383062</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,7 +120,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add initial components and setup for landing page, plasma effect, and color blends" />
-    <option name="LAST_COMMIT_MESSAGE" value="add initial components and setup for landing page, plasma effect, and color blends" />
+    <MESSAGE value="add new components for About page, CardSwap, TrueFocus, and GraphicsSection; update LiquidGlassDock and GlassFilter with new props" />
+    <option name="LAST_COMMIT_MESSAGE" value="add new components for About page, CardSwap, TrueFocus, and GraphicsSection; update LiquidGlassDock and GlassFilter with new props" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

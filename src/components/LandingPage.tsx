@@ -261,10 +261,16 @@ const WORKS = [
     { title: "Solstice",   category: "Branding",  year: "2023", desc: "Full brand identity for a luxury wellness startup. Type, color, motion guidelines." },
 ];
 
-export default function Portfolio({ onNavigateToAbout }: { onNavigateToAbout: () => void }) {
+export default function Portfolio({
+                                      onNavigateToAbout,
+                                      onNavigateToProjects,
+                                  }: {
+    onNavigateToAbout: () => void;
+    onNavigateToProjects: () => void;
+}) {
     const dockItems: DockItemConfig[] = [
         { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
-        { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: () => {} },
+        { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: onNavigateToProjects },
         { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: () => {} },
         { icon: <GitHubIcon />,            label: "GitHub",  onClick: () => {} },
     ];
@@ -513,7 +519,7 @@ export default function Portfolio({ onNavigateToAbout }: { onNavigateToAbout: ()
                                        el.style.boxShadow = `inset 0 1px 0 rgba(99,89,133,0.2)`;
                                    }}
                                 >
-                                    hello@kenaldrey.co <Ico path={ICONS.arrow} size={12} />
+                                    nekquanico@gmail.com <Ico path={ICONS.arrow} size={12} />
                                 </a>
                             </div>
                         </GlassCard>

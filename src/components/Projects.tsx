@@ -8,7 +8,6 @@ import WebsitesSection from "./WebsiteSection";
 import GraphicsSection from "./GraphicsSection";
 import LogosSection from "./LogosSection";
 import profilePhoto from "../assets/s2.jpg";
-import cardSwap from "./CardSwap.tsx";
 
 // ─── Fonts ───────────────────────────────────────────────────────────────────
 const GLOBAL_CSS = `
@@ -110,16 +109,16 @@ const CardSwap: React.FC<CardSwapProps> = ({
         tlRef.current?.kill();
         const tl = gsap.timeline({ onComplete: () => { order.current = nextOrder; } });
         tlRef.current = tl;
-        tl.to(frontNode, { y: -90, x: -8, scale: 1.04, rotateZ: -3.5, opacity: 0.85, duration: 0.36, ease: "power2.out" });
+        tl.to(frontNode, { y: -90, x: -8, scale: 1.04, rotateZ: -3.5, opacity: 0.85, duration: 0.22, ease: "power2.out" });
         rest.forEach((ci, newPos) => {
             const node = cardNodes.current[ci];
             if (!node) return;
             const slot = getSlot(newPos);
-            tl.to(node, { x: slot.x, y: slot.y, scale: slot.scale, opacity: slot.opacity, rotateZ: slot.rotateZ, zIndex: slot.zIndex, duration: 0.52, ease: "power2.inOut" }, 0.14);
+            tl.to(node, { x: slot.x, y: slot.y, scale: slot.scale, opacity: slot.opacity, rotateZ: slot.rotateZ, zIndex: slot.zIndex, duration: 0.32, ease: "power2.inOut" }, 0.08);
         });
         const backSlot = getSlot(nextOrder.length - 1);
-        tl.set(frontNode, { zIndex: backSlot.zIndex }, 0.14);
-        tl.to(frontNode, { x: backSlot.x, y: backSlot.y, scale: backSlot.scale, opacity: backSlot.opacity, rotateZ: backSlot.rotateZ, duration: 0.5, ease: "elastic.out(0.85, 0.8)" }, 0.27);
+        tl.set(frontNode, { zIndex: backSlot.zIndex }, 0.08);
+        tl.to(frontNode, { x: backSlot.x, y: backSlot.y, scale: backSlot.scale, opacity: backSlot.opacity, rotateZ: backSlot.rotateZ, duration: 0.34, ease: "elastic.out(0.85, 0.8)" }, 0.18);
     }, [getSlot]);
 
     useEffect(() => {
@@ -341,18 +340,24 @@ function ProjectStackCard({
 }
 
 // ─── Main Page ─────────────────────────────────────────────────────────────────
-export default function AboutPage({ onNavigateHome }: { onNavigateHome: () => void }) {
-
+export default function Projects({
+                                     onNavigateHome,
+                                     onNavigateToAbout,
+                                 }: {
+    onNavigateHome: () => void;
+    onNavigateToAbout: () => void;
+}) {
     const scrollToSection = (key: CardKey) => {
         const el = document.getElementById(key);
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     };
+    const [viewMode, setViewMode] = useState<"stack" | "list">("stack");
 
     const dockItems = [
-        { icon: <Ico path={ICONS.user} />, label: "About", onClick: () => {} },
-        { icon: <Ico path={ICONS.work} />, label: "Work", onClick: onNavigateHome },
+        { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
+        { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: () => {} },
         { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: onNavigateHome },
-        { icon: <GitHubIcon />, label: "GitHub", onClick: () => {} },
+        { icon: <GitHubIcon />,            label: "GitHub",  onClick: () => {} },
     ];
 
     return (
@@ -581,6 +586,7 @@ export default function AboutPage({ onNavigateHome }: { onNavigateHome: () => vo
                     />
 
                     {/* RIGHT — card stack, centered */}
+                    {/* RIGHT — card stack with toggle */}
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -589,65 +595,188 @@ export default function AboutPage({ onNavigateHome }: { onNavigateHome: () => vo
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
-                            gap: 14,
+                            width: "100%",
+                            gap: 20,
+                            marginTop: 48,
                         }}
                     >
-                        <p style={{
-                            fontFamily: "'Syne', sans-serif", fontSize: "10px",
-                            fontWeight: 500, letterSpacing: "0.28em",
-                            textTransform: "uppercase", color: "rgba(160,145,200,0.65)",
-                            alignSelf: "flex-start",
+                        {/* Header row: "Categories" label + toggle */}
+                        <div style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            width: 440,
                         }}>
-                            Categories
-                        </p>
+                            <p style={{
+                                fontFamily: "'Syne', sans-serif", fontSize: "10px",
+                                fontWeight: 500, letterSpacing: "0.28em",
+                                textTransform: "uppercase", color: "rgba(160,145,200,0.65)",
+                                margin: 0,
+                            }}>
+                                Categories
+                            </p>
 
-                        <CardSwap
-                            width={500}
-                            height={290}
-                            cardDistance={20}
-                            verticalDistance={30}
-                            delay={4500}
-                            pauseOnHover
-                            onCardClick={(idx) => scrollToSection(CARD_DATA[idx].key)}
-                        >
-                            {CARD_DATA.map((data) => (
-                                <SwapCard key={data.key}>
-                                    <ProjectStackCard data={data} onNavigate={scrollToSection} />
-                                </SwapCard>
-                            ))}
-                        </CardSwap>
+                            {/* Toggle: Stack / List */}
+                            <div style={{
+                                display: "flex",
+                                alignItems: "center",
+                                gap: 4,
+                                padding: "4px",
+                                borderRadius: 10,
+                                background: "rgba(16,12,32,0.85)",
+                                border: "1px solid rgba(99,89,133,0.25)",
+                            }}>
+                                {/* Stack icon button */}
+                                <button
+                                    onClick={() => setViewMode("stack")}
+                                    title="Stack view"
+                                    style={{
+                                        display: "flex", alignItems: "center", justifyContent: "center",
+                                        width: 30, height: 26, borderRadius: 7,
+                                        border: "none", cursor: "pointer",
+                                        background: viewMode === "stack" ? "rgba(99,89,133,0.45)" : "transparent",
+                                        color: viewMode === "stack" ? "rgba(210,198,235,0.95)" : "rgba(160,145,200,0.5)",
+                                        transition: "all 0.2s ease",
+                                    }}
+                                >
+                                    {/* Stack icon — overlapping cards */}
+                                    <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="2" y="7" width="20" height="14" rx="2" />
+                                        <path d="M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2" />
+                                        <path d="M6 3.5C6 3.5 4 4.5 4 7" opacity="0.5" />
+                                    </svg>
+                                </button>
 
-                        <p style={{
+                                {/* List icon button */}
+                                <button
+                                    onClick={() => setViewMode("list")}
+                                    title="List view"
+                                    style={{
+                                        display: "flex", alignItems: "center", justifyContent: "center",
+                                        width: 30, height: 26, borderRadius: 7,
+                                        border: "none", cursor: "pointer",
+                                        background: viewMode === "list" ? "rgba(99,89,133,0.45)" : "transparent",
+                                        color: viewMode === "list" ? "rgba(210,198,235,0.95)" : "rgba(160,145,200,0.5)",
+                                        transition: "all 0.2s ease",
+                                    }}
+                                >
+                                    {/* List icon — three horizontal rows */}
+                                    <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                        <rect x="3" y="3" width="18" height="5" rx="1.5" />
+                                        <rect x="3" y="10" width="18" height="5" rx="1.5" />
+                                        <rect x="3" y="17" width="18" height="5" rx="1.5" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Stack view */}
+                        {viewMode === "stack" && (
+                            <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+                                <div style={{ marginLeft: "-18px" }}>
+                                    <CardSwap
+                                        width={440}
+                                        height={270}
+                                        cardDistance={18}
+                                        verticalDistance={28}
+                                        delay={2500}
+                                        pauseOnHover
+                                        onCardClick={(idx) => scrollToSection(CARD_DATA[idx].key)}
+                                    >
+                                        {CARD_DATA.map((data) => (
+                                            <SwapCard key={data.key}>
+                                                <ProjectStackCard data={data} onNavigate={scrollToSection} />
+                                            </SwapCard>
+                                        ))}
+                                    </CardSwap>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* List view */}
+                        {viewMode === "list" && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: 12,
+                                    width: 440,
+                                }}
+                            >
+                                {CARD_DATA.map((data, i) => (
+                                    <motion.div
+                                        key={data.key}
+                                        initial={{ opacity: 0, y: 12 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.38, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
+                                        onClick={() => scrollToSection(data.key)}
+                                        style={{
+                                            width: "100%",
+                                            height: 82,
+                                            borderRadius: 16,
+                                            background: data.bg,
+                                            border: `1px solid rgba(255,255,255,0.08)`,
+                                            cursor: "pointer",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            padding: "0 24px",
+                                            gap: 18,
+                                            position: "relative",
+                                            overflow: "hidden",
+                                            transition: "border-color 0.25s ease",
+                                        }}
+                                        whileHover={{ scale: 1.012, borderColor: data.borderColor } as any}
+                                    >
+                                        <SpecularOverlay />
+                                        {/* Icon */}
+                                        <div style={{
+                                            width: 40, height: 40, borderRadius: 10, flexShrink: 0,
+                                            background: `linear-gradient(135deg, ${data.accent}28, ${data.accent}0e)`,
+                                            border: `1px solid ${data.accent}44`,
+                                            display: "flex", alignItems: "center", justifyContent: "center",
+                                        }}>
+                                            <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke={data.accent} strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d={data.icon} />
+                                            </svg>
+                                        </div>
+                                        {/* Text */}
+                                        <div style={{ flex: 1 }}>
+                                            <p style={{
+                                                fontFamily: "'Playfair Display', serif",
+                                                fontSize: 20, fontWeight: 300,
+                                                color: data.labelColor,
+                                                letterSpacing: "-0.02em", lineHeight: 1, marginBottom: 4,
+                                            }}>{data.label}</p>
+                                            <p style={{
+                                                fontFamily: "'Syne', sans-serif", fontSize: "9px",
+                                                fontWeight: 500, letterSpacing: "0.22em",
+                                                textTransform: "uppercase", color: "rgba(160,145,200,0.5)",
+                                            }}>{data.subtitle}</p>
+                                        </div>
+                                        {/* Count + arrow */}
+                                        <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
+                        <span style={{
                             fontFamily: "'Syne', sans-serif", fontSize: "10px",
-                            fontWeight: 400, letterSpacing: "0.14em",
-                            textTransform: "uppercase", color: "rgba(99,89,133,0.42)",
-                        }}>
-                            Click card to jump to section · Auto-cycles
-                        </p>
+                            fontWeight: 500, letterSpacing: "0.14em",
+                            textTransform: "uppercase", color: `${data.accent}99`,
+                        }}>{data.count} projects</span>
+                                            <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke={data.accent} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                                                <path d="M5 12h14M12 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </motion.div>
+                        )}
+
+
                     </motion.div>
                 </div>
 
-                {/* Scroll cue */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1.3, duration: 0.8 }}
-                    style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, paddingBottom: 28 }}
-                >
-                    <motion.div
-                        animate={{ y: [0, 7, 0] }}
-                        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                        <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="rgba(160,145,200,0.38)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M12 5v14M5 12l7 7 7-7" />
-                        </svg>
-                    </motion.div>
-                    <span style={{
-                        fontFamily: "'Syne', sans-serif", fontSize: "9px",
-                        fontWeight: 500, letterSpacing: "0.24em",
-                        textTransform: "uppercase", color: "rgba(99,89,133,0.42)",
-                    }}>Scroll to explore</span>
-                </motion.div>
+
             </section>
 
             {/* ═══════════════════════════════════════════════
