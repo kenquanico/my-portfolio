@@ -270,7 +270,7 @@ export default function Portfolio({
 }) {
     const dockItems: DockItemConfig[] = [
         { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
-        { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: onNavigateToProjects },
+        { icon: <Ico path={ICONS.work} />, label: "Work", onClick: onNavigateToProjects },
         { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: () => {} },
         { icon: <GitHubIcon />,            label: "GitHub",  onClick: () => {} },
     ];

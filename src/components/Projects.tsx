@@ -388,8 +388,7 @@ export default function Projects({
                 padding: "20px 56px",
                 display: "flex", alignItems: "center", justifyContent: "space-between",
             }}>
-                <img src={Logo} alt="Logo" style={{ height: 42, width: "auto" }} />
-                <LiquidGlassDock items={dockItems} />
+                <img src={Logo} alt="Logo" onClick={onNavigateHome} style={{ height: 42, width: "auto" }} />                <LiquidGlassDock items={dockItems} />
             </nav>
 
             {/* ═══════════════════════════════════════════════
@@ -473,7 +472,7 @@ export default function Projects({
                     }} />
                 </motion.div>
 
-                {/* Two columns */}
+
                 <div style={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1px 1fr",
@@ -550,7 +549,6 @@ export default function Projects({
                             ))}
                         </div>
 
-                        {/* Stack */}
                         <div>
                             <p style={{
                                 fontFamily: "'Syne', sans-serif", fontSize: "9px",
@@ -585,8 +583,6 @@ export default function Projects({
                         }}
                     />
 
-                    {/* RIGHT — card stack, centered */}
-                    {/* RIGHT — card stack with toggle */}
                     <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -779,13 +775,9 @@ export default function Projects({
 
             </section>
 
-            {/* ═══════════════════════════════════════════════
-          PROJECT SECTIONS — solid dark, scroll-based
-      ═══════════════════════════════════════════════ */}
+
             <div style={{
-                position: "relative", zIndex: 10,
-                background: "linear-gradient(180deg, transparent 0px, #05030f 100px)",
-            }}>
+                position: "relative", zIndex: 10}}>
                 <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 56px" }}>
                     <WebsitesSection />
                     <GraphicsSection />

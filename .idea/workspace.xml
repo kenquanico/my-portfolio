@@ -4,13 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="add new components for About page, CardSwap, TrueFocus, and GraphicsSection; update LiquidGlassDock and GlassFilter with new props">
-      <change afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/LogoLoop.tsx" afterDir="false" />
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="refactor GraphicsSection to enhance project display with grid and list views; add project modal for detailed view">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/About.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Projects.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AboutMe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GraphicsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GraphicsSection.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LogosSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LogosSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Projects.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WebsiteSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WebsiteSection.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +96,11 @@
       <workItem from="1773337357715" duration="9304000" />
       <workItem from="1773367426555" duration="2052000" />
       <workItem from="1773370341651" duration="3902000" />
+      <workItem from="1773375405981" duration="6172000" />
+      <workItem from="1773390000638" duration="11194000" />
+      <workItem from="1773417089255" duration="1497000" />
+      <workItem from="1773456636065" duration="579000" />
+      <workItem from="1773497587365" duration="2884000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />
@@ -112,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773370383062</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="refactor App component to include Projects and AboutMe pages; update navigation logic and enhance LandingPage with project view options">
+      <option name="closed" value="true" />
+      <created>1773375633982</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1773375633982</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,7 +135,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add initial components and setup for landing page, plasma effect, and color blends" />
     <MESSAGE value="add new components for About page, CardSwap, TrueFocus, and GraphicsSection; update LiquidGlassDock and GlassFilter with new props" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new components for About page, CardSwap, TrueFocus, and GraphicsSection; update LiquidGlassDock and GlassFilter with new props" />
+    <MESSAGE value="refactor App component to include Projects and AboutMe pages; update navigation logic and enhance LandingPage with project view options" />
+    <MESSAGE value="refactor GraphicsSection to enhance project display with grid and list views; add project modal for detailed view" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor GraphicsSection to enhance project display with grid and list views; add project modal for detailed view" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
