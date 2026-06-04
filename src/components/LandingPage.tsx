@@ -27,6 +27,43 @@ const GLOBAL_CSS = `
   html { scroll-behavior: smooth; }
   body { background: ${PALETTE.base}; overflow-x: hidden; }
   ::selection { background: ${PALETTE.accent}; color: #fff; }
+
+  /* ── Custom Scrollbar ── */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.0);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgba(99, 89, 133, 0.0) 0%,
+      rgba(99, 89, 133, 0.55) 20%,
+      rgba(130, 115, 180, 0.75) 50%,
+      rgba(99, 89, 133, 0.55) 80%,
+      rgba(99, 89, 133, 0.0) 100%
+    );
+    border-radius: 999px;
+    border: none;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(99, 89, 133, 0.0) 0%,
+      rgba(130, 115, 180, 0.85) 20%,
+      rgba(160, 145, 200, 0.95) 50%,
+      rgba(130, 115, 180, 0.85) 80%,
+      rgba(99, 89, 133, 0.0) 100%
+    );
+  }
+  ::-webkit-scrollbar-corner { background: transparent; }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(99, 89, 133, 0.55) transparent;
+  }
 `;
 
 let _glassFilterId = 0;
@@ -36,7 +73,6 @@ function useGlassFilterId() {
     return ref.current;
 }
 
-// Matches LiquidGlassDock's ultra-thin outer ring + inset specular ring
 const CARD_SHADOW_BASE = `
   0 0 0 0.5px rgba(255,255,255,0.06),
   inset  1px  1px 0 0.5px rgba(255,255,255,0.45),
@@ -67,13 +103,11 @@ function GlassCard({ children, style = {}, delay = 0 }: { children: React.ReactN
                 position: "relative",
                 borderRadius: 18,
                 padding: "32px 36px",
-                // Base BG: subtle tinted glass fill
                 backdropFilter: `url(#${filterId}) blur(0.5px) saturate(140%)`,
                 WebkitBackdropFilter: "blur(28px) saturate(160%) brightness(1.08)",
                 background: hovered
                     ? `linear-gradient(135deg, rgba(99,89,133,0.16) 0%, rgba(68,60,104,0.10) 100%)`
                     : `linear-gradient(135deg, rgba(68,60,104,0.09) 0%, rgba(57,48,83,0.05) 100%)`,
-                // Dock-style ring: no explicit border, use box-shadow inset rings instead
                 border: "none",
                 boxShadow: hovered ? CARD_SHADOW_HOVERED : CARD_SHADOW_BASE,
                 transition: "all 0.38s cubic-bezier(0.16,1,0.3,1)",
@@ -81,7 +115,6 @@ function GlassCard({ children, style = {}, delay = 0 }: { children: React.ReactN
                 ...style,
             }}
         >
-            {/* Liquid glass chromatic-aberration displacement filter */}
             <GlassFilter
                 id={filterId}
                 borderRadius={18}
@@ -90,8 +123,6 @@ function GlassCard({ children, style = {}, delay = 0 }: { children: React.ReactN
                 opacity={0.88}
                 distortionScale={-160}
             />
-
-            {/* Specular highlight — bright arc top-left, soft glow bottom-right (matches Dock) */}
             <div
                 aria-hidden
                 style={{
@@ -113,7 +144,6 @@ function GlassCard({ children, style = {}, delay = 0 }: { children: React.ReactN
                     transition: "background 0.38s ease",
                 }}
             />
-
             {children}
         </motion.div>
     );
@@ -209,6 +239,38 @@ function WorkRow({ title, category, year, desc, index }: { title: string; catego
     );
 }
 
+function SocialPill({ href, icon }: { href: string; icon: React.ReactNode }) {
+    const [hovered, setHovered] = useState(false);
+    return (
+        <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                background: hovered ? "rgba(99,89,133,0.22)" : "rgba(99,89,133,0.10)",
+                border: `1px solid ${hovered ? "rgba(99,89,133,0.55)" : "rgba(99,89,133,0.28)"}`,
+                color: hovered ? "#fff" : "rgba(196,182,228,0.75)",
+                boxShadow: hovered
+                    ? "inset 0 1px 0 rgba(99,89,133,0.22), 0 0 16px rgba(99,89,133,0.12)"
+                    : "none",
+                transition: "all 0.22s ease",
+                textDecoration: "none",
+                flexShrink: 0,
+            }}
+        >
+            {icon}
+        </a>
+    );
+}
+
 const Divider = () => (
     <div style={{
         height: "1px",
@@ -254,6 +316,27 @@ const GitHubIcon = ({ size = 16 }: { size?: number }) => (
     </svg>
 );
 
+// Social icons
+const IGIcon = ({ size = 15 }: { size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+);
+
+const FBIcon = ({ size = 15 }: { size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+    </svg>
+);
+
+const TikTokIcon = ({ size = 15 }: { size?: number }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 12a4 4 0 104 4V4a5 5 0 005 5" />
+    </svg>
+);
+
 const WORKS = [
     { title: "Prismatic",  category: "Web App",   year: "2025", desc: "A design system built around light refraction principles. Dark-mode first with glass morphism throughout." },
     { title: "Velvet CMS", category: "Fullstack", year: "2024", desc: "Headless content management platform serving 50k+ editors. Custom rich text engine, real-time collaboration." },
@@ -270,7 +353,7 @@ export default function Portfolio({
 }) {
     const dockItems: DockItemConfig[] = [
         { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
-        { icon: <Ico path={ICONS.work} />, label: "Work", onClick: onNavigateToProjects },
+        { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: onNavigateToProjects },
         { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: () => {} },
         { icon: <GitHubIcon />,            label: "GitHub",  onClick: () => {} },
     ];
@@ -330,7 +413,6 @@ export default function Portfolio({
                     textAlign: "center",
                     paddingTop: 80,
                 }}>
-                    {/* Eyebrow */}
                     <motion.p
                         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -347,7 +429,6 @@ export default function Portfolio({
                         Portfolio — 2026
                     </motion.p>
 
-                    {/* Name — slightly reduced: was clamp(58px, 7.5vw, 108px), now clamp(46px, 6vw, 88px) */}
                     <motion.h1
                         initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.1, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
@@ -364,7 +445,6 @@ export default function Portfolio({
                         Ken Aldrey Quanico
                     </motion.h1>
 
-                    {/* Role — matching the reduced name size */}
                     <motion.h2
                         initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.1, delay: 0.44, ease: [0.16, 1, 0.3, 1] }}
@@ -382,7 +462,6 @@ export default function Portfolio({
                         designer & dev.
                     </motion.h2>
 
-                    {/* Bio — slightly reduced: was clamp(16px, 1.6vw, 20px), now clamp(14px, 1.3vw, 17px) */}
                     <motion.p
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 0.62 }}
@@ -399,7 +478,6 @@ export default function Portfolio({
                         Crafting thoughtful digital experiences at the intersection of visual design and engineering — with obsessive attention to motion, light, and feel.
                     </motion.p>
 
-                    {/* TrueFocus */}
                     <motion.div
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.78 }}
@@ -483,7 +561,7 @@ export default function Portfolio({
                                 Open for select freelance projects, collaborations, and full-time roles starting Q3 2025.
                             </p>
                             <div style={{ display: "flex", justifyContent: "center" }}>
-                                <a href="nekquanico@gmail.com"
+                                <a href="mailto:nekquanico@gmail.com"
                                    style={{
                                        display: "inline-flex",
                                        alignItems: "center",
@@ -525,30 +603,52 @@ export default function Portfolio({
                         </GlassCard>
                     </div>
 
-                    {/* Footer */}
+                    {/* FOOTER */}
                     <motion.div
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 0.4 }}
                         style={{
                             marginTop: 88,
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "baseline",
-                            flexWrap: "wrap",
-                            gap: 16,
                             borderTop: `1px solid rgba(99,89,133,0.15)`,
                             paddingTop: 28,
                         }}
                     >
-                        <img src={Logo} alt="Ken Aldrey Quanico logo" style={{ height: 42, width: "auto", display: "block" }}/>
-                        <span style={{
-                            fontFamily: "'Syne', sans-serif",
-                            fontSize: "clamp(10px, 1.1vw, 12px)",
-                            fontWeight: 400,
-                            letterSpacing: "0.18em",
-                            textTransform: "uppercase",
-                            color: "rgba(160,145,200,0.55)",
-                        }}>© 2026 — All Rights Reserved</span>
+                        <div style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            flexWrap: "wrap",
+                            gap: 16,
+                        }}>
+                            {/* Logo */}
+                            <img src={Logo} alt="Ken Aldrey Quanico logo" style={{ height: 42, width: "auto", display: "block" }} />
+
+                            {/* Social icons — centered */}
+                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                                <SocialPill
+                                    href="https://www.instagram.com/kenldry/?hl=en"
+                                    icon={<IGIcon />}
+                                />
+                                <SocialPill
+                                    href="https://web.facebook.com/kenldry"
+                                    icon={<FBIcon />}
+                                />
+                                <SocialPill
+                                    href="https://www.tiktok.com/@yeldraaaa"
+                                    icon={<TikTokIcon />}
+                                />
+                            </div>
+
+                            {/* Copyright */}
+                            <span style={{
+                                fontFamily: "'Syne', sans-serif",
+                                fontSize: "clamp(10px, 1.1vw, 12px)",
+                                fontWeight: 400,
+                                letterSpacing: "0.18em",
+                                textTransform: "uppercase",
+                                color: "rgba(160,145,200,0.45)",
+                            }}>© 2026 — All Rights Reserved</span>
+                        </div>
                     </motion.div>
                 </section>
             </main>
