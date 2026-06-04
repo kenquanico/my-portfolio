@@ -65,7 +65,6 @@ export function LiquidGlassDock({ items = [] }: LiquidGlassDockProps) {
                     gap:          10,
                     padding:      "10px 16px",
                     borderRadius: 99,
-                    // Chromium: SVG refraction. WebKit: blur fallback.
                     backdropFilter:       `url(#${filterId}) blur(0.5px) saturate(140%)`,
                     WebkitBackdropFilter: "blur(24px) saturate(160%) brightness(1.1)",
                     background:   "transparent",
