@@ -11,6 +11,7 @@ const GLOBAL_CSS = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=Syne:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+  body { background: #000; overflow-x: hidden; }
 
   @keyframes marquee {
     0%   { transform: translateX(0); }
@@ -26,8 +27,43 @@ const GLOBAL_CSS = `
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
   }
-`;
 
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.0);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(
+      180deg,
+      rgba(99, 89, 133, 0.0) 0%,
+      rgba(99, 89, 133, 0.55) 20%,
+      rgba(130, 115, 180, 0.75) 50%,
+      rgba(99, 89, 133, 0.55) 80%,
+      rgba(99, 89, 133, 0.0) 100%
+    );
+    border-radius: 999px;
+    border: none;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(
+      180deg,
+      rgba(99, 89, 133, 0.0) 0%,
+      rgba(130, 115, 180, 0.85) 20%,
+      rgba(160, 145, 200, 0.95) 50%,
+      rgba(130, 115, 180, 0.85) 80%,
+      rgba(99, 89, 133, 0.0) 100%
+    );
+  }
+  ::-webkit-scrollbar-corner { background: transparent; }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(99, 89, 133, 0.55) transparent;
+  }
+`;
 // ─── Glass shadow tokens ──────────────────────────────────────────────────────
 const CARD_SHADOW_BASE = `
   0 0 0 0.5px rgba(255,255,255,0.06),
