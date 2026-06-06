@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="style: add new SVG graphic for visual enhancements on the landing page">
-      <change afterPath="$PROJECT_DIR$/src/assets/web-mobile_demo/MABDOCv1 FInal Demo.mov" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GraphicsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GraphicsSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LogosSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LogosSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Projects.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WebsiteSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WebsiteSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dock/LiquidGlass.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/LiquidGlass.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +108,7 @@
       <workItem from="1780568542128" duration="792000" />
       <workItem from="1780582913345" duration="293000" />
       <workItem from="1780583417217" duration="1012000" />
-      <workItem from="1780764100324" duration="4306000" />
+      <workItem from="1780764100324" duration="5429000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />

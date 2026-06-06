@@ -1,14 +1,15 @@
-import { useState, useRef, useEffect, useMemo, Children, cloneElement, forwardRef, isValidElement, useCallback } from "react";
+import { lazy, Suspense, useState, useRef, useEffect, useMemo, Children, cloneElement, forwardRef, isValidElement, useCallback } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import LiquidEther from "./LiquidEther.tsx";
 import { LiquidGlassDock } from "./dock/LiquidGlassDock";
 import Logo from "../assets/kenldry.svg";
-import WebsitesSection from "./WebsiteSection";
-import GraphicsSection from "./GraphicsSection";
-import LogosSection from "./LogosSection";
 import profilePhoto from "../assets/s2.jpg";
 import { GRAPHICS, LOGOS, WEBSITES } from "../data/portfolioAssets";
+
+const WebsitesSection = lazy(() => import("./WebsiteSection"));
+const GraphicsSection = lazy(() => import("./GraphicsSection"));
+const LogosSection = lazy(() => import("./LogosSection"));
 
 // ─── Fonts ───────────────────────────────────────────────────────────────────
 const GLOBAL_CSS = `
@@ -53,6 +54,8 @@ const GLOBAL_CSS = `
     scrollbar-color: rgba(99, 89, 133, 0.55) transparent;
   }
 `;
+
+const sectionFallback = <div style={{ minHeight: 360, contentVisibility: "auto", containIntrinsicSize: "360px" }} />;
 // ─── Icons ───────────────────────────────────────────────────────────────────
 const Ico = ({ path, size = 16 }: { path: string; size?: number }) => (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -384,18 +387,21 @@ export default function Projects({
     onNavigateHome: () => void;
     onNavigateToAbout: () => void;
 }) {
-    const scrollToSection = (key: CardKey) => {
+    const scrollToSection = useCallback((key: CardKey) => {
         const el = document.getElementById(key);
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    };
+    }, []);
     const [viewMode, setViewMode] = useState<"stack" | "list">("stack");
+    const noop = useCallback(() => {}, []);
+    const showStack = useCallback(() => setViewMode("stack"), []);
+    const showList = useCallback(() => setViewMode("list"), []);
 
-    const dockItems = [
+    const dockItems = useMemo(() => [
         { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
-        { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: () => {} },
+        { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: noop },
         { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: onNavigateHome },
-        { icon: <GitHubIcon />,            label: "GitHub",  onClick: () => {} },
-    ];
+        { icon: <GitHubIcon />,            label: "GitHub",  onClick: noop },
+    ], [noop, onNavigateHome, onNavigateToAbout]);
 
     return (
         <div style={{ minHeight: "100vh", background: "#000", position: "relative" }}>
@@ -661,7 +667,7 @@ export default function Projects({
                             }}>
                                 {/* Stack icon button */}
                                 <button
-                                    onClick={() => setViewMode("stack")}
+                                    onClick={showStack}
                                     title="Stack view"
                                     style={{
                                         display: "flex", alignItems: "center", justifyContent: "center",
@@ -682,7 +688,7 @@ export default function Projects({
 
                                 {/* List icon button */}
                                 <button
-                                    onClick={() => setViewMode("list")}
+                                    onClick={showList}
                                     title="List view"
                                     style={{
                                         display: "flex", alignItems: "center", justifyContent: "center",
@@ -816,9 +822,15 @@ export default function Projects({
             <div style={{
                 position: "relative", zIndex: 10}}>
                 <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 56px" }}>
-                    <WebsitesSection />
-                    <GraphicsSection />
-                    <LogosSection />
+                    <Suspense fallback={sectionFallback}>
+                        <WebsitesSection />
+                    </Suspense>
+                    <Suspense fallback={sectionFallback}>
+                        <GraphicsSection />
+                    </Suspense>
+                    <Suspense fallback={sectionFallback}>
+                        <LogosSection />
+                    </Suspense>
                 </div>
             </div>
         </div>
