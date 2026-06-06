@@ -15,9 +15,9 @@ export default function WebsitesSection() {
     return (
         <WorkGallery
             id="websites"
-            eyebrow="Websites"
-            title="Web Design &"
-            emphasizedTitle="Development"
+            eyebrow="Web & Mobile"
+            title="Web & Mobile"
+            emphasizedTitle="Demos"
             icon={websiteIcon}
             projects={projects}
         />

@@ -65,7 +65,7 @@ const sharedCss = `
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     box-shadow: 0 12px 32px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.22);
-    transition: transform 0.2s ease, background 0.2s ease;
+    transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
     will-change: transform;
   }
   .media-play-button:hover { transform: translate3d(-50%, -50%, 0) scale(1.06); background: rgba(0,0,0,0.66); }

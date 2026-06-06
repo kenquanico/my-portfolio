@@ -27,6 +27,12 @@ const videoExtensions = new Set(["mp4", "webm", "mov"]);
 const allowedGraphicExtensions = new Set([...imageExtensions]);
 const allowedLogoExtensions = new Set([...imageExtensions]);
 const allowedDemoExtensions = new Set([...imageExtensions, ...videoExtensions]);
+const graphicPriority = new Map([
+    ["mabdoc poster final", 0],
+    ["rosian social media post", 1],
+    ["titan watch", 2],
+    ["seihane magazine cover page", 3],
+]);
 const currentYear = new Date().getFullYear().toString();
 
 const graphicsModules = import.meta.glob("../assets/graphics/*.{jpg,jpeg,png,svg,webp,gif,avif}", {
@@ -125,6 +131,29 @@ function buildAssets(
     return assets;
 }
 
+function priorityKey(name: string) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+function prioritizeGraphics(assets: PortfolioAsset[]) {
+    const prioritySlots: Array<PortfolioAsset | undefined> = Array.from({ length: graphicPriority.size });
+    const rest: PortfolioAsset[] = [];
+
+    for (const asset of assets) {
+        const priority = graphicPriority.get(priorityKey(asset.name));
+        if (priority === undefined) {
+            rest.push(asset);
+        } else {
+            prioritySlots[priority] = asset;
+        }
+    }
+
+    return [...prioritySlots.filter((asset): asset is PortfolioAsset => Boolean(asset)), ...rest].map((asset, index) => ({
+        ...asset,
+        id: index + 1,
+    }));
+}
+
 export const WEBSITES = buildAssets(
     demoModules,
     "Demo",
@@ -133,12 +162,14 @@ export const WEBSITES = buildAssets(
     allowedDemoExtensions,
 );
 
-export const GRAPHICS = buildAssets(
-    graphicsModules,
-    "Graphic",
-    "Visual design asset",
-    "Portfolio graphic loaded directly from the graphics assets folder.",
-    allowedGraphicExtensions,
+export const GRAPHICS = prioritizeGraphics(
+    buildAssets(
+        graphicsModules,
+        "Graphic",
+        "Visual design asset",
+        "Portfolio graphic loaded directly from the graphics assets folder.",
+        allowedGraphicExtensions,
+    )
 );
 
 export const LOGOS = buildAssets(

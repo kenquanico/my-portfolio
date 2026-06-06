@@ -1,10 +1,12 @@
-import { useState, useRef } from "react";
+import { memo, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { LiquidGlassDock } from "./dock/LiquidGlassDock";
 import Logo from "../assets/kenldry.svg";
 import LiquidEther from "./LiquidEther.tsx";
 import TrueFocus from "./TrueFocus.tsx";
 import { GlassFilter } from "./dock/GlassFilter.tsx";
+import { WEBSITES, type PortfolioAsset } from "../data/portfolioAssets";
+import WorkMedia from "./portfolio/WorkMedia";
 
 type DockItemConfig = {
     icon: React.ReactNode;
@@ -149,58 +151,72 @@ function GlassCard({ children, style = {}, delay = 0 }: { children: React.ReactN
     );
 }
 
-function WorkRow({ title, category, year, desc, index }: { title: string; category: string; year: string; desc: string; index: number }) {
+const SelectedDemoCard = memo(function SelectedDemoCard({
+    project,
+    index,
+    onViewAll,
+}: {
+    project: PortfolioAsset;
+    index: number;
+    onViewAll: () => void;
+}) {
     const [hovered, setHovered] = useState(false);
     return (
         <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.07 * index, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.65, delay: 0.08 * index, ease: [0.16, 1, 0.3, 1] }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             style={{
-                display: "grid",
-                gridTemplateColumns: "56px 1fr 80px",
-                alignItems: "start",
-                gap: 24,
-                padding: "28px 24px",
-                borderRadius: 12,
+                borderRadius: 18,
+                overflow: "hidden",
                 background: hovered
-                    ? `linear-gradient(135deg, rgba(99,89,133,0.1) 0%, rgba(68,60,104,0.06) 100%)`
-                    : "transparent",
-                border: hovered
-                    ? `1px solid rgba(99,89,133,0.22)`
-                    : `1px solid transparent`,
-                backdropFilter: hovered ? "blur(20px)" : "none",
-                WebkitBackdropFilter: hovered ? "blur(20px)" : "none",
+                    ? `linear-gradient(135deg, rgba(99,89,133,0.16) 0%, rgba(68,60,104,0.08) 100%)`
+                    : `linear-gradient(135deg, rgba(68,60,104,0.09) 0%, rgba(57,48,83,0.05) 100%)`,
+                border: `1px solid ${hovered ? "rgba(160,145,200,0.28)" : "rgba(99,89,133,0.14)"}`,
+                backdropFilter: "blur(22px) saturate(150%)",
+                WebkitBackdropFilter: "blur(22px) saturate(150%)",
                 boxShadow: hovered
-                    ? `inset 0 1px 0 rgba(99,89,133,0.18), 0 4px 24px rgba(0,0,0,0.4)`
-                    : "none",
-                transition: "all 0.28s ease",
-                cursor: "pointer",
+                    ? `inset 0 1px 0 rgba(255,255,255,0.16), 0 16px 50px rgba(0,0,0,0.62), 0 0 32px rgba(99,89,133,0.10)`
+                    : `inset 0 1px 0 rgba(255,255,255,0.08), 0 8px 28px rgba(0,0,0,0.42)`,
+                transform: hovered ? "translateY(-4px)" : "translateY(0)",
+                transition: "transform 0.28s ease, border-color 0.28s ease, background 0.28s ease",
+                position: "relative",
+                contain: "layout paint",
             }}
         >
-            <span style={{
-                fontFamily: "'Syne', sans-serif",
-                fontSize: "clamp(11px, 1.2vw, 13px)",
-                fontWeight: 400,
-                letterSpacing: "0.12em",
-                color: hovered ? "rgba(99,89,133,0.9)" : "rgba(99,89,133,0.6)",
-                paddingTop: 3,
-                transition: "color 0.2s",
-            }}>
-                0{index + 1}
-            </span>
-            <div>
-                <div style={{ display: "flex", alignItems: "baseline", gap: 14, marginBottom: 10, flexWrap: "wrap" }}>
-                    <span style={{
+            <div style={{ position: "relative", overflow: "hidden" }}>
+                <WorkMedia project={project} mode="thumb" kind="websites" fit="cover" />
+                <span style={{
+                    position: "absolute",
+                    top: 14,
+                    left: 14,
+                    fontFamily: "'Syne', sans-serif",
+                    fontSize: "10px",
+                    fontWeight: 600,
+                    letterSpacing: "0.18em",
+                    color: "rgba(255,255,255,0.86)",
+                    background: "rgba(0,0,0,0.42)",
+                    border: "1px solid rgba(255,255,255,0.18)",
+                    backdropFilter: "blur(12px)",
+                    borderRadius: 7,
+                    padding: "5px 10px",
+                    textTransform: "uppercase",
+                }}>
+                    0{index + 1}
+                </span>
+            </div>
+            <div style={{ padding: "20px 22px 22px" }}>
+                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, marginBottom: 10 }}>
+                    <h3 style={{
                         fontFamily: "'Playfair Display', serif",
                         fontSize: "clamp(22px, 2.4vw, 28px)",
                         fontWeight: 400,
                         letterSpacing: "-0.01em",
                         color: hovered ? "#fff" : "rgba(230,220,255,0.92)",
                         transition: "color 0.2s",
-                    }}>{title}</span>
+                    }}>{project.name}</h3>
                     <span style={{
                         fontFamily: "'Syne', sans-serif",
                         fontSize: "clamp(9px, 1vw, 11px)",
@@ -212,7 +228,8 @@ function WorkRow({ title, category, year, desc, index }: { title: string; catego
                         borderRadius: 3,
                         padding: "3px 9px",
                         background: "rgba(68,60,104,0.3)",
-                    }}>{category}</span>
+                        whiteSpace: "nowrap",
+                    }}>Demo</span>
                 </div>
                 <p style={{
                     fontFamily: "'DM Sans', sans-serif",
@@ -221,23 +238,35 @@ function WorkRow({ title, category, year, desc, index }: { title: string; catego
                     lineHeight: 1.7,
                     color: "rgba(196,182,228,0.78)",
                 }}>
-                    {desc}
+                    {project.tagline}
                 </p>
+                <button
+                    type="button"
+                    onClick={onViewAll}
+                    style={{
+                        marginTop: 18,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 9,
+                        border: "none",
+                        background: "transparent",
+                        color: hovered ? "#fff" : "rgba(160,145,200,0.78)",
+                        cursor: "pointer",
+                        padding: 0,
+                        fontFamily: "'Syne', sans-serif",
+                        fontSize: "11px",
+                        fontWeight: 500,
+                        letterSpacing: "0.16em",
+                        textTransform: "uppercase",
+                        transition: "color 0.2s ease",
+                    }}
+                >
+                    View all work <Ico path={ICONS.arrow} size={12} />
+                </button>
             </div>
-            <span style={{
-                fontFamily: "'Syne', sans-serif",
-                fontSize: "clamp(11px, 1.2vw, 13px)",
-                fontWeight: 400,
-                letterSpacing: "0.1em",
-                color: "rgba(99,89,133,0.75)",
-                paddingTop: 3,
-                textAlign: "right",
-            }}>
-                {year}
-            </span>
         </motion.div>
     );
-}
+});
 
 function SocialPill({ href, icon }: { href: string; icon: React.ReactNode }) {
     const [hovered, setHovered] = useState(false);
@@ -337,13 +366,6 @@ const TikTokIcon = ({ size = 15 }: { size?: number }) => (
     </svg>
 );
 
-const WORKS = [
-    { title: "Prismatic",  category: "Web App",   year: "2025", desc: "A design system built around light refraction principles. Dark-mode first with glass morphism throughout." },
-    { title: "Velvet CMS", category: "Fullstack", year: "2024", desc: "Headless content management platform serving 50k+ editors. Custom rich text engine, real-time collaboration." },
-    { title: "Orbital",    category: "Mobile",    year: "2024", desc: "Task management app with spatial UI. Nodes float in 3D space, grouped by gravity and context." },
-    { title: "Solstice",   category: "Branding",  year: "2023", desc: "Full brand identity for a luxury wellness startup. Type, color, motion guidelines." },
-];
-
 export default function Portfolio({
                                       onNavigateToAbout,
                                       onNavigateToProjects,
@@ -351,6 +373,7 @@ export default function Portfolio({
     onNavigateToAbout: () => void;
     onNavigateToProjects: () => void;
 }) {
+    const selectedDemos = useMemo(() => WEBSITES.slice(0, 4), []);
     const dockItems: DockItemConfig[] = [
         { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
         { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: onNavigateToProjects },
@@ -506,29 +529,24 @@ export default function Portfolio({
                             letterSpacing: "0.14em",
                             color: "rgba(160,145,200,0.7)",
                         }}>
-                            {WORKS.length} Projects
+                            {selectedDemos.length} Demos
                         </span>
                     </div>
                     <div style={{
                         display: "grid",
-                        gridTemplateColumns: "56px 1fr 80px",
-                        gap: 24,
-                        padding: "0 24px 14px",
-                        borderBottom: `1px solid rgba(99,89,133,0.22)`,
-                        marginBottom: 4,
+                        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+                        gap: 20,
+                        marginTop: 28,
                     }}>
-                        {["No.", "Project", "Year"].map(h => (
-                            <span key={h} style={{
-                                fontFamily: "'Syne', sans-serif",
-                                fontSize: "clamp(10px, 1.1vw, 12px)",
-                                fontWeight: 500,
-                                letterSpacing: "0.18em",
-                                textTransform: "uppercase",
-                                color: "rgba(160,145,200,0.65)",
-                            }}>{h}</span>
+                        {selectedDemos.map((demo, index) => (
+                            <SelectedDemoCard
+                                key={demo.src}
+                                project={demo}
+                                index={index}
+                                onViewAll={onNavigateToProjects}
+                            />
                         ))}
                     </div>
-                    {WORKS.map((w, i) => <WorkRow key={w.title} {...w} index={i} />)}
                 </section>
 
                 {/* CONTACT */}

@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="style: add new SVG graphic for visual enhancements on the landing page">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Projects.tsx" afterDir="false" />
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="refactor: implement lazy loading for components and optimize navigation">
+      <change beforePath="$PROJECT_DIR$/src/components/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WebsiteSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WebsiteSection.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/portfolioAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/portfolioAssets.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +108,7 @@
       <workItem from="1780568542128" duration="792000" />
       <workItem from="1780582913345" duration="293000" />
       <workItem from="1780583417217" duration="1012000" />
-      <workItem from="1780764100324" duration="5429000" />
+      <workItem from="1780764100324" duration="6141000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />
@@ -214,7 +214,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780767177283</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="refactor: implement lazy loading for components and optimize navigation">
+      <option name="closed" value="true" />
+      <created>1780769968213</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1780769968213</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,7 +246,8 @@
     <MESSAGE value="refactor GraphicsSection to enhance project display with grid and list views; add project modal for detailed view" />
     <MESSAGE value="style: update AboutMe component with custom scrollbar styles and background color" />
     <MESSAGE value="style: add new SVG graphic for visual enhancements on the landing page" />
-    <option name="LAST_COMMIT_MESSAGE" value="style: add new SVG graphic for visual enhancements on the landing page" />
+    <MESSAGE value="refactor: implement lazy loading for components and optimize navigation" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: implement lazy loading for components and optimize navigation" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
