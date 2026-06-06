@@ -66,6 +66,18 @@ const GLOBAL_CSS = `
     scrollbar-width: thin;
     scrollbar-color: rgba(99, 89, 133, 0.55) transparent;
   }
+
+  @media (max-width: 680px) {
+    .selected-demo-row {
+      grid-template-columns: 86px minmax(0, 1fr) !important;
+    }
+
+    .selected-demo-row > button {
+      grid-column: 2;
+      justify-self: start;
+      margin-top: -4px;
+    }
+  }
 `;
 
 let _glassFilterId = 0;
@@ -116,6 +128,7 @@ function GlassCard({ children, style = {}, delay = 0 }: { children: React.ReactN
                 overflow: "hidden",
                 ...style,
             }}
+            className="selected-demo-row"
         >
             <GlassFilter
                 id={filterId}
@@ -184,34 +197,39 @@ const SelectedDemoCard = memo(function SelectedDemoCard({
                 transition: "transform 0.28s ease, border-color 0.28s ease, background 0.28s ease",
                 position: "relative",
                 contain: "layout paint",
+                display: "grid",
+                gridTemplateColumns: "96px minmax(0, 1fr) auto",
+                alignItems: "center",
+                gap: 20,
+                padding: "14px 18px",
             }}
         >
-            <div style={{ position: "relative", overflow: "hidden" }}>
-                <WorkMedia project={project} mode="thumb" kind="websites" fit="cover" />
+            <div style={{ position: "relative", overflow: "hidden", width: 96, height: 64, borderRadius: 12, border: "1px solid rgba(255,255,255,0.14)", flexShrink: 0 }}>
+                <WorkMedia project={project} mode="swatch" kind="websites" fit="cover" />
                 <span style={{
                     position: "absolute",
-                    top: 14,
-                    left: 14,
+                    top: 6,
+                    left: 6,
                     fontFamily: "'Syne', sans-serif",
-                    fontSize: "10px",
+                    fontSize: "8px",
                     fontWeight: 600,
-                    letterSpacing: "0.18em",
+                    letterSpacing: "0.12em",
                     color: "rgba(255,255,255,0.86)",
                     background: "rgba(0,0,0,0.42)",
                     border: "1px solid rgba(255,255,255,0.18)",
                     backdropFilter: "blur(12px)",
-                    borderRadius: 7,
-                    padding: "5px 10px",
+                    borderRadius: 5,
+                    padding: "3px 6px",
                     textTransform: "uppercase",
                 }}>
                     0{index + 1}
                 </span>
             </div>
-            <div style={{ padding: "20px 22px 22px" }}>
-                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 16, marginBottom: 10 }}>
+            <div style={{ minWidth: 0 }}>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 7, flexWrap: "wrap" }}>
                     <h3 style={{
                         fontFamily: "'Playfair Display', serif",
-                        fontSize: "clamp(22px, 2.4vw, 28px)",
+                        fontSize: "clamp(19px, 2vw, 24px)",
                         fontWeight: 400,
                         letterSpacing: "-0.01em",
                         color: hovered ? "#fff" : "rgba(230,220,255,0.92)",
@@ -233,37 +251,37 @@ const SelectedDemoCard = memo(function SelectedDemoCard({
                 </div>
                 <p style={{
                     fontFamily: "'DM Sans', sans-serif",
-                    fontSize: "clamp(14px, 1.4vw, 16px)",
+                    fontSize: "clamp(12px, 1.2vw, 14px)",
                     fontWeight: 300,
-                    lineHeight: 1.7,
+                    lineHeight: 1.55,
                     color: "rgba(196,182,228,0.78)",
                 }}>
                     {project.tagline}
                 </p>
-                <button
-                    type="button"
-                    onClick={onViewAll}
-                    style={{
-                        marginTop: 18,
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 9,
-                        border: "none",
-                        background: "transparent",
-                        color: hovered ? "#fff" : "rgba(160,145,200,0.78)",
-                        cursor: "pointer",
-                        padding: 0,
-                        fontFamily: "'Syne', sans-serif",
-                        fontSize: "11px",
-                        fontWeight: 500,
-                        letterSpacing: "0.16em",
-                        textTransform: "uppercase",
-                        transition: "color 0.2s ease",
-                    }}
-                >
-                    View all work <Ico path={ICONS.arrow} size={12} />
-                </button>
             </div>
+            <button
+                type="button"
+                onClick={onViewAll}
+                style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 9,
+                    border: "none",
+                    background: "transparent",
+                    color: hovered ? "#fff" : "rgba(160,145,200,0.78)",
+                    cursor: "pointer",
+                    padding: 0,
+                    fontFamily: "'Syne', sans-serif",
+                    fontSize: "11px",
+                    fontWeight: 500,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    transition: "color 0.2s ease",
+                    whiteSpace: "nowrap",
+                }}
+            >
+                View <Ico path={ICONS.arrow} size={12} />
+            </button>
         </motion.div>
     );
 });
@@ -533,9 +551,9 @@ export default function Portfolio({
                         </span>
                     </div>
                     <div style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-                        gap: 20,
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 12,
                         marginTop: 28,
                     }}>
                         {selectedDemos.map((demo, index) => (
