@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 
 export function LiquidGlass({
-                                id,
                                 variant = "regular",
                                 borderRadius = 24,
                                 depth = 0,
@@ -12,7 +11,6 @@ export function LiquidGlass({
                                 style,
                                 children,
                             }: {
-    id: string;
     variant?: "regular" | "clear";
     borderRadius?: number;
     depth?: number;

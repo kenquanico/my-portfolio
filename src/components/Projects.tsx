@@ -8,6 +8,7 @@ import WebsitesSection from "./WebsiteSection";
 import GraphicsSection from "./GraphicsSection";
 import LogosSection from "./LogosSection";
 import profilePhoto from "../assets/s2.jpg";
+import { GRAPHICS, LOGOS, WEBSITES } from "../data/portfolioAssets";
 
 // ─── Fonts ───────────────────────────────────────────────────────────────────
 const GLOBAL_CSS = `
@@ -209,7 +210,7 @@ const CARD_DATA = [
         key: "websites" as const,
         label: "Websites",
         labelColor: "#efeb51",
-        count: 6,
+        count: WEBSITES.length,
         accent: "#efeb51",
         subtitle: "Web design & development",
         bg: "linear-gradient(145deg, #1a3a8a 0%, #2556c8 55%, #367bf5 100%)",
@@ -221,7 +222,7 @@ const CARD_DATA = [
         key: "graphics" as const,
         label: "Graphics",
         labelColor: "#498dd6",
-        count: 6,
+        count: GRAPHICS.length,
         accent: "#498dd6",
         subtitle: "Visual identity & print",
         bg: "linear-gradient(145deg, #020d1a 0%, #051525 55%, #081d34 100%)",
@@ -233,7 +234,7 @@ const CARD_DATA = [
         key: "logos" as const,
         label: "Logos",
         labelColor: "#d48a30",
-        count: 6,
+        count: LOGOS.length,
         accent: "#d48a30",
         subtitle: "Marks, wordmarks & lettering",
         bg: "linear-gradient(145deg, #160101 0%, #230202 55%, #2e0302 100%)",
