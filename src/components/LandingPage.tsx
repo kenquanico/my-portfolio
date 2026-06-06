@@ -421,7 +421,7 @@ export default function Portfolio({
                             fontSize: "clamp(11px, 1.2vw, 14px)",
                             fontWeight: 500,
                             letterSpacing: "0.3em",
-                            textTransform: "uppercase",
+                                   textTransform: "uppercase",
                             color: "rgba(160,145,200,0.85)",
                             marginBottom: 28,
                         }}
