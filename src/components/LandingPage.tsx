@@ -72,11 +72,23 @@ const GLOBAL_CSS = `
       grid-template-columns: 86px minmax(0, 1fr) !important;
     }
 
+    .selected-demo-thumb {
+      width: 86px !important;
+      height: 58px !important;
+    }
+
     .selected-demo-row > button {
       grid-column: 2;
       justify-self: start;
       margin-top: -4px;
     }
+  }
+
+  .selected-demo-thumb .media-shell-swatch {
+    width: 100% !important;
+    height: 100% !important;
+    aspect-ratio: auto !important;
+    border-radius: 12px !important;
   }
 `;
 
@@ -204,26 +216,8 @@ const SelectedDemoCard = memo(function SelectedDemoCard({
                 padding: "14px 18px",
             }}
         >
-            <div style={{ position: "relative", overflow: "hidden", width: 96, height: 64, borderRadius: 12, border: "1px solid rgba(255,255,255,0.14)", flexShrink: 0 }}>
+            <div className="selected-demo-thumb" style={{ position: "relative", overflow: "hidden", width: 96, height: 64, borderRadius: 12, border: "1px solid rgba(255,255,255,0.14)", flexShrink: 0 }}>
                 <WorkMedia project={project} mode="swatch" kind="websites" fit="cover" />
-                <span style={{
-                    position: "absolute",
-                    top: 6,
-                    left: 6,
-                    fontFamily: "'Syne', sans-serif",
-                    fontSize: "8px",
-                    fontWeight: 600,
-                    letterSpacing: "0.12em",
-                    color: "rgba(255,255,255,0.86)",
-                    background: "rgba(0,0,0,0.42)",
-                    border: "1px solid rgba(255,255,255,0.18)",
-                    backdropFilter: "blur(12px)",
-                    borderRadius: 5,
-                    padding: "3px 6px",
-                    textTransform: "uppercase",
-                }}>
-                    0{index + 1}
-                </span>
             </div>
             <div style={{ minWidth: 0 }}>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 12, marginBottom: 7, flexWrap: "wrap" }}>
@@ -235,19 +229,6 @@ const SelectedDemoCard = memo(function SelectedDemoCard({
                         color: hovered ? "#fff" : "rgba(230,220,255,0.92)",
                         transition: "color 0.2s",
                     }}>{project.name}</h3>
-                    <span style={{
-                        fontFamily: "'Syne', sans-serif",
-                        fontSize: "clamp(9px, 1vw, 11px)",
-                        fontWeight: 500,
-                        letterSpacing: "0.16em",
-                        textTransform: "uppercase",
-                        color: "rgba(180,165,220,0.9)",
-                        border: `1px solid rgba(99,89,133,0.45)`,
-                        borderRadius: 3,
-                        padding: "3px 9px",
-                        background: "rgba(68,60,104,0.3)",
-                        whiteSpace: "nowrap",
-                    }}>Demo</span>
                 </div>
                 <p style={{
                     fontFamily: "'DM Sans', sans-serif",

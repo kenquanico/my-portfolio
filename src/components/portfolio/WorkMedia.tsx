@@ -18,6 +18,7 @@ interface MediaPreviewProps {
 }
 
 const metadataCache = new Map<string, MediaMetadata>();
+const posterCache = new Map<string, string>();
 let activeVideo: HTMLVideoElement | null = null;
 
 export function pauseActiveVideo() {
@@ -67,11 +68,13 @@ function useCachedMetadata(project: PortfolioAsset, kind: WorkKind) {
 const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMotion = false }: MediaPreviewProps) {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const [metadata, updateMetadata] = useCachedMetadata(project, kind);
-    const [loaded, setLoaded] = useState(() => metadataCache.has(project.src));
+    const [generatedPoster, setGeneratedPoster] = useState(() => posterCache.get(project.src) ?? "");
+    const [loaded, setLoaded] = useState(() => metadataCache.has(project.src) || posterCache.has(project.src));
     const [paused, setPaused] = useState(true);
     const [hovered, setHovered] = useState(false);
     const isLogo = kind === "logos";
     const isVideo = project.kind === "video";
+    const isPreviewMode = mode === "thumb" || mode === "swatch";
     const objectFit: MediaFit = fit ?? (mode === "thumb" && !isLogo ? "cover" : "contain");
     const showPlayButton = paused || hovered;
 
@@ -96,10 +99,25 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
         height: "100%",
         display: "block",
         objectFit,
+        objectPosition: "center",
         background: isLogo ? "#fff" : "#050505",
         opacity: loaded ? 1 : 0,
+        transform: isPreviewMode && metadata.orientation === "portrait" ? "scale(1.22)" : "scale(1)",
+        transformOrigin: "center",
         transition: reduceMotion ? "none" : "opacity 0.22s ease",
-    }), [isLogo, loaded, objectFit, reduceMotion]);
+    }), [isLogo, loaded, metadata.orientation, objectFit, reduceMotion, isPreviewMode]);
+
+    const previewVideoStyle = useMemo(() => ({
+        ...mediaStyle,
+        opacity: loaded && (!generatedPoster || !paused) ? 1 : 0,
+    }), [generatedPoster, loaded, mediaStyle, paused]);
+
+    const posterStyle = useMemo(() => ({
+        ...mediaStyle,
+        opacity: generatedPoster && paused ? 1 : 0,
+        position: "absolute" as const,
+        inset: 0,
+    }), [generatedPoster, mediaStyle, paused]);
 
     const pauseVideo = useCallback(() => {
         const video = videoRef.current;
@@ -131,8 +149,56 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
     const handleVideoMetadata = useCallback((event: React.SyntheticEvent<HTMLVideoElement>) => {
         const video = event.currentTarget;
         updateMetadata(video.videoWidth, video.videoHeight);
-        setLoaded(true);
-    }, [updateMetadata]);
+        if (!isPreviewMode || posterCache.has(project.src)) {
+            setLoaded(true);
+            return;
+        }
+
+        try {
+            video.currentTime = Math.min(0.12, Math.max(0, (video.duration || 1) - 0.01));
+        } catch {
+            setLoaded(true);
+        }
+    }, [isPreviewMode, project.src, updateMetadata]);
+
+    const capturePoster = useCallback((event: React.SyntheticEvent<HTMLVideoElement>) => {
+        if (!isPreviewMode) {
+            setLoaded(true);
+            return;
+        }
+
+        const cachedPoster = posterCache.get(project.src);
+        if (cachedPoster) {
+            setGeneratedPoster(cachedPoster);
+            setLoaded(true);
+            return;
+        }
+
+        const video = event.currentTarget;
+        if (!video.videoWidth || !video.videoHeight) {
+            setLoaded(true);
+            return;
+        }
+
+        try {
+            const canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext("2d");
+            if (!context) {
+                setLoaded(true);
+                return;
+            }
+
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const poster = canvas.toDataURL("image/jpeg", 0.76);
+            posterCache.set(project.src, poster);
+            setGeneratedPoster(poster);
+            setLoaded(true);
+        } catch {
+            setLoaded(true);
+        }
+    }, [isPreviewMode, project.src]);
 
     useEffect(() => {
         const video = videoRef.current;
@@ -178,18 +244,30 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
                         width={metadata.width}
                         height={metadata.height}
                         preload="metadata"
-                        controls
+                        controls={!isPreviewMode}
                         playsInline
                         muted
                         onLoadedMetadata={handleVideoMetadata}
+                        onLoadedData={capturePoster}
+                        onSeeked={capturePoster}
                         onPause={() => setPaused(true)}
                         onPlay={(event) => {
                             if (activeVideo && activeVideo !== event.currentTarget) activeVideo.pause();
                             activeVideo = event.currentTarget;
                             setPaused(false);
                         }}
-                        style={mediaStyle}
+                        style={isPreviewMode ? previewVideoStyle : mediaStyle}
                     />
+                    {isPreviewMode && generatedPoster && (
+                        <img
+                            src={generatedPoster}
+                            alt={project.name}
+                            width={metadata.width}
+                            height={metadata.height}
+                            decoding="async"
+                            style={posterStyle}
+                        />
+                    )}
                     <button
                         type="button"
                         onClick={(event) => {
@@ -219,7 +297,7 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
                     style={mediaStyle}
                 />
             )}
-            <div className="media-top-line" />
+            {!isPreviewMode && <div className="media-top-line" />}
         </div>
     );
 });
