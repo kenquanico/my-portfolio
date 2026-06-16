@@ -6,13 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="refactor: implement lazy loading for components and optimize navigation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dock/DockItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/DockItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dock/LiquidGlassDock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/LiquidGlassDock.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CopilotPersistence">
+    <persistenceIdMap>
+      <entry key="_/Users/kenquan/Programming /WebstormProjects/my-portfolio" value="3ApqhwG544XSIsNepY8gkT3Z48V" />
+    </persistenceIdMap>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -23,12 +28,12 @@
     &quot;assignee&quot;: &quot;kenquanico&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/kenquanico/my-portfolio.git&quot;,
-    &quot;accountId&quot;: &quot;4d29cd47-1df8-46fe-97b1-e2f3688cdabd&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/kenquanico/my-portfolio.git",
+    "accountId": "2d6da821-7303-463b-bbda-57601031657b"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -51,13 +56,13 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/kenquan/WebstormProjects/my-portfolio/src/assets&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/kenquan/Programming /WebstormProjects/my-portfolio&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/kenquan/WebstormProjects/my-portfolio/node_modules/typescript/lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/kenquan/Programming /WebstormProjects/my-portfolio/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -107,7 +112,12 @@
       <workItem from="1780568542128" duration="792000" />
       <workItem from="1780582913345" duration="293000" />
       <workItem from="1780583417217" duration="1012000" />
-      <workItem from="1780764100324" duration="9347000" />
+      <workItem from="1780764100324" duration="9669000" />
+      <workItem from="1780831711907" duration="963000" />
+      <workItem from="1781358099133" duration="1071000" />
+      <workItem from="1781417373710" duration="3873000" />
+      <workItem from="1781536224281" duration="43000" />
+      <workItem from="1781624048634" duration="455000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />
@@ -237,7 +247,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780771895493</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="refactor: implement lazy loading for components and optimize navigation">
+      <option name="closed" value="true" />
+      <created>1780831499934</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1780831499934</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
