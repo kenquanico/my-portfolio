@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="refactor: implement lazy loading for components and optimize navigation">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dock/DockItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/DockItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dock/LiquidGlassDock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/LiquidGlassDock.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="refactor: enhance visual effects with backdrop filters and gradients in Dock components" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -117,7 +113,7 @@
       <workItem from="1781358099133" duration="1071000" />
       <workItem from="1781417373710" duration="3873000" />
       <workItem from="1781536224281" duration="43000" />
-      <workItem from="1781624048634" duration="455000" />
+      <workItem from="1781624048634" duration="934000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />
@@ -255,7 +251,31 @@
       <option name="project" value="LOCAL" />
       <updated>1780831499934</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="refactor: enhance visual effects with backdrop filters and gradients in Dock components">
+      <option name="closed" value="true" />
+      <created>1781624569504</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1781624569504</updated>
+    </task>
+    <task id="LOCAL-00019" summary="refactor: enhance visual effects with backdrop filters and gradients in Dock components">
+      <option name="closed" value="true" />
+      <created>1781624573981</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1781624573981</updated>
+    </task>
+    <task id="LOCAL-00020" summary="refactor: enhance visual effects with backdrop filters and gradients in Dock components">
+      <option name="closed" value="true" />
+      <created>1781624578420</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1781624578420</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -280,7 +300,8 @@
     <MESSAGE value="style: update AboutMe component with custom scrollbar styles and background color" />
     <MESSAGE value="style: add new SVG graphic for visual enhancements on the landing page" />
     <MESSAGE value="refactor: implement lazy loading for components and optimize navigation" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: implement lazy loading for components and optimize navigation" />
+    <MESSAGE value="refactor: enhance visual effects with backdrop filters and gradients in Dock components" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: enhance visual effects with backdrop filters and gradients in Dock components" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
