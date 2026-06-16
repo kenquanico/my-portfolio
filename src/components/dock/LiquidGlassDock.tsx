@@ -14,6 +14,8 @@ type LiquidGlassDockProps = {
 };
 
 const SPRING = { mass: 0.1, stiffness: 220, damping: 16 };
+const DOCK_BACKDROP_FILTER = (filterId: string) =>
+    `url(#${filterId}) blur(24px) saturate(160%) brightness(1.1)`;
 
 // Apple liquid glass: bright specular arc top-left, soft glow bottom-right,
 // ultra-thin outer ring that's barely visible.
@@ -65,8 +67,8 @@ export function LiquidGlassDock({ items = [] }: LiquidGlassDockProps) {
                     gap:          10,
                     padding:      "10px 16px",
                     borderRadius: 99,
-                    backdropFilter:       `url(#${filterId}) blur(0.5px) saturate(140%)`,
-                    WebkitBackdropFilter: "blur(24px) saturate(160%) brightness(1.1)",
+                    backdropFilter:       DOCK_BACKDROP_FILTER(filterId),
+                    WebkitBackdropFilter: DOCK_BACKDROP_FILTER(filterId),
                     background:   "transparent",
                     boxShadow:    DOCK_SHADOW,
                     overflow:     "visible",
