@@ -31,6 +31,11 @@ const TOOLTIP_STYLE = {
     zIndex:         20,
 };
 
+const ITEM_GLASS_FILL = "rgba(255,255,255,0.13)";
+const ITEM_GLASS_FILL_HOVERED = "rgba(255,255,255,0.20)";
+const ITEM_BACKDROP_FILTER = (filterId: string) =>
+    `url(#${filterId}) blur(14px) saturate(170%) brightness(1.12)`;
+
 // Specular / caustic overlays that sit on top of the icon
 function GlassHighlights() {
     return (
@@ -113,6 +118,7 @@ export function DockItem({
                     blur={8}
                     opacity={0.9}
                     distortionScale={-120}
+                    fillColor={hovered ? ITEM_GLASS_FILL_HOVERED : ITEM_GLASS_FILL}
                 />
 
                 <motion.div
@@ -125,11 +131,21 @@ export function DockItem({
                         position:     "relative",
                         cursor:       "pointer",
                         overflow:     "hidden",
-                        backdropFilter:       `url(#${filterId}) blur(0.5px) saturate(140%)`,
-                        WebkitBackdropFilter: "blur(12px) saturate(160%) brightness(1.15)",
-                        background:   "transparent",
+                        backdropFilter:       ITEM_BACKDROP_FILTER(filterId),
+                        WebkitBackdropFilter: ITEM_BACKDROP_FILTER(filterId),
+                        background: hovered
+                            ? `linear-gradient(145deg,
+                                rgba(255,255,255,0.30) 0%,
+                                rgba(255,255,255,0.17) 38%,
+                                rgba(255,255,255,0.09) 100%
+                              )`
+                            : `linear-gradient(145deg,
+                                rgba(255,255,255,0.20) 0%,
+                                rgba(255,255,255,0.11) 42%,
+                                rgba(255,255,255,0.055) 100%
+                              )`,
                         boxShadow:    shellShadow,
-                        transition:   "box-shadow 0.25s ease",
+                        transition:   "background 0.25s ease, box-shadow 0.25s ease",
                     }}
                 >
                     <GlassHighlights />
