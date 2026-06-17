@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: update favicon and add new SVG logo for portfolio">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AboutMe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Projects.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" afterDir="false" />
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: add responsive styles and class names for improved layout in portfolio components">
       <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/portfolioAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/portfolioAssets.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,7 +118,7 @@
       <workItem from="1781536224281" duration="43000" />
       <workItem from="1781624048634" duration="1658000" />
       <workItem from="1781626091436" duration="749000" />
-      <workItem from="1781679216261" duration="6184000" />
+      <workItem from="1781679216261" duration="6562000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />
@@ -327,7 +320,71 @@
       <option name="project" value="LOCAL" />
       <updated>1781686492214</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="feat: add responsive styles and class names for improved layout in portfolio components">
+      <option name="closed" value="true" />
+      <created>1781690493085</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1781690493085</updated>
+    </task>
+    <task id="LOCAL-00027" summary="feat: add responsive styles and class names for improved layout in portfolio components">
+      <option name="closed" value="true" />
+      <created>1781690498270</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1781690498270</updated>
+    </task>
+    <task id="LOCAL-00028" summary="feat: add responsive styles and class names for improved layout in portfolio components">
+      <option name="closed" value="true" />
+      <created>1781690504659</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1781690504659</updated>
+    </task>
+    <task id="LOCAL-00029" summary="feat: add responsive styles and class names for improved layout in portfolio components">
+      <option name="closed" value="true" />
+      <created>1781690508120</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1781690508120</updated>
+    </task>
+    <task id="LOCAL-00030" summary="feat: add responsive styles and class names for improved layout in portfolio components">
+      <option name="closed" value="true" />
+      <created>1781690514250</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1781690514250</updated>
+    </task>
+    <task id="LOCAL-00031" summary="feat: add responsive styles and class names for improved layout in portfolio components">
+      <option name="closed" value="true" />
+      <created>1781690518001</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1781690518001</updated>
+    </task>
+    <task id="LOCAL-00032" summary="feat: add responsive styles and class names for improved layout in portfolio components">
+      <option name="closed" value="true" />
+      <created>1781690522995</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1781690522995</updated>
+    </task>
+    <task id="LOCAL-00033" summary="feat: add responsive styles and class names for improved layout in portfolio components">
+      <option name="closed" value="true" />
+      <created>1781690528426</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1781690528426</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -354,7 +411,8 @@
     <MESSAGE value="refactor: implement lazy loading for components and optimize navigation" />
     <MESSAGE value="refactor: enhance visual effects with backdrop filters and gradients in Dock components" />
     <MESSAGE value="feat: update favicon and add new SVG logo for portfolio" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: update favicon and add new SVG logo for portfolio" />
+    <MESSAGE value="feat: add responsive styles and class names for improved layout in portfolio components" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add responsive styles and class names for improved layout in portfolio components" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

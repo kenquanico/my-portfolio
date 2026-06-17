@@ -80,7 +80,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const hasStaticPoster = Boolean(project.posterSrc);
     const objectFit: MediaFit = fit ?? (mode === "thumb" && !isLogo ? "cover" : "contain");
     const showPlayButton = paused || hovered;
-    const loaded = thumbnailState.loaded || metadataCache.has(project.src) || posterCache.has(project.src);
+    const loaded = thumbnailState.loaded || posterCache.has(project.src) || (!isVideo && metadataCache.has(project.src));
     const imageLoading = isPreviewMode && !thumbnailState.seen ? "lazy" : "eager";
     const needsFallbackPoster = isPreviewMode && !posterSource && !thumbnailState.error;
     const shouldLoadVideoSource = !isPreviewMode || videoRequested || needsFallbackPoster;
@@ -240,6 +240,14 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
             pauseVideo();
         };
     }, [pauseVideo]);
+
+    useEffect(() => {
+        if (!isVideo || !isPreviewMode || posterSource || thumbnailState.loaded || thumbnailState.error) return;
+        const timeout = window.setTimeout(() => {
+            updateThumbnailState({ loaded: true, error: true, seen: true });
+        }, 2500);
+        return () => window.clearTimeout(timeout);
+    }, [isPreviewMode, isVideo, posterSource, thumbnailState.error, thumbnailState.loaded, updateThumbnailState]);
 
     return (
         <div
