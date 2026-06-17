@@ -20,6 +20,7 @@ export interface PortfolioAsset {
     extension: string;
     kind: PortfolioAssetKind;
     path: string;
+    posterSrc?: string;
 }
 
 const imageExtensions = new Set(["jpg", "jpeg", "png", "svg", "webp", "gif", "avif"]);
@@ -53,6 +54,12 @@ const demoModules = import.meta.glob("../assets/web-mobile_demo/*.{mp4,webm,mov,
     import: "default",
 }) as Record<string, string>;
 
+const demoPosterModules = import.meta.glob("../assets/web-mobile_demo/*.{jpg,jpeg,png,svg,webp,gif,avif}", {
+    eager: true,
+    query: "?url",
+    import: "default",
+}) as Record<string, string>;
+
 function titleFromFileName(fileName: string) {
     const withoutExtension = fileName.replace(/\.[^/.]+$/, "");
     return withoutExtension
@@ -64,6 +71,10 @@ function titleFromFileName(fileName: string) {
 
 function extensionFromPath(path: string) {
     return path.split(".").pop()?.toLowerCase() ?? "";
+}
+
+function stemFromFileName(fileName: string) {
+    return fileName.replace(/\.[^/.]+$/, "").toLowerCase();
 }
 
 function kindFromExtension(extension: string): PortfolioAssetKind {
@@ -97,10 +108,17 @@ function buildAssets(
     tagline: string,
     description: string,
     allowedExtensions: Set<string>,
+    posterByStem = new Map<string, string>(),
 ) {
     const seenSources = new Set<string>();
     const orderedEntries = Object.entries(modules).sort(([a], [b]) =>
         a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" })
+    );
+    const videoStems = new Set(
+        orderedEntries
+            .map(([path]) => path.split("/").pop() ?? "")
+            .filter((fileName) => videoExtensions.has(extensionFromPath(fileName)))
+            .map(stemFromFileName)
     );
 
     const assets: PortfolioAsset[] = [];
@@ -111,6 +129,7 @@ function buildAssets(
         const fileName = path.split("/").pop() ?? `asset-${assets.length + 1}`;
         const extension = extensionFromPath(fileName);
         if (!allowedExtensions.has(extension)) continue;
+        if (imageExtensions.has(extension) && videoStems.has(stemFromFileName(fileName))) continue;
 
         seenSources.add(src);
         assets.push({
@@ -125,10 +144,20 @@ function buildAssets(
             extension,
             kind: kindFromExtension(extension),
             path,
+            posterSrc: posterByStem.get(stemFromFileName(fileName)),
         });
     }
 
     return assets;
+}
+
+function buildPosterMap(modules: Record<string, string>) {
+    return new Map(
+        Object.entries(modules).map(([path, src]) => {
+            const fileName = path.split("/").pop() ?? "";
+            return [stemFromFileName(fileName), src] as const;
+        })
+    );
 }
 
 function priorityKey(name: string) {
@@ -160,6 +189,7 @@ export const WEBSITES = buildAssets(
     "Web and mobile interface demo",
     "Playable portfolio demo loaded directly from the web and mobile demo assets folder.",
     allowedDemoExtensions,
+    buildPosterMap(demoPosterModules),
 );
 
 export const GRAPHICS = prioritizeGraphics(
