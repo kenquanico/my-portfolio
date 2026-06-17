@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="refactor: enhance visual effects with backdrop filters and gradients in Dock components">
-      <change afterPath="$PROJECT_DIR$/public/kenldry.svg" afterDir="false" />
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: update favicon and add new SVG logo for portfolio">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AboutMe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Projects.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/portfolioAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/portfolioAssets.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +125,7 @@
       <workItem from="1781536224281" duration="43000" />
       <workItem from="1781624048634" duration="1658000" />
       <workItem from="1781626091436" duration="749000" />
-      <workItem from="1781679216261" duration="5243000" />
+      <workItem from="1781679216261" duration="6184000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />
@@ -307,7 +311,23 @@
       <option name="project" value="LOCAL" />
       <updated>1781685421436</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="feat: update favicon and add new SVG logo for portfolio">
+      <option name="closed" value="true" />
+      <created>1781686484496</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1781686484496</updated>
+    </task>
+    <task id="LOCAL-00025" summary="feat: update favicon and add new SVG logo for portfolio">
+      <option name="closed" value="true" />
+      <created>1781686492214</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1781686492214</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,7 +353,8 @@
     <MESSAGE value="style: add new SVG graphic for visual enhancements on the landing page" />
     <MESSAGE value="refactor: implement lazy loading for components and optimize navigation" />
     <MESSAGE value="refactor: enhance visual effects with backdrop filters and gradients in Dock components" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: enhance visual effects with backdrop filters and gradients in Dock components" />
+    <MESSAGE value="feat: update favicon and add new SVG logo for portfolio" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: update favicon and add new SVG logo for portfolio" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
