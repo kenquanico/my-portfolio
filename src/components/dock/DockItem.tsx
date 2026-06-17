@@ -101,7 +101,7 @@ export function DockItem({
            inset -1px -1px 0 0.5px rgba(255,255,255,0.12)`;
 
     return (
-        <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", alignItems: "center" }}>
 
             {/* Magnifying bubble */}
             <motion.div
