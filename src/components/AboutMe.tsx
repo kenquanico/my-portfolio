@@ -316,7 +316,7 @@ export default function AboutMe({
                 background: "radial-gradient(ellipse at 50% 40%, rgba(68,60,104,0.12) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.88) 100%)",
             }} />
 
-            <nav style={{
+            <nav className="portfolio-nav" style={{
                 position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
                 padding: "20px 56px",
                 display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -326,14 +326,14 @@ export default function AboutMe({
             </nav>
 
             {/* ══ SECTION 1 ══ */}
-            <section style={{
+            <section className="about-hero" style={{
                 position: "relative", zIndex: 10,
                 minHeight: "100vh",
                 display: "flex", flexDirection: "column", justifyContent: "center",
                 padding: "120px 56px 80px",
                 maxWidth: 1280, margin: "0 auto",
             }}>
-                <div style={{
+                <div className="about-intro-grid" style={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1px 1.4fr",
                     gap: "0 60px",
@@ -425,6 +425,7 @@ export default function AboutMe({
 
                     {/* DIVIDER */}
                     <motion.div
+                        className="responsive-divider"
                         initial={{ opacity: 0, scaleY: 0 }} animate={{ opacity: 1, scaleY: 1 }}
                         transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                         style={{
@@ -563,7 +564,7 @@ export default function AboutMe({
                         }}>What I Do</p>
                         <div style={{ width: 48, height: 1, margin: "0 auto", background: "linear-gradient(90deg, transparent, rgba(160,145,200,0.45), transparent)" }} />
                     </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+                    <div className="about-service-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
                         {SERVICES.map((s, i) => (
                             <ServiceCard key={s.title} service={s} delay={0.55 + i * 0.1} />
                         ))}
@@ -574,7 +575,7 @@ export default function AboutMe({
             {/* ══ SECTION 2 — Tech Stack Marquee ══ */}
             <section style={{ position: "relative", zIndex: 10, paddingBottom: 120 }}>
                 <div style={{ paddingTop: 80 }}>
-                    <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 56px", marginBottom: 56 }}>
+                    <div className="portfolio-section-pad" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 56px", marginBottom: 56 }}>
                         <motion.div
                             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
@@ -615,10 +616,11 @@ export default function AboutMe({
                     </div>
 
                     {/* Stack group cards */}
-                    <div style={{ maxWidth: 1280, margin: "60px auto 0", padding: "0 56px" }}>
+                    <div className="portfolio-section-pad" style={{ maxWidth: 1280, margin: "60px auto 0", padding: "0 56px" }}>
                         <motion.div
                             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8, delay: 0.4 }}
+                            className="about-stack-grid"
                             style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 20 }}
                         >
                             {[
