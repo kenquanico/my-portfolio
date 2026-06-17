@@ -372,12 +372,13 @@ export default function Portfolio({
     onNavigateToAbout: () => void;
     onNavigateToProjects: () => void;
 }) {
+    const openGitHub = () => window.open("https://github.com/kenquanico", "_blank", "noopener,noreferrer");
     const selectedDemos = useMemo(() => WEBSITES.slice(0, 4), []);
     const dockItems: DockItemConfig[] = [
         { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
         { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: onNavigateToProjects },
         { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: () => {} },
-        { icon: <GitHubIcon />,            label: "GitHub",  onClick: () => {} },
+        { icon: <GitHubIcon />,            label: "GitHub",  onClick: openGitHub },
     ];
 
     return (
