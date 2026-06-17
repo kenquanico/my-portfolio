@@ -1,12 +1,13 @@
-import { memo, useMemo, useRef, useState } from "react";
+import { lazy, memo, Suspense, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { LiquidGlassDock } from "./dock/LiquidGlassDock";
 import Logo from "../assets/kenldry.svg";
-import LiquidEther from "./LiquidEther.tsx";
 import TrueFocus from "./TrueFocus.tsx";
 import { GlassFilter } from "./dock/GlassFilter.tsx";
 import { WEBSITES, type PortfolioAsset } from "../data/portfolioAssets";
 import WorkMedia from "./portfolio/WorkMedia";
+
+const LiquidEther = lazy(() => import("./LiquidEther.tsx"));
 
 type DockItemConfig = {
     icon: React.ReactNode;
@@ -403,24 +404,26 @@ export default function Portfolio({
 
             {/* BACKGROUND */}
             <div style={{ position: "fixed", inset: 0, zIndex: 0, width: "100vw", height: "100vh" }}>
-                <LiquidEther
-                    style={{ width: "100%", height: "100%" }}
-                    colors={['#5227FF', '#FF9FFC', '#B19EEF']}
-                    mouseForce={20}
-                    cursorSize={100}
-                    isViscous
-                    viscous={30}
-                    iterationsViscous={32}
-                    iterationsPoisson={32}
-                    resolution={0.5}
-                    isBounce={false}
-                    autoDemo
-                    autoSpeed={0.5}
-                    autoIntensity={2.2}
-                    takeoverDuration={0.25}
-                    autoResumeDelay={3000}
-                    autoRampDuration={0.6}
-                />
+                <Suspense fallback={null}>
+                    <LiquidEther
+                        style={{ width: "100%", height: "100%" }}
+                        colors={['#5227FF', '#FF9FFC', '#B19EEF']}
+                        mouseForce={20}
+                        cursorSize={100}
+                        isViscous
+                        viscous={30}
+                        iterationsViscous={32}
+                        iterationsPoisson={32}
+                        resolution={0.5}
+                        isBounce={false}
+                        autoDemo
+                        autoSpeed={0.5}
+                        autoIntensity={2.2}
+                        takeoverDuration={0.25}
+                        autoResumeDelay={3000}
+                        autoRampDuration={0.6}
+                    />
+                </Suspense>
             </div>
 
             {/* VIGNETTE */}

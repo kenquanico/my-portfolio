@@ -27,7 +27,7 @@ const imageExtensions = new Set(["jpg", "jpeg", "png", "svg", "webp", "gif", "av
 const videoExtensions = new Set(["mp4", "webm", "mov"]);
 const allowedGraphicExtensions = new Set([...imageExtensions]);
 const allowedLogoExtensions = new Set([...imageExtensions]);
-const allowedDemoExtensions = new Set([...imageExtensions, ...videoExtensions]);
+const allowedDemoExtensions = new Set([...videoExtensions]);
 const graphicPriority = new Map([
     ["mabdoc poster final", 0],
     ["rosian social media post", 1],
@@ -146,13 +146,13 @@ const logoModules = import.meta.glob("../assets/logos/*.{jpg,jpeg,png,svg,webp,g
     import: "default",
 }) as Record<string, string>;
 
-const demoModules = import.meta.glob("../assets/web-mobile_demo/*.{mp4,webm,mov,jpg,jpeg,png,svg,webp,gif,avif}", {
+const demoModules = import.meta.glob("../assets/web-mobile_demo/*.{mp4,webm,mov}", {
     eager: true,
     query: "?url",
     import: "default",
 }) as Record<string, string>;
 
-const demoPosterModules = import.meta.glob("../assets/web-mobile_demo/*.{jpg,jpeg,png,svg,webp,gif,avif}", {
+const demoPosterModules = import.meta.glob("../assets/web-mobile_demo/*.{jpg,jpeg,webp,avif}", {
     eager: true,
     query: "?url",
     import: "default",

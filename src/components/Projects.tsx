@@ -1,12 +1,12 @@
 import { lazy, Suspense, useState, useRef, useEffect, useMemo, Children, cloneElement, forwardRef, isValidElement, useCallback } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
-import LiquidEther from "./LiquidEther.tsx";
 import { LiquidGlassDock } from "./dock/LiquidGlassDock";
 import Logo from "../assets/kenldry.svg";
-import profilePhoto from "../assets/s2.jpg";
+import profilePhoto from "../assets/s2-optimized.jpg";
 import { GRAPHICS, LOGOS, WEBSITES } from "../data/portfolioAssets";
 
+const LiquidEther = lazy(() => import("./LiquidEther.tsx"));
 const WebsitesSection = lazy(() => import("./WebsiteSection"));
 const GraphicsSection = lazy(() => import("./GraphicsSection"));
 const LogosSection = lazy(() => import("./LogosSection"));
@@ -435,16 +435,18 @@ export default function Projects({
 
             {/* Fixed LiquidEther bg */}
             <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
-                <LiquidEther
-                    style={{ width: "100%", height: "100%" }}
-                    colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
-                    mouseForce={20} cursorSize={100}
-                    isViscous viscous={30}
-                    iterationsViscous={32} iterationsPoisson={32}
-                    resolution={0.5} isBounce={false}
-                    autoDemo autoSpeed={0.5} autoIntensity={2.2}
-                    takeoverDuration={0.25} autoResumeDelay={3000} autoRampDuration={0.6}
-                />
+                <Suspense fallback={null}>
+                    <LiquidEther
+                        style={{ width: "100%", height: "100%" }}
+                        colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
+                        mouseForce={20} cursorSize={100}
+                        isViscous viscous={30}
+                        iterationsViscous={32} iterationsPoisson={32}
+                        resolution={0.5} isBounce={false}
+                        autoDemo autoSpeed={0.5} autoIntensity={2.2}
+                        takeoverDuration={0.25} autoResumeDelay={3000} autoRampDuration={0.6}
+                    />
+                </Suspense>
             </div>
             <div style={{
                 position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none",

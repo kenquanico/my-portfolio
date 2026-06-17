@@ -81,9 +81,9 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const objectFit: MediaFit = fit ?? (mode === "thumb" && !isLogo ? "cover" : "contain");
     const showPlayButton = paused || hovered;
     const loaded = thumbnailState.loaded || posterCache.has(project.src) || (!isVideo && metadataCache.has(project.src));
-    const imageLoading = isPreviewMode && !thumbnailState.seen ? "lazy" : "eager";
+    const imageLoading = mode === "thumb" ? "lazy" : "eager";
     const needsFallbackPoster = isPreviewMode && !posterSource && !thumbnailState.error;
-    const shouldLoadVideoSource = !isPreviewMode || videoRequested || needsFallbackPoster;
+    const shouldLoadVideoSource = (!isPreviewMode && videoRequested) || videoRequested || needsFallbackPoster;
     const showVideoFallback = isVideo && isPreviewMode && thumbnailState.error && !posterSource && paused;
 
     const updateThumbnailState = useCallback((next: Partial<{ loaded: boolean; error: boolean; seen: boolean }>) => {
@@ -279,7 +279,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                         poster={posterSource || undefined}
                         width={metadata.width}
                         height={metadata.height}
-                        preload={needsFallbackPoster || !isPreviewMode ? "metadata" : "none"}
+                        preload={needsFallbackPoster ? "metadata" : "none"}
                         controls={!isPreviewMode}
                         playsInline
                         muted

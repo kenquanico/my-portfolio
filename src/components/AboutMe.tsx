@@ -1,10 +1,11 @@
-import { useState, useRef } from "react";
+import { lazy, Suspense, useState, useRef } from "react";
 import { motion } from "framer-motion";
-import LiquidEther from "./LiquidEther.tsx";
 import { LiquidGlassDock } from "./dock/LiquidGlassDock";
 import { GlassFilter } from "./dock/GlassFilter.tsx";
 import Logo from "../assets/kenldry.svg";
-import profilePhoto from "../assets/s2.jpg";
+import profilePhoto from "../assets/s2-optimized.jpg";
+
+const LiquidEther = lazy(() => import("./LiquidEther.tsx"));
 
 // ─── Fonts ────────────────────────────────────────────────────────────────────
 const GLOBAL_CSS = `
@@ -312,16 +313,18 @@ export default function AboutMe({
             <style>{GLOBAL_CSS}</style>
 
             <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
-                <LiquidEther
-                    style={{ width: "100%", height: "100%" }}
-                    colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
-                    mouseForce={20} cursorSize={100}
-                    isViscous viscous={30}
-                    iterationsViscous={32} iterationsPoisson={32}
-                    resolution={0.5} isBounce={false}
-                    autoDemo autoSpeed={0.5} autoIntensity={2.2}
-                    takeoverDuration={0.25} autoResumeDelay={3000} autoRampDuration={0.6}
-                />
+                <Suspense fallback={null}>
+                    <LiquidEther
+                        style={{ width: "100%", height: "100%" }}
+                        colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
+                        mouseForce={20} cursorSize={100}
+                        isViscous viscous={30}
+                        iterationsViscous={32} iterationsPoisson={32}
+                        resolution={0.5} isBounce={false}
+                        autoDemo autoSpeed={0.5} autoIntensity={2.2}
+                        takeoverDuration={0.25} autoResumeDelay={3000} autoRampDuration={0.6}
+                    />
+                </Suspense>
             </div>
             <div style={{
                 position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none",

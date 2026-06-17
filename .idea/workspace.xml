@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components">
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: enhance navigation with contact functionality and improve visual styles in components">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AboutMe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Projects.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dock/DockItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/DockItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dock/GlassFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/GlassFilter.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dock/LiquidGlassDock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/LiquidGlassDock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/portfolioAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/portfolioAssets.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -126,15 +122,7 @@
       <workItem from="1781536224281" duration="43000" />
       <workItem from="1781624048634" duration="1658000" />
       <workItem from="1781626091436" duration="749000" />
-      <workItem from="1781679216261" duration="8968000" />
-    </task>
-    <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
-      <option name="closed" value="true" />
-      <created>1773327472037</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1773327472037</updated>
+      <workItem from="1781679216261" duration="9893000" />
     </task>
     <task id="LOCAL-00002" summary="add new components for About page, CardSwap, TrueFocus, and GraphicsSection; update LiquidGlassDock and GlassFilter with new props">
       <option name="closed" value="true" />
@@ -456,7 +444,79 @@
       <option name="project" value="LOCAL" />
       <updated>1781691504902</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="feat: update tech stack and services descriptions, enhance visual components in AboutMe">
+      <option name="closed" value="true" />
+      <created>1781693976523</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1781693976523</updated>
+    </task>
+    <task id="LOCAL-00043" summary="feat: enhance navigation with contact functionality and improve visual styles in components">
+      <option name="closed" value="true" />
+      <created>1781693990211</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1781693990211</updated>
+    </task>
+    <task id="LOCAL-00044" summary="feat: enhance navigation with contact functionality and improve visual styles in components">
+      <option name="closed" value="true" />
+      <created>1781693995221</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1781693995221</updated>
+    </task>
+    <task id="LOCAL-00045" summary="feat: enhance navigation with contact functionality and improve visual styles in components">
+      <option name="closed" value="true" />
+      <created>1781694002989</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1781694002989</updated>
+    </task>
+    <task id="LOCAL-00046" summary="feat: enhance navigation with contact functionality and improve visual styles in components">
+      <option name="closed" value="true" />
+      <created>1781694008924</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1781694008924</updated>
+    </task>
+    <task id="LOCAL-00047" summary="feat: enhance navigation with contact functionality and improve visual styles in components">
+      <option name="closed" value="true" />
+      <created>1781694012573</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1781694012573</updated>
+    </task>
+    <task id="LOCAL-00048" summary="feat: enhance navigation with contact functionality and improve visual styles in components">
+      <option name="closed" value="true" />
+      <created>1781694016331</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1781694016331</updated>
+    </task>
+    <task id="LOCAL-00049" summary="feat: enhance navigation with contact functionality and improve visual styles in components">
+      <option name="closed" value="true" />
+      <created>1781694021232</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1781694021232</updated>
+    </task>
+    <task id="LOCAL-00050" summary="feat: enhance navigation with contact functionality and improve visual styles in components">
+      <option name="closed" value="true" />
+      <created>1781694026090</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1781694026090</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -487,7 +547,9 @@
     <MESSAGE value="feat: implement lazy loading for video thumbnails and enhance loading state management in WorkMedia component" />
     <MESSAGE value="fix: adjust alignment of social icons and remove copyright text in LandingPage component" />
     <MESSAGE value="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components" />
+    <MESSAGE value="feat: update tech stack and services descriptions, enhance visual components in AboutMe" />
+    <MESSAGE value="feat: enhance navigation with contact functionality and improve visual styles in components" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance navigation with contact functionality and improve visual styles in components" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
