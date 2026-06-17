@@ -249,6 +249,28 @@ const CARD_DATA = [
 
 type CardKey = "websites" | "graphics" | "logos";
 
+function useProjectStackSize() {
+    const getSize = useCallback(() => {
+        if (typeof window === "undefined") return 440;
+        return Math.max(220, Math.min(440, window.innerWidth - 96));
+    }, []);
+    const [width, setWidth] = useState(getSize);
+
+    useEffect(() => {
+        const update = () => setWidth(getSize());
+        update();
+        window.addEventListener("resize", update);
+        return () => window.removeEventListener("resize", update);
+    }, [getSize]);
+
+    return {
+        width,
+        height: Math.round(width * 0.61),
+        distance: Math.max(10, Math.round(width * 0.04)),
+        vertical: Math.max(18, Math.round(width * 0.064)),
+    };
+}
+
 // ─── Project Stack Card ───────────────────────────────────────────────────────
 function ProjectStackCard({
                               data,
@@ -395,6 +417,7 @@ export default function Projects({
     const noop = useCallback(() => {}, []);
     const showStack = useCallback(() => setViewMode("stack"), []);
     const showList = useCallback(() => setViewMode("list"), []);
+    const stackSize = useProjectStackSize();
 
     const dockItems = useMemo(() => [
         { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
@@ -426,7 +449,7 @@ export default function Projects({
             }} />
 
             {/* Nav */}
-            <nav style={{
+            <nav className="portfolio-nav" style={{
                 position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
                 padding: "20px 56px",
                 display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -437,7 +460,7 @@ export default function Projects({
             {/* ═══════════════════════════════════════════════
           HERO — full viewport height
       ═══════════════════════════════════════════════ */}
-            <section style={{
+            <section className="project-hero" style={{
                 position: "relative", zIndex: 10,
                 minHeight: "100vh",
                 display: "flex", flexDirection: "column", justifyContent: "center",
@@ -516,7 +539,7 @@ export default function Projects({
                 </motion.div>
 
 
-                <div style={{
+                <div className="project-intro-grid" style={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1px 1fr",
                     gap: "0 52px",
@@ -616,6 +639,7 @@ export default function Projects({
 
                     {/* CENTER DIVIDER */}
                     <motion.div
+                        className="responsive-divider"
                         initial={{ opacity: 0, scaleY: 0 }}
                         animate={{ opacity: 1, scaleY: 1 }}
                         transition={{ duration: 1.1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -640,7 +664,7 @@ export default function Projects({
                         }}
                     >
                         {/* Header row: "Categories" label + toggle */}
-                        <div style={{
+                        <div className="project-category-header" style={{
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "space-between",
@@ -712,12 +736,12 @@ export default function Projects({
                         {/* Stack view */}
                         {viewMode === "stack" && (
                             <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-                                <div style={{ marginLeft: "-18px" }}>
+                                <div className="project-stack-offset" style={{ marginLeft: "-18px" }}>
                                     <CardSwap
-                                        width={440}
-                                        height={270}
-                                        cardDistance={18}
-                                        verticalDistance={28}
+                                        width={stackSize.width}
+                                        height={stackSize.height}
+                                        cardDistance={stackSize.distance}
+                                        verticalDistance={stackSize.vertical}
                                         delay={2500}
                                         pauseOnHover
                                         onCardClick={(idx) => scrollToSection(CARD_DATA[idx].key)}
@@ -738,6 +762,7 @@ export default function Projects({
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                className="project-list-panel"
                                 style={{
                                     display: "flex",
                                     flexDirection: "column",
@@ -821,7 +846,7 @@ export default function Projects({
 
             <div style={{
                 position: "relative", zIndex: 10}}>
-                <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 56px" }}>
+                <div className="portfolio-content" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 56px" }}>
                     <Suspense fallback={sectionFallback}>
                         <WebsitesSection />
                     </Suspense>
