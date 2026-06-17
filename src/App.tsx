@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useState } from 'react'
 import './App.css'
 import LandingPage from './components/LandingPage'
 
@@ -11,14 +11,28 @@ const screenFallback = (
 
 function App() {
   const [view, setView] = useState<'home' | 'projects' | 'aboutme'>('home')
+  const [pendingContact, setPendingContact] = useState(false)
   const navigateHome = useCallback(() => setView('home'), [])
   const navigateProjects = useCallback(() => setView('projects'), [])
   const navigateAbout = useCallback(() => setView('aboutme'), [])
+  const navigateContact = useCallback(() => {
+    setPendingContact(true)
+    setView('home')
+  }, [])
+
+  useEffect(() => {
+    if (view !== 'home' || !pendingContact) return
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      setPendingContact(false)
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [pendingContact, view])
 
   if (view === 'projects') {
     return (
       <Suspense fallback={screenFallback}>
-        <Projects onNavigateHome={navigateHome} onNavigateToAbout={navigateAbout} />
+        <Projects onNavigateHome={navigateHome} onNavigateToAbout={navigateAbout} onNavigateToContact={navigateContact} />
       </Suspense>
     )
   }
@@ -26,7 +40,7 @@ function App() {
   if (view === 'aboutme') {
     return (
       <Suspense fallback={screenFallback}>
-        <AboutMe onNavigateHome={navigateHome} onNavigateToProjects={navigateProjects} />
+        <AboutMe onNavigateHome={navigateHome} onNavigateToProjects={navigateProjects} onNavigateToContact={navigateContact} />
       </Suspense>
     )
   }
@@ -35,6 +49,7 @@ function App() {
       <LandingPage
           onNavigateToAbout={navigateAbout}
           onNavigateToProjects={navigateProjects}
+          onNavigateToContact={navigateContact}
       />
   )
 }
