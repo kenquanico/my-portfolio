@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: add responsive styles and class names for improved layout in portfolio components">
-      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="fix: adjust alignment of social icons and remove copyright text in LandingPage component" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -118,7 +116,7 @@
       <workItem from="1781536224281" duration="43000" />
       <workItem from="1781624048634" duration="1658000" />
       <workItem from="1781626091436" duration="749000" />
-      <workItem from="1781679216261" duration="6562000" />
+      <workItem from="1781679216261" duration="6863000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />
@@ -384,7 +382,23 @@
       <option name="project" value="LOCAL" />
       <updated>1781690528426</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="feat: implement lazy loading for video thumbnails and enhance loading state management in WorkMedia component">
+      <option name="closed" value="true" />
+      <created>1781691054297</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1781691054297</updated>
+    </task>
+    <task id="LOCAL-00035" summary="fix: adjust alignment of social icons and remove copyright text in LandingPage component">
+      <option name="closed" value="true" />
+      <created>1781691135506</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1781691135506</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -412,7 +426,9 @@
     <MESSAGE value="refactor: enhance visual effects with backdrop filters and gradients in Dock components" />
     <MESSAGE value="feat: update favicon and add new SVG logo for portfolio" />
     <MESSAGE value="feat: add responsive styles and class names for improved layout in portfolio components" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add responsive styles and class names for improved layout in portfolio components" />
+    <MESSAGE value="feat: implement lazy loading for video thumbnails and enhance loading state management in WorkMedia component" />
+    <MESSAGE value="fix: adjust alignment of social icons and remove copyright text in LandingPage component" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: adjust alignment of social icons and remove copyright text in LandingPage component" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
