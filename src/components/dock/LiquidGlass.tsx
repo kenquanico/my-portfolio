@@ -10,6 +10,7 @@ export function LiquidGlass({
                                 className,
                                 style,
                                 children,
+                                id,
                             }: {
     variant?: "regular" | "clear";
     borderRadius?: number;
@@ -20,6 +21,7 @@ export function LiquidGlass({
     className?: string;
     style?: React.CSSProperties;
     children?: React.ReactNode;
+    id?: string;
 }) {
     const hostRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -41,7 +43,6 @@ export function LiquidGlass({
         return () => mq.removeEventListener("change", (e) => setReducedMotion(e.matches));
     }, []);
 
-    // Canvas-based chromatic edge refraction
     const drawRefraction = useCallback(() => {
         const canvas = canvasRef.current;
         const host = hostRef.current;
@@ -62,12 +63,10 @@ export function LiquidGlass({
         const r = Math.min(borderRadius, Math.min(w, h) / 2);
         const t = timeRef.current * 0.012;
 
-        // Clip to rounded rect
         ctx.save();
         roundedRect(ctx, 0, 0, w, h, r);
         ctx.clip();
 
-        // Chromatic aberration: red left edge, blue right edge
         const chromaScale = 0.06 + d * 0.08;
         const redGrad = ctx.createLinearGradient(0, 0, w * 0.35, 0);
         redGrad.addColorStop(0, `rgba(255,50,50,${chromaScale + 0.02 * Math.sin(t)})`);
@@ -81,7 +80,6 @@ export function LiquidGlass({
         ctx.fillStyle = blueGrad;
         ctx.fillRect(0, 0, w, h);
 
-        // Top specular rim
         const rimGrad = ctx.createLinearGradient(w * 0.1, 0, w * 0.9, 0);
         rimGrad.addColorStop(0, "rgba(255,255,255,0)");
         rimGrad.addColorStop(0.5, `rgba(255,255,255,${0.55 + d * 0.1})`);
@@ -89,7 +87,6 @@ export function LiquidGlass({
         ctx.fillStyle = rimGrad;
         ctx.fillRect(0, 0, w, 1.5);
 
-        // Light spill
         if (lightSpill) {
             const spillGrad = ctx.createRadialGradient(w * 0.3, 0, 0, w * 0.3, h * 0.5, Math.max(w, h) * 0.8);
             spillGrad.addColorStop(0, lightSpill);
@@ -98,7 +95,6 @@ export function LiquidGlass({
             ctx.fillRect(0, 0, w, h);
         }
 
-        // Inner glow on interaction
         if (interactive && (hovering || pressing)) {
             const glowOpacity = pressing ? 0.22 : 0.12;
             const glowGrad = ctx.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, Math.max(w, h) * 0.7);
@@ -147,6 +143,7 @@ export function LiquidGlass({
     return (
         <div
             ref={hostRef}
+            id={id}
             className={className}
             style={{
                 position: "relative",
@@ -160,7 +157,6 @@ export function LiquidGlass({
             onMouseDown={interactive ? () => setPressing(true) : undefined}
             onMouseUp={interactive ? () => setPressing(false) : undefined}
         >
-            {/* 1. Backdrop blur — the frosted glass base */}
             <div
                 style={{
                     position: "absolute",
@@ -171,7 +167,6 @@ export function LiquidGlass({
                 }}
             />
 
-            {/* 2. Clear variant dimming layer */}
             {variant === "clear" && (
                 <div
                     style={{
@@ -183,7 +178,6 @@ export function LiquidGlass({
                 />
             )}
 
-            {/* 3. Tint layer */}
             <div
                 style={{
                     position: "absolute",
@@ -194,7 +188,6 @@ export function LiquidGlass({
                 }}
             />
 
-            {/* 4. Canvas: chromatic refraction + rim + glow */}
             <canvas
                 ref={canvasRef}
                 style={{
@@ -207,7 +200,6 @@ export function LiquidGlass({
                 }}
             />
 
-            {/* 5. Border + shadow */}
             <div
                 style={{
                     position: "absolute",
@@ -222,7 +214,6 @@ export function LiquidGlass({
                 }}
             />
 
-            {/* 6. Content */}
             <div style={{ position: "relative", zIndex: 1 }}>
                 {children}
             </div>

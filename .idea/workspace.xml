@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="refactor: enhance visual effects with backdrop filters and gradients in Dock components" />
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="refactor: enhance visual effects with backdrop filters and gradients in Dock components">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dock/LiquidGlass.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/LiquidGlass.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,12 +27,12 @@
     &quot;assignee&quot;: &quot;kenquanico&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/kenquanico/my-portfolio.git",
-    "accountId": "2d6da821-7303-463b-bbda-57601031657b"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/kenquanico/my-portfolio.git&quot;,
+    &quot;accountId&quot;: &quot;2d6da821-7303-463b-bbda-57601031657b&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -114,6 +117,8 @@
       <workItem from="1781417373710" duration="3873000" />
       <workItem from="1781536224281" duration="43000" />
       <workItem from="1781624048634" duration="1658000" />
+      <workItem from="1781626091436" duration="749000" />
+      <workItem from="1781679216261" duration="2852000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />
