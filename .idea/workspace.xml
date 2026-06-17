@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="fix: adjust alignment of social icons and remove copyright text in LandingPage component" />
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AboutMe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Projects.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dock/DockItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/DockItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dock/GlassFilter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/GlassFilter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/dock/LiquidGlassDock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/LiquidGlassDock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/portfolioAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/portfolioAssets.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,7 +126,7 @@
       <workItem from="1781536224281" duration="43000" />
       <workItem from="1781624048634" duration="1658000" />
       <workItem from="1781626091436" duration="749000" />
-      <workItem from="1781679216261" duration="6863000" />
+      <workItem from="1781679216261" duration="8968000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />
@@ -398,7 +408,55 @@
       <option name="project" value="LOCAL" />
       <updated>1781691135506</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components">
+      <option name="closed" value="true" />
+      <created>1781691473489</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1781691473489</updated>
+    </task>
+    <task id="LOCAL-00037" summary="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components">
+      <option name="closed" value="true" />
+      <created>1781691479943</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1781691479943</updated>
+    </task>
+    <task id="LOCAL-00038" summary="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components">
+      <option name="closed" value="true" />
+      <created>1781691486649</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1781691486649</updated>
+    </task>
+    <task id="LOCAL-00039" summary="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components">
+      <option name="closed" value="true" />
+      <created>1781691494572</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1781691494572</updated>
+    </task>
+    <task id="LOCAL-00040" summary="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components">
+      <option name="closed" value="true" />
+      <created>1781691501034</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1781691501034</updated>
+    </task>
+    <task id="LOCAL-00041" summary="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components">
+      <option name="closed" value="true" />
+      <created>1781691504902</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1781691504902</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -428,7 +486,8 @@
     <MESSAGE value="feat: add responsive styles and class names for improved layout in portfolio components" />
     <MESSAGE value="feat: implement lazy loading for video thumbnails and enhance loading state management in WorkMedia component" />
     <MESSAGE value="fix: adjust alignment of social icons and remove copyright text in LandingPage component" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: adjust alignment of social icons and remove copyright text in LandingPage component" />
+    <MESSAGE value="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
