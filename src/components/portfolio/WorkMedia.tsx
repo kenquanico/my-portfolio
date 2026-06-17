@@ -5,6 +5,7 @@ import {
     type MediaOrientation,
     type PortfolioAsset,
 } from "../../data/portfolioAssets";
+import { pauseOtherVideo } from "./mediaPlayback";
 
 export type WorkKind = "websites" | "graphics" | "logos";
 export type MediaFit = "cover" | "contain";
@@ -19,12 +20,7 @@ interface MediaPreviewProps {
 
 const metadataCache = new Map<string, MediaMetadata>();
 const posterCache = new Map<string, string>();
-let activeVideo: HTMLVideoElement | null = null;
-
-export function pauseActiveVideo() {
-    activeVideo?.pause();
-    activeVideo = null;
-}
+const thumbnailStateCache = new Map<string, { loaded: boolean; error: boolean; seen: boolean }>();
 
 function defaultMetadata(kind: WorkKind): MediaMetadata {
     if (kind === "logos") return createMediaMetadata(1, 1);
@@ -65,11 +61,15 @@ function useCachedMetadata(project: PortfolioAsset, kind: WorkKind) {
     return [metadata, updateMetadata] as const;
 }
 
-const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMotion = false }: MediaPreviewProps) {
+function getCachedThumbnailState(src: string) {
+    return thumbnailStateCache.get(src) ?? { loaded: false, error: false, seen: false };
+}
+
+const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, fit, reduceMotion = false }: MediaPreviewProps) {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const [metadata, updateMetadata] = useCachedMetadata(project, kind);
     const [generatedPoster, setGeneratedPoster] = useState(() => posterCache.get(project.src) ?? "");
-    const [loaded, setLoaded] = useState(() => metadataCache.has(project.src) || posterCache.has(project.src));
+    const [thumbnailState, setThumbnailState] = useState(() => getCachedThumbnailState(project.src));
     const [paused, setPaused] = useState(true);
     const [hovered, setHovered] = useState(false);
     const isLogo = kind === "logos";
@@ -77,6 +77,16 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
     const isPreviewMode = mode === "thumb" || mode === "swatch";
     const objectFit: MediaFit = fit ?? (mode === "thumb" && !isLogo ? "cover" : "contain");
     const showPlayButton = paused || hovered;
+    const loaded = thumbnailState.loaded || metadataCache.has(project.src) || posterCache.has(project.src);
+    const imageLoading = isPreviewMode && !thumbnailState.seen ? "lazy" : "eager";
+
+    const updateThumbnailState = useCallback((next: Partial<{ loaded: boolean; error: boolean; seen: boolean }>) => {
+        setThumbnailState((current) => {
+            const merged = { ...current, ...next };
+            thumbnailStateCache.set(project.src, merged);
+            return merged;
+        });
+    }, [project.src]);
 
     const shellStyle = useMemo(() => ({
         aspectRatio: metadata.aspectRatio,
@@ -131,8 +141,7 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
         if (!video) return;
 
         if (video.paused) {
-            if (activeVideo && activeVideo !== video) activeVideo.pause();
-            activeVideo = video;
+            pauseOtherVideo(video);
             await video.play();
             setPaused(false);
         } else {
@@ -143,40 +152,44 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
     const handleImageLoad = useCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
         const img = event.currentTarget;
         updateMetadata(img.naturalWidth, img.naturalHeight);
-        setLoaded(true);
-    }, [updateMetadata]);
+        updateThumbnailState({ loaded: true, error: false, seen: true });
+    }, [updateMetadata, updateThumbnailState]);
+
+    const handleMediaError = useCallback(() => {
+        updateThumbnailState({ loaded: true, error: true, seen: true });
+    }, [updateThumbnailState]);
 
     const handleVideoMetadata = useCallback((event: React.SyntheticEvent<HTMLVideoElement>) => {
         const video = event.currentTarget;
         updateMetadata(video.videoWidth, video.videoHeight);
         if (!isPreviewMode || posterCache.has(project.src)) {
-            setLoaded(true);
+            updateThumbnailState({ loaded: true, error: false, seen: true });
             return;
         }
 
         try {
             video.currentTime = Math.min(0.12, Math.max(0, (video.duration || 1) - 0.01));
         } catch {
-            setLoaded(true);
+            updateThumbnailState({ loaded: true, error: false, seen: true });
         }
-    }, [isPreviewMode, project.src, updateMetadata]);
+    }, [isPreviewMode, project.src, updateMetadata, updateThumbnailState]);
 
     const capturePoster = useCallback((event: React.SyntheticEvent<HTMLVideoElement>) => {
         if (!isPreviewMode) {
-            setLoaded(true);
+            updateThumbnailState({ loaded: true, error: false, seen: true });
             return;
         }
 
         const cachedPoster = posterCache.get(project.src);
         if (cachedPoster) {
             setGeneratedPoster(cachedPoster);
-            setLoaded(true);
+            updateThumbnailState({ loaded: true, error: false, seen: true });
             return;
         }
 
         const video = event.currentTarget;
         if (!video.videoWidth || !video.videoHeight) {
-            setLoaded(true);
+            updateThumbnailState({ loaded: true, error: false, seen: true });
             return;
         }
 
@@ -186,7 +199,7 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
             canvas.height = video.videoHeight;
             const context = canvas.getContext("2d");
             if (!context) {
-                setLoaded(true);
+                updateThumbnailState({ loaded: true, error: false, seen: true });
                 return;
             }
 
@@ -194,11 +207,11 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
             const poster = canvas.toDataURL("image/jpeg", 0.76);
             posterCache.set(project.src, poster);
             setGeneratedPoster(poster);
-            setLoaded(true);
+            updateThumbnailState({ loaded: true, error: false, seen: true });
         } catch {
-            setLoaded(true);
+            updateThumbnailState({ loaded: true, error: false, seen: true });
         }
-    }, [isPreviewMode, project.src]);
+    }, [isPreviewMode, project.src, updateThumbnailState]);
 
     useEffect(() => {
         const video = videoRef.current;
@@ -230,9 +243,10 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
                         alt={project.name}
                         width={metadata.width}
                         height={metadata.height}
-                        loading="lazy"
+                        loading={imageLoading}
                         decoding="async"
                         onLoad={handleImageLoad}
+                        onError={handleMediaError}
                         style={{ ...mediaStyle, maxWidth: "82%", maxHeight: "82%" }}
                     />
                 </div>
@@ -250,10 +264,10 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
                         onLoadedMetadata={handleVideoMetadata}
                         onLoadedData={capturePoster}
                         onSeeked={capturePoster}
+                        onError={handleMediaError}
                         onPause={() => setPaused(true)}
                         onPlay={(event) => {
-                            if (activeVideo && activeVideo !== event.currentTarget) activeVideo.pause();
-                            activeVideo = event.currentTarget;
+                            pauseOtherVideo(event.currentTarget);
                             setPaused(false);
                         }}
                         style={isPreviewMode ? previewVideoStyle : mediaStyle}
@@ -264,7 +278,10 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
                             alt={project.name}
                             width={metadata.width}
                             height={metadata.height}
+                            loading={imageLoading}
                             decoding="async"
+                            onLoad={() => updateThumbnailState({ loaded: true, error: false, seen: true })}
+                            onError={handleMediaError}
                             style={posterStyle}
                         />
                     )}
@@ -291,15 +308,20 @@ const WorkMedia = memo(function WorkMedia({ project, mode, kind, fit, reduceMoti
                     alt={project.name}
                     width={metadata.width}
                     height={metadata.height}
-                    loading="lazy"
+                    loading={imageLoading}
                     decoding="async"
                     onLoad={handleImageLoad}
+                    onError={handleMediaError}
                     style={mediaStyle}
                 />
             )}
             {!isPreviewMode && <div className="media-top-line" />}
         </div>
     );
+});
+
+const WorkMedia = memo(function WorkMedia(props: MediaPreviewProps) {
+    return <WorkMediaContent key={props.project.src} {...props} />;
 });
 
 export default WorkMedia;

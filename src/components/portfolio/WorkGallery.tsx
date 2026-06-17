@@ -1,7 +1,8 @@
 import { lazy, memo, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, type Transition, useReducedMotion } from "framer-motion";
 import type { PortfolioAsset } from "../../data/portfolioAssets";
-import WorkMedia, { pauseActiveVideo, type WorkKind } from "./WorkMedia";
+import WorkMedia, { type WorkKind } from "./WorkMedia";
+import { pauseActiveVideo } from "./mediaPlayback";
 
 const WorkProjectModal = lazy(() => import("./WorkProjectModal"));
 

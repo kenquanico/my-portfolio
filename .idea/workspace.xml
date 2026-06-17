@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="refactor: enhance visual effects with backdrop filters and gradients in Dock components">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/dock/LiquidGlass.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/dock/LiquidGlass.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkProjectModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkProjectModal.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +120,7 @@
       <workItem from="1781536224281" duration="43000" />
       <workItem from="1781624048634" duration="1658000" />
       <workItem from="1781626091436" duration="749000" />
-      <workItem from="1781679216261" duration="2852000" />
+      <workItem from="1781679216261" duration="4338000" />
     </task>
     <task id="LOCAL-00001" summary="add initial components and setup for landing page, plasma effect, and color blends">
       <option name="closed" value="true" />
@@ -288,7 +290,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781625886499</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="refactor: enhance visual effects with backdrop filters and gradients in Dock components">
+      <option name="closed" value="true" />
+      <created>1781684087391</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1781684087391</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
