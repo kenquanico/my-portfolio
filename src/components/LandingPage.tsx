@@ -644,7 +644,7 @@ export default function Portfolio({
                             <img src={Logo} alt="Ken Aldrey Quanico logo" style={{ height: 42, width: "auto", display: "block" }} />
 
                             {/* Social icons — centered */}
-                            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                            <div style={{ display: "flex", alignItems: "left", gap: 10 }}>
                                 <SocialPill
                                     href="https://www.instagram.com/kenldry/?hl=en"
                                     icon={<IGIcon />}
@@ -660,14 +660,7 @@ export default function Portfolio({
                             </div>
 
                             {/* Copyright */}
-                            <span style={{
-                                fontFamily: "'Syne', sans-serif",
-                                fontSize: "clamp(10px, 1.1vw, 12px)",
-                                fontWeight: 400,
-                                letterSpacing: "0.18em",
-                                textTransform: "uppercase",
-                                color: "rgba(160,145,200,0.45)",
-                            }}>© 2026 — All Rights Reserved</span>
+
                         </div>
                     </motion.div>
                 </section>
