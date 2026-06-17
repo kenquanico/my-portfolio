@@ -10,7 +10,6 @@ export function LiquidGlass({
                                 className,
                                 style,
                                 children,
-                                id,
                             }: {
     variant?: "regular" | "clear";
     borderRadius?: number;
@@ -21,7 +20,6 @@ export function LiquidGlass({
     className?: string;
     style?: React.CSSProperties;
     children?: React.ReactNode;
-    id?: string;
 }) {
     const hostRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -143,7 +141,6 @@ export function LiquidGlass({
     return (
         <div
             ref={hostRef}
-            id={id}
             className={className}
             style={{
                 position: "relative",
