@@ -236,8 +236,22 @@ const SelectedDemoCard = memo(function SelectedDemoCard({
                     fontWeight: 300,
                     lineHeight: 1.55,
                     color: "rgba(196,182,228,0.78)",
+                    marginBottom: 8,
                 }}>
                     {project.tagline}
+                </p>
+                <p style={{
+                    fontFamily: "'DM Sans', sans-serif",
+                    fontSize: "12px",
+                    fontWeight: 300,
+                    lineHeight: 1.5,
+                    color: "rgba(196,182,228,0.55)",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                }}>
+                    {project.description}
                 </p>
             </div>
             <button
@@ -368,16 +382,18 @@ const TikTokIcon = ({ size = 15 }: { size?: number }) => (
 export default function Portfolio({
                                       onNavigateToAbout,
                                       onNavigateToProjects,
+                                      onNavigateToContact,
                                   }: {
     onNavigateToAbout: () => void;
     onNavigateToProjects: () => void;
+    onNavigateToContact: () => void;
 }) {
     const openGitHub = () => window.open("https://github.com/kenquanico", "_blank", "noopener,noreferrer");
     const selectedDemos = useMemo(() => WEBSITES.slice(0, 4), []);
     const dockItems: DockItemConfig[] = [
         { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
         { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: onNavigateToProjects },
-        { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: () => {} },
+        { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: onNavigateToContact },
         { icon: <GitHubIcon />,            label: "GitHub",  onClick: openGitHub },
     ];
 
@@ -553,7 +569,7 @@ export default function Portfolio({
                 </section>
 
                 {/* CONTACT */}
-                <section style={{ paddingBottom: 130, maxWidth: 920, margin: "0 auto" }}>
+                <section id="contact" style={{ paddingBottom: 130, maxWidth: 920, margin: "0 auto", scrollMarginTop: 110 }}>
                     <Divider />
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 44 }}>
                         <div>
