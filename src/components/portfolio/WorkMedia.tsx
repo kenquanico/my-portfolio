@@ -76,11 +76,15 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const isLogo = kind === "logos";
     const isVideo = project.kind === "video";
     const isPreviewMode = mode === "thumb" || mode === "swatch";
+    const posterSource = project.posterSrc ?? generatedPoster;
+    const hasStaticPoster = Boolean(project.posterSrc);
     const objectFit: MediaFit = fit ?? (mode === "thumb" && !isLogo ? "cover" : "contain");
     const showPlayButton = paused || hovered;
     const loaded = thumbnailState.loaded || metadataCache.has(project.src) || posterCache.has(project.src);
     const imageLoading = isPreviewMode && !thumbnailState.seen ? "lazy" : "eager";
-    const shouldLoadVideoSource = !isPreviewMode || !generatedPoster || !paused || videoRequested;
+    const needsFallbackPoster = isPreviewMode && !posterSource && !thumbnailState.error;
+    const shouldLoadVideoSource = !isPreviewMode || videoRequested || needsFallbackPoster;
+    const showVideoFallback = isVideo && isPreviewMode && thumbnailState.error && !posterSource && paused;
 
     const updateThumbnailState = useCallback((next: Partial<{ loaded: boolean; error: boolean; seen: boolean }>) => {
         setThumbnailState((current) => {
@@ -121,15 +125,15 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
 
     const previewVideoStyle = useMemo(() => ({
         ...mediaStyle,
-        opacity: loaded && (!generatedPoster || !paused) ? 1 : 0,
-    }), [generatedPoster, loaded, mediaStyle, paused]);
+        opacity: loaded && !paused ? 1 : 0,
+    }), [loaded, mediaStyle, paused]);
 
     const posterStyle = useMemo(() => ({
         ...mediaStyle,
-        opacity: generatedPoster && paused ? 1 : 0,
+        opacity: posterSource && paused ? 1 : 0,
         position: "absolute" as const,
         inset: 0,
-    }), [generatedPoster, mediaStyle, paused]);
+    }), [mediaStyle, paused, posterSource]);
 
     const pauseVideo = useCallback(() => {
         const video = videoRef.current;
@@ -174,12 +178,14 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
             return;
         }
 
+        if (hasStaticPoster) return;
+
         try {
             video.currentTime = Math.min(0.12, Math.max(0, (video.duration || 1) - 0.01));
         } catch {
-            updateThumbnailState({ loaded: true, error: false, seen: true });
+            updateThumbnailState({ loaded: true, error: true, seen: true });
         }
-    }, [isPreviewMode, project.src, updateMetadata, updateThumbnailState]);
+    }, [hasStaticPoster, isPreviewMode, project.src, updateMetadata, updateThumbnailState]);
 
     const capturePoster = useCallback((event: React.SyntheticEvent<HTMLVideoElement>) => {
         if (!isPreviewMode) {
@@ -196,7 +202,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
 
         const video = event.currentTarget;
         if (!video.videoWidth || !video.videoHeight) {
-            updateThumbnailState({ loaded: true, error: false, seen: true });
+            updateThumbnailState({ loaded: true, error: true, seen: true });
             return;
         }
 
@@ -206,7 +212,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
             canvas.height = video.videoHeight;
             const context = canvas.getContext("2d");
             if (!context) {
-                updateThumbnailState({ loaded: true, error: false, seen: true });
+                updateThumbnailState({ loaded: true, error: true, seen: true });
                 return;
             }
 
@@ -216,7 +222,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
             setGeneratedPoster(poster);
             updateThumbnailState({ loaded: true, error: false, seen: true });
         } catch {
-            updateThumbnailState({ loaded: true, error: false, seen: true });
+            updateThumbnailState({ loaded: true, error: true, seen: true });
         }
     }, [isPreviewMode, project.src, updateThumbnailState]);
 
@@ -262,9 +268,10 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                     <video
                         ref={videoRef}
                         src={shouldLoadVideoSource ? project.src : undefined}
+                        poster={posterSource || undefined}
                         width={metadata.width}
                         height={metadata.height}
-                        preload="metadata"
+                        preload={needsFallbackPoster || !isPreviewMode ? "metadata" : "none"}
                         controls={!isPreviewMode}
                         playsInline
                         muted
@@ -279,18 +286,23 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                         }}
                         style={isPreviewMode ? previewVideoStyle : mediaStyle}
                     />
-                    {isPreviewMode && generatedPoster && (
+                    {isPreviewMode && posterSource && (
                         <img
-                            src={generatedPoster}
+                            src={posterSource}
                             alt={project.name}
                             width={metadata.width}
                             height={metadata.height}
                             loading={imageLoading}
                             decoding="async"
-                            onLoad={() => updateThumbnailState({ loaded: true, error: false, seen: true })}
+                            onLoad={handleImageLoad}
                             onError={handleMediaError}
                             style={posterStyle}
                         />
+                    )}
+                    {showVideoFallback && (
+                        <div className="media-video-fallback" aria-label={`${project.name} preview`}>
+                            <span>{project.name}</span>
+                        </div>
                     )}
                     <button
                         type="button"
