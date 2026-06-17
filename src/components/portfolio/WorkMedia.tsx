@@ -72,6 +72,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const [thumbnailState, setThumbnailState] = useState(() => getCachedThumbnailState(project.src));
     const [paused, setPaused] = useState(true);
     const [hovered, setHovered] = useState(false);
+    const [videoRequested, setVideoRequested] = useState(false);
     const isLogo = kind === "logos";
     const isVideo = project.kind === "video";
     const isPreviewMode = mode === "thumb" || mode === "swatch";
@@ -79,6 +80,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const showPlayButton = paused || hovered;
     const loaded = thumbnailState.loaded || metadataCache.has(project.src) || posterCache.has(project.src);
     const imageLoading = isPreviewMode && !thumbnailState.seen ? "lazy" : "eager";
+    const shouldLoadVideoSource = !isPreviewMode || !generatedPoster || !paused || videoRequested;
 
     const updateThumbnailState = useCallback((next: Partial<{ loaded: boolean; error: boolean; seen: boolean }>) => {
         setThumbnailState((current) => {
@@ -141,13 +143,18 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
         if (!video) return;
 
         if (video.paused) {
+            setVideoRequested(true);
+            if (!video.currentSrc) {
+                video.src = project.src;
+                video.load();
+            }
             pauseOtherVideo(video);
             await video.play();
             setPaused(false);
         } else {
             pauseVideo();
         }
-    }, [pauseVideo]);
+    }, [pauseVideo, project.src]);
 
     const handleImageLoad = useCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
         const img = event.currentTarget;
@@ -254,7 +261,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                 <>
                     <video
                         ref={videoRef}
-                        src={project.src}
+                        src={shouldLoadVideoSource ? project.src : undefined}
                         width={metadata.width}
                         height={metadata.height}
                         preload="metadata"
