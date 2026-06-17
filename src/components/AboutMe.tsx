@@ -287,12 +287,13 @@ export default function AboutMe({
     onNavigateHome: () => void;
     onNavigateToProjects: () => void;
 }) {
+    const openGitHub = () => window.open("https://github.com/kenquanico", "_blank", "noopener,noreferrer");
     const dockItems = [
         // AboutMe.tsx — fixed
         { icon: <Ico path={ICONS.user} />,  label: "About",   onClick: () => {} },
         { icon: <Ico path={ICONS.work} />,  label: "Work",    onClick: onNavigateToProjects },  // ← was () => {}
         { icon: <Ico path={ICONS.mail} />,  label: "Contact", onClick: onNavigateHome },
-        { icon: <GitHubIcon />,             label: "GitHub",  onClick: () => {} },
+        { icon: <GitHubIcon />,             label: "GitHub",  onClick: openGitHub },
     ];
 
     return (
