@@ -405,9 +405,11 @@ function ProjectStackCard({
 export default function Projects({
                                      onNavigateHome,
                                      onNavigateToAbout,
+                                     onNavigateToContact,
                                  }: {
     onNavigateHome: () => void;
     onNavigateToAbout: () => void;
+    onNavigateToContact: () => void;
 }) {
     const scrollToSection = useCallback((key: CardKey) => {
         const el = document.getElementById(key);
@@ -423,9 +425,9 @@ export default function Projects({
     const dockItems = useMemo(() => [
         { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
         { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: noop },
-        { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: onNavigateHome },
+        { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: onNavigateToContact },
         { icon: <GitHubIcon />,            label: "GitHub",  onClick: openGitHub },
-    ], [noop, onNavigateHome, onNavigateToAbout, openGitHub]);
+    ], [noop, onNavigateToAbout, onNavigateToContact, openGitHub]);
 
     return (
         <div style={{ minHeight: "100vh", background: "#000", position: "relative" }}>
@@ -596,7 +598,7 @@ export default function Projects({
                             border: "1px solid rgba(99,89,133,0.2)",
                             boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
                         }}>
-                            {[["4+", "Years"], ["20+", "Projects"], ["50k+", "Users"]].map(([v, l], i, arr) => (
+                            {[["4+", "Years"], ["20+", "Projects"], ["Best", "Innovation"]].map(([v, l], i, arr) => (
                                 <div key={v} style={{
                                     flex: 1, textAlign: "center",
                                     borderRight: i < arr.length - 1 ? "1px solid rgba(99,89,133,0.2)" : "none",
@@ -623,7 +625,7 @@ export default function Projects({
                                 textTransform: "uppercase", color: "rgba(160,145,200,0.55)", marginBottom: 10,
                             }}>Stack</p>
                             <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
-                                {["React", "TypeScript", "Figma", "GSAP", "Three.js", "Tailwind", "Node", "Framer"].map(s => (
+                                {["Figma", "React JS/TS", "PostgreSQL", "Tailwind", "Adobe PS", "Adobe AI", "Python", "PHP"].map(s => (
                                     <span key={s} style={{
                                         display: "inline-flex", alignItems: "center",
                                         padding: "5px 13px", borderRadius: 999,
