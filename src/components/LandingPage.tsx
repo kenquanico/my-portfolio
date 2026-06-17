@@ -413,7 +413,7 @@ export default function Portfolio({
             }} />
 
             {/* NAV */}
-            <nav style={{
+            <nav className="portfolio-nav" style={{
                 position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
                 padding: "20px 56px",
                 display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -423,10 +423,10 @@ export default function Portfolio({
             </nav>
 
             {/* MAIN */}
-            <main style={{ position: "relative", zIndex: 10, padding: "0 56px" }}>
+            <main className="portfolio-main" style={{ position: "relative", zIndex: 10, padding: "0 56px" }}>
 
                 {/* HERO */}
-                <section style={{
+                <section className="landing-hero" style={{
                     minHeight: "100vh",
                     display: "flex",
                     flexDirection: "column",
@@ -452,6 +452,7 @@ export default function Portfolio({
                     </motion.p>
 
                     <motion.h1
+                        className="landing-hero-title"
                         initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.1, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
                         style={{
@@ -468,6 +469,7 @@ export default function Portfolio({
                     </motion.h1>
 
                     <motion.h2
+                        className="landing-hero-title"
                         initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.1, delay: 0.44, ease: [0.16, 1, 0.3, 1] }}
                         style={{
@@ -485,6 +487,7 @@ export default function Portfolio({
                     </motion.h2>
 
                     <motion.p
+                        className="landing-hero-copy"
                         initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 0.62 }}
                         style={{
