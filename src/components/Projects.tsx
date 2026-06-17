@@ -415,6 +415,7 @@ export default function Projects({
     }, []);
     const [viewMode, setViewMode] = useState<"stack" | "list">("stack");
     const noop = useCallback(() => {}, []);
+    const openGitHub = useCallback(() => window.open("https://github.com/kenquanico", "_blank", "noopener,noreferrer"), []);
     const showStack = useCallback(() => setViewMode("stack"), []);
     const showList = useCallback(() => setViewMode("list"), []);
     const stackSize = useProjectStackSize();
@@ -423,8 +424,8 @@ export default function Projects({
         { icon: <Ico path={ICONS.user} />, label: "About",   onClick: onNavigateToAbout },
         { icon: <Ico path={ICONS.work} />, label: "Work",    onClick: noop },
         { icon: <Ico path={ICONS.mail} />, label: "Contact", onClick: onNavigateHome },
-        { icon: <GitHubIcon />,            label: "GitHub",  onClick: noop },
-    ], [noop, onNavigateHome, onNavigateToAbout]);
+        { icon: <GitHubIcon />,            label: "GitHub",  onClick: openGitHub },
+    ], [noop, onNavigateHome, onNavigateToAbout, openGitHub]);
 
     return (
         <div style={{ minHeight: "100vh", background: "#000", position: "relative" }}>
