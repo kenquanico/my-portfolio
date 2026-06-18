@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { WEBSITES } from "../data/portfolioAssets";
+import { WEBSITES } from "../data/websiteAssets";
 import WorkGallery from "./portfolio/WorkGallery";
 
 const websiteIcon = (
@@ -10,8 +9,6 @@ const websiteIcon = (
 );
 
 export default function WebsitesSection() {
-    const projects = useMemo(() => WEBSITES, []);
-
     return (
         <WorkGallery
             id="websites"
@@ -19,7 +16,7 @@ export default function WebsitesSection() {
             title="Web & Mobile"
             emphasizedTitle="Demos"
             icon={websiteIcon}
-            projects={projects}
+            projects={WEBSITES}
         />
     );
 }

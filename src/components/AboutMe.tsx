@@ -1,12 +1,11 @@
-import { lazy, Suspense, useState, useRef } from "react";
+import { useId, useState } from "react";
 import { motion } from "framer-motion";
 import { LiquidGlassDock } from "./dock/LiquidGlassDock";
 import { GlassFilter } from "./dock/GlassFilter.tsx";
 import Logo from "../assets/kenldry.svg";
 import profilePhoto from "../assets/s2-optimized.jpg";
-import { ABOUT_GALLERY } from "../data/portfolioAssets";
-
-const LiquidEther = lazy(() => import("./LiquidEther.tsx"));
+import { ABOUT_GALLERY } from "../data/galleryAssets";
+import DeferredLiquidEther from "./DeferredLiquidEther";
 
 // ─── Fonts ────────────────────────────────────────────────────────────────────
 const GLOBAL_CSS = `
@@ -81,11 +80,8 @@ const CARD_SHADOW_HOVERED = `
   0 0 40px rgba(99,89,133,0.10)
 `;
 
-let _glassId = 0;
 function useGlassId() {
-    const ref = useRef<string | null>(null);
-    if (!ref.current) ref.current = `glass-${_glassId++}`;
-    return ref.current;
+    return useId().replace(/:/g, "-");
 }
 
 function GlassCard({
@@ -314,18 +310,16 @@ export default function AboutMe({
             <style>{GLOBAL_CSS}</style>
 
             <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
-                <Suspense fallback={null}>
-                    <LiquidEther
-                        style={{ width: "100%", height: "100%" }}
-                        colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
-                        mouseForce={20} cursorSize={100}
-                        isViscous viscous={30}
-                        iterationsViscous={32} iterationsPoisson={32}
-                        resolution={0.5} isBounce={false}
-                        autoDemo autoSpeed={0.5} autoIntensity={2.2}
-                        takeoverDuration={0.25} autoResumeDelay={3000} autoRampDuration={0.6}
-                    />
-                </Suspense>
+                <DeferredLiquidEther
+                    style={{ width: "100%", height: "100%" }}
+                    colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
+                    mouseForce={20} cursorSize={100}
+                    isViscous viscous={30}
+                    iterationsViscous={32} iterationsPoisson={32}
+                    resolution={0.5} isBounce={false}
+                    autoDemo autoSpeed={0.5} autoIntensity={2.2}
+                    takeoverDuration={0.25} autoResumeDelay={3000} autoRampDuration={0.6}
+                />
             </div>
             <div style={{
                 position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none",
@@ -689,7 +683,7 @@ function PersonalGallery() {
             <GlassCard borderRadius={22} padding="18px" animate={false}>
                 <div className="about-gallery-grid">
                     <div className="about-gallery-feature">
-                        <img src={feature.src} alt={feature.name} loading="lazy" decoding="async" />
+                        <img src={feature.previewSrc ?? feature.src} alt={feature.name} width={1200} height={900} loading="lazy" decoding="async" />
                         <div className="about-gallery-caption">
                             <span>{feature.tag}</span>
                             <p>{feature.name}</p>
@@ -698,7 +692,7 @@ function PersonalGallery() {
                     <div className="about-gallery-mosaic">
                         {galleryItems.map((item, index) => (
                             <div className="about-gallery-tile" key={item.src}>
-                                <img src={item.src} alt={item.name} loading="lazy" decoding="async" />
+                                <img src={item.previewSrc ?? item.src} alt={item.name} width={800} height={600} loading="lazy" decoding="async" />
                                 <span>{String(index + 1).padStart(2, "0")}</span>
                             </div>
                         ))}

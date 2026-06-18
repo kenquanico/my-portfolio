@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import type { PortfolioAsset } from "../../data/portfolioAssets";
+import type { PortfolioAsset } from "../../data/portfolioAssetUtils";
 import WorkMedia, { type WorkKind } from "./WorkMedia";
 import { pauseActiveVideo } from "./mediaPlayback";
 

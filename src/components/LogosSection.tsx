@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { LOGOS } from "../data/portfolioAssets";
+import { LOGOS } from "../data/logoAssets";
 import WorkGallery from "./portfolio/WorkGallery";
 
 const logosIcon = (
@@ -10,8 +9,6 @@ const logosIcon = (
 );
 
 export default function LogosSection() {
-    const projects = useMemo(() => LOGOS, []);
-
     return (
         <WorkGallery
             id="logos"
@@ -19,7 +16,7 @@ export default function LogosSection() {
             title="Marks, Wordmarks &"
             emphasizedTitle="Lettering"
             icon={logosIcon}
-            projects={projects}
+            projects={LOGOS}
         />
     );
 }

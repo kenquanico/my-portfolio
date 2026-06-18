@@ -1,6 +1,6 @@
 import { lazy, memo, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion, type Transition, useReducedMotion } from "framer-motion";
-import type { PortfolioAsset } from "../../data/portfolioAssets";
+import type { PortfolioAsset } from "../../data/portfolioAssetUtils";
 import WorkMedia, { type WorkKind } from "./WorkMedia";
 import { pauseActiveVideo } from "./mediaPlayback";
 
@@ -266,7 +266,6 @@ export default function WorkGallery({ id, eyebrow, title, emphasizedTitle, icon,
     const reduceMotion = Boolean(prefersReducedMotion);
     const [viewMode, setViewMode] = useState<ViewMode>("grid");
     const [selected, setSelected] = useState<PortfolioAsset | null>(null);
-    const orderedProjects = useMemo(() => projects, [projects]);
     const selectProject = useCallback((project: PortfolioAsset) => setSelected(project), []);
     const close = useCallback(() => setSelected(null), []);
 
@@ -307,11 +306,11 @@ export default function WorkGallery({ id, eyebrow, title, emphasizedTitle, icon,
                 <AnimatePresence mode="wait">
                     {viewMode === "grid" ? (
                         <motion.div className="work-grid" key="grid" initial={reduceMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduceMotion ? 0.01 : 0.2 }} style={gridContainerStyle}>
-                            {orderedProjects.map((project, index) => <WorkGridCard key={project.src} project={project} index={index} kind={id} onSelect={selectProject} reduceMotion={reduceMotion} />)}
+                            {projects.map((project, index) => <WorkGridCard key={project.src} project={project} index={index} kind={id} onSelect={selectProject} reduceMotion={reduceMotion} />)}
                         </motion.div>
                     ) : (
                         <motion.div key="list" initial={reduceMotion ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduceMotion ? 0.01 : 0.2 }} style={listContainerStyle}>
-                            {orderedProjects.map((project, index) => <WorkListRow key={project.src} project={project} index={index} kind={id} onSelect={selectProject} reduceMotion={reduceMotion} />)}
+                            {projects.map((project, index) => <WorkListRow key={project.src} project={project} index={index} kind={id} onSelect={selectProject} reduceMotion={reduceMotion} />)}
                         </motion.div>
                     )}
                 </AnimatePresence>

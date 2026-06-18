@@ -4,7 +4,7 @@ import {
     type MediaMetadata,
     type MediaOrientation,
     type PortfolioAsset,
-} from "../../data/portfolioAssets";
+} from "../../data/portfolioAssetUtils";
 import { pauseOtherVideo } from "./mediaPlayback";
 
 export type WorkKind = "websites" | "graphics" | "logos";
@@ -71,7 +71,9 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const hasCarousel = carouselItems.length > 1;
     const [activeSlide, setActiveSlide] = useState(0);
     const activeCarouselItem = hasCarousel ? carouselItems[activeSlide % carouselItems.length] : undefined;
-    const mediaSrc = activeCarouselItem?.src ?? project.src;
+    const mediaSrc = project.kind === "video"
+        ? activeCarouselItem?.src ?? project.src
+        : activeCarouselItem?.previewSrc ?? project.previewSrc ?? activeCarouselItem?.src ?? project.src;
     const mediaName = activeCarouselItem?.name ?? project.name;
     const [metadata, updateMetadata] = useCachedMetadata(mediaSrc, kind);
     const [generatedPoster, setGeneratedPoster] = useState(() => posterCache.get(mediaSrc) ?? "");
@@ -266,11 +268,6 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     }, [isPreviewMode, isVideo, posterSource, thumbnailState.error, thumbnailState.loaded, updateThumbnailState]);
 
     useEffect(() => {
-        setGeneratedPoster(posterCache.get(mediaSrc) ?? "");
-        setThumbnailState(getCachedThumbnailState(mediaSrc));
-    }, [mediaSrc]);
-
-    useEffect(() => {
         if (!hasCarousel || reduceMotion || hovered) return;
         const interval = window.setInterval(() => {
             setActiveSlide((current) => (current + 1) % carouselItems.length);
@@ -289,8 +286,8 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
             {isLogo ? (
                 <div style={logoInnerStyle}>
                     <img
-                        src={project.src}
-                        alt={project.name}
+                        src={mediaSrc}
+                        alt={mediaName}
                         width={metadata.width}
                         height={metadata.height}
                         loading={imageLoading}

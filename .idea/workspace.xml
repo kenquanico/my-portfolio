@@ -4,27 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: update workspace configuration with new components and enhance project settings">
-      <change afterPath="$PROJECT_DIR$/src/assets/gallery/IMG_20260618_194609.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/gallery/Messenger_creation_08B84058-07D9-4B6F-BFC4-A41E9E9B5F4E~3.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/gallery/Messenger_creation_1DEF4B90-BDE0-4AD0-817B-6DBDC787C0B0~2.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/gallery/Messenger_creation_E9C3E6CA-FD98-49D7-997C-DE0461BE524A.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/gallery/Screenshot 2026-06-18 at 7.34.40 PM.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/gallery/received_1555921088439729~2.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/gallery/received_784441994252731.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/graphics/ADS.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/graphics/ROSIAan.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/graphics/Rosian.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/graphics/mabfb_Post 1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/graphics/mabfb_Post 2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/graphics/mabfb_Post 3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/graphics/mabfb_Post 4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: add personal gallery component and enhance styling for improved visual presentation">
       <change beforePath="$PROJECT_DIR$/src/components/AboutMe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/GraphicsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GraphicsSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LogosSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LogosSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Projects.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/WebsiteSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WebsiteSection.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkProjectModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkProjectModal.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/portfolioAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/portfolioAssets.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,39 +140,7 @@
       <workItem from="1781679216261" duration="10990000" />
       <workItem from="1781697571725" duration="260000" />
       <workItem from="1781753891075" duration="1613000" />
-      <workItem from="1781781778716" duration="2212000" />
-    </task>
-    <task id="LOCAL-00004" summary="style: update AboutMe component with custom scrollbar styles and background color">
-      <option name="closed" value="true" />
-      <created>1780583739380</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1780583739380</updated>
-    </task>
-    <task id="LOCAL-00005" summary="style: update AboutMe component with custom scrollbar styles and background color">
-      <option name="closed" value="true" />
-      <created>1780583743554</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1780583743554</updated>
-    </task>
-    <task id="LOCAL-00006" summary="style: update AboutMe component with custom scrollbar styles and background color">
-      <option name="closed" value="true" />
-      <created>1780583748076</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1780583748077</updated>
-    </task>
-    <task id="LOCAL-00007" summary="style: update AboutMe component with custom scrollbar styles and background color">
-      <option name="closed" value="true" />
-      <created>1780583756275</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1780583756275</updated>
+      <workItem from="1781781778716" duration="2996000" />
     </task>
     <task id="LOCAL-00008" summary="style: update AboutMe component with custom scrollbar styles and background color">
       <option name="closed" value="true" />
@@ -544,7 +502,39 @@
       <option name="project" value="LOCAL" />
       <updated>1781754405107</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="feat: add personal gallery component and enhance styling for improved visual presentation">
+      <option name="closed" value="true" />
+      <created>1781784627591</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1781784627591</updated>
+    </task>
+    <task id="LOCAL-00054" summary="feat: add personal gallery component and enhance styling for improved visual presentation">
+      <option name="closed" value="true" />
+      <created>1781784637454</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1781784637454</updated>
+    </task>
+    <task id="LOCAL-00055" summary="feat: add personal gallery component and enhance styling for improved visual presentation">
+      <option name="closed" value="true" />
+      <created>1781784646489</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1781784646489</updated>
+    </task>
+    <task id="LOCAL-00056" summary="feat: add personal gallery component and enhance styling for improved visual presentation">
+      <option name="closed" value="true" />
+      <created>1781784666005</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1781784666005</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -578,7 +568,8 @@
     <MESSAGE value="feat: update tech stack and services descriptions, enhance visual components in AboutMe" />
     <MESSAGE value="feat: enhance navigation with contact functionality and improve visual styles in components" />
     <MESSAGE value="feat: update workspace configuration with new components and enhance project settings" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: update workspace configuration with new components and enhance project settings" />
+    <MESSAGE value="feat: add personal gallery component and enhance styling for improved visual presentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add personal gallery component and enhance styling for improved visual presentation" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

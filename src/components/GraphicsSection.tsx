@@ -1,5 +1,4 @@
-import { useMemo } from "react";
-import { GRAPHICS } from "../data/portfolioAssets";
+import { GRAPHICS } from "../data/graphicAssets";
 import WorkGallery from "./portfolio/WorkGallery";
 
 const graphicsIcon = (
@@ -11,8 +10,6 @@ const graphicsIcon = (
 );
 
 export default function GraphicsSection() {
-    const projects = useMemo(() => GRAPHICS, []);
-
     return (
         <WorkGallery
             id="graphics"
@@ -20,7 +17,7 @@ export default function GraphicsSection() {
             title="Visual Identity &"
             emphasizedTitle="Print"
             icon={graphicsIcon}
-            projects={projects}
+            projects={GRAPHICS}
         />
     );
 }

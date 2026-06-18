@@ -1,13 +1,13 @@
-import { lazy, memo, Suspense, useMemo, useRef, useState } from "react";
+import { memo, useId, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { LiquidGlassDock } from "./dock/LiquidGlassDock";
 import Logo from "../assets/kenldry.svg";
 import TrueFocus from "./TrueFocus.tsx";
 import { GlassFilter } from "./dock/GlassFilter.tsx";
-import { WEBSITES, type PortfolioAsset } from "../data/portfolioAssets";
+import type { PortfolioAsset } from "../data/portfolioAssetUtils";
+import { WEBSITES } from "../data/websiteAssets";
 import WorkMedia from "./portfolio/WorkMedia";
-
-const LiquidEther = lazy(() => import("./LiquidEther.tsx"));
+import DeferredLiquidEther from "./DeferredLiquidEther";
 
 type DockItemConfig = {
     icon: React.ReactNode;
@@ -93,11 +93,8 @@ const GLOBAL_CSS = `
   }
 `;
 
-let _glassFilterId = 0;
 function useGlassFilterId() {
-    const ref = useRef<string | null>(null);
-    if (!ref.current) ref.current = `glass-filter-${_glassFilterId++}`;
-    return ref.current;
+    return useId().replace(/:/g, "-");
 }
 
 const CARD_SHADOW_BASE = `
@@ -404,26 +401,24 @@ export default function Portfolio({
 
             {/* BACKGROUND */}
             <div style={{ position: "fixed", inset: 0, zIndex: 0, width: "100vw", height: "100vh" }}>
-                <Suspense fallback={null}>
-                    <LiquidEther
-                        style={{ width: "100%", height: "100%" }}
-                        colors={['#5227FF', '#FF9FFC', '#B19EEF']}
-                        mouseForce={20}
-                        cursorSize={100}
-                        isViscous
-                        viscous={30}
-                        iterationsViscous={32}
-                        iterationsPoisson={32}
-                        resolution={0.5}
-                        isBounce={false}
-                        autoDemo
-                        autoSpeed={0.5}
-                        autoIntensity={2.2}
-                        takeoverDuration={0.25}
-                        autoResumeDelay={3000}
-                        autoRampDuration={0.6}
-                    />
-                </Suspense>
+                <DeferredLiquidEther
+                    style={{ width: "100%", height: "100%" }}
+                    colors={['#5227FF', '#FF9FFC', '#B19EEF']}
+                    mouseForce={20}
+                    cursorSize={100}
+                    isViscous
+                    viscous={30}
+                    iterationsViscous={32}
+                    iterationsPoisson={32}
+                    resolution={0.5}
+                    isBounce={false}
+                    autoDemo
+                    autoSpeed={0.5}
+                    autoIntensity={2.2}
+                    takeoverDuration={0.25}
+                    autoResumeDelay={3000}
+                    autoRampDuration={0.6}
+                />
             </div>
 
             {/* VIGNETTE */}

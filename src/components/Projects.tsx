@@ -4,9 +4,10 @@ import gsap from "gsap";
 import { LiquidGlassDock } from "./dock/LiquidGlassDock";
 import Logo from "../assets/kenldry.svg";
 import profilePhoto from "../assets/s2-optimized.jpg";
-import { GRAPHICS, LOGOS, WEBSITES } from "../data/portfolioAssets";
-
-const LiquidEther = lazy(() => import("./LiquidEther.tsx"));
+import { GRAPHICS } from "../data/graphicAssets";
+import { LOGOS } from "../data/logoAssets";
+import { WEBSITES } from "../data/websiteAssets";
+import DeferredLiquidEther from "./DeferredLiquidEther";
 const WebsitesSection = lazy(() => import("./WebsiteSection"));
 const GraphicsSection = lazy(() => import("./GraphicsSection"));
 const LogosSection = lazy(() => import("./LogosSection"));
@@ -435,18 +436,16 @@ export default function Projects({
 
             {/* Fixed LiquidEther bg */}
             <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
-                <Suspense fallback={null}>
-                    <LiquidEther
-                        style={{ width: "100%", height: "100%" }}
-                        colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
-                        mouseForce={20} cursorSize={100}
-                        isViscous viscous={30}
-                        iterationsViscous={32} iterationsPoisson={32}
-                        resolution={0.5} isBounce={false}
-                        autoDemo autoSpeed={0.5} autoIntensity={2.2}
-                        takeoverDuration={0.25} autoResumeDelay={3000} autoRampDuration={0.6}
-                    />
-                </Suspense>
+                <DeferredLiquidEther
+                    style={{ width: "100%", height: "100%" }}
+                    colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
+                    mouseForce={20} cursorSize={100}
+                    isViscous viscous={30}
+                    iterationsViscous={32} iterationsPoisson={32}
+                    resolution={0.5} isBounce={false}
+                    autoDemo autoSpeed={0.5} autoIntensity={2.2}
+                    takeoverDuration={0.25} autoResumeDelay={3000} autoRampDuration={0.6}
+                />
             </div>
             <div style={{
                 position: "fixed", inset: 0, zIndex: 1, pointerEvents: "none",
