@@ -4,6 +4,7 @@ import { LiquidGlassDock } from "./dock/LiquidGlassDock";
 import { GlassFilter } from "./dock/GlassFilter.tsx";
 import Logo from "../assets/kenldry.svg";
 import profilePhoto from "../assets/s2-optimized.jpg";
+import { ABOUT_GALLERY } from "../data/portfolioAssets";
 
 const LiquidEther = lazy(() => import("./LiquidEther.tsx"));
 
@@ -585,6 +586,8 @@ export default function AboutMe({
                         ))}
                     </div>
                 </motion.div>
+
+                <PersonalGallery />
             </section>
 
             {/* ══ SECTION 2 — Tech Stack Marquee ══ */}
@@ -650,6 +653,59 @@ export default function AboutMe({
                 </div>
             </section>
         </div>
+    );
+}
+
+function PersonalGallery() {
+    if (!ABOUT_GALLERY.length) return null;
+
+    const [feature, ...rest] = ABOUT_GALLERY;
+    const galleryItems = rest.length ? rest : ABOUT_GALLERY.slice(1);
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            style={{ marginTop: 92 }}
+        >
+            <div style={{ marginBottom: 28, textAlign: "center" }}>
+                <p style={{
+                    fontFamily: "'Syne', sans-serif", fontSize: "10px", fontWeight: 500,
+                    letterSpacing: "0.32em", textTransform: "uppercase",
+                    color: "rgba(160,145,200,0.6)", marginBottom: 10,
+                }}>Gallery</p>
+                <h2 style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: "clamp(28px, 3vw, 44px)", fontWeight: 300,
+                    letterSpacing: "-0.025em", color: "#fff", lineHeight: 1.1, marginBottom: 12,
+                }}>
+                    A few <em style={{ color: "rgba(160,145,200,0.8)", fontStyle: "italic" }}>frames</em> from me
+                </h2>
+                <div style={{ width: 48, height: 1, margin: "0 auto", background: "linear-gradient(90deg, transparent, rgba(160,145,200,0.45), transparent)" }} />
+            </div>
+
+            <GlassCard borderRadius={22} padding="18px" animate={false}>
+                <div className="about-gallery-grid">
+                    <div className="about-gallery-feature">
+                        <img src={feature.src} alt={feature.name} loading="lazy" decoding="async" />
+                        <div className="about-gallery-caption">
+                            <span>{feature.tag}</span>
+                            <p>{feature.name}</p>
+                        </div>
+                    </div>
+                    <div className="about-gallery-mosaic">
+                        {galleryItems.map((item, index) => (
+                            <div className="about-gallery-tile" key={item.src}>
+                                <img src={item.src} alt={item.name} loading="lazy" decoding="async" />
+                                <span>{String(index + 1).padStart(2, "0")}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </GlassCard>
+        </motion.div>
     );
 }
 
