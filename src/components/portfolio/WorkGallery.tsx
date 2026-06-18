@@ -72,6 +72,31 @@ const sharedCss = `
   .media-play-button:hover { transform: translate3d(-50%, -50%, 0) scale(1.06); background: rgba(0,0,0,0.66); }
   .media-shell-swatch .media-play-button { width: 34px; height: 34px; }
   .media-top-line { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent); pointer-events: none; }
+  .media-carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.26);
+    background: rgba(0,0,0,0.46);
+    color: rgba(255,255,255,0.9);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.34), inset 0 1px 0 rgba(255,255,255,0.18);
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  }
+  .media-carousel-button:hover { background: rgba(0,0,0,0.62); transform: translate3d(0, -50%, 0) scale(1.05); }
+  .media-carousel-button-prev { left: 12px; }
+  .media-carousel-button-next { right: 12px; }
+  .media-shell:hover .media-carousel-button,
+  .media-shell-modal .media-carousel-button { opacity: 1; }
   @keyframes media-shimmer { from { background-position: 120% 0; } to { background-position: -120% 0; } }
   @media (prefers-reduced-motion: reduce) {
     .media-skeleton { animation: none; }
@@ -85,6 +110,7 @@ const sharedCss = `
     .work-modal-copy { padding-left: 0; }
     .media-shell-modal { max-height: min(54vh, 430px); }
     .media-play-button { backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 8px 22px rgba(0,0,0,0.34); }
+    .media-carousel-button { opacity: 1; width: 30px; height: 30px; }
   }
   @media (max-width: 560px) {
     .work-section-title { align-items: flex-start; }

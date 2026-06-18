@@ -47,16 +47,16 @@ function PlayPauseIcon({ paused }: { paused: boolean }) {
     );
 }
 
-function useCachedMetadata(project: PortfolioAsset, kind: WorkKind) {
-    const [metadata, setMetadata] = useState<MediaMetadata>(() => metadataCache.get(project.src) ?? defaultMetadata(kind));
+function useCachedMetadata(src: string, kind: WorkKind) {
+    const [metadata, setMetadata] = useState<MediaMetadata>(() => metadataCache.get(src) ?? defaultMetadata(kind));
 
     const updateMetadata = useCallback((width: number, height: number) => {
         const next = createMediaMetadata(width, height);
-        const cached = metadataCache.get(project.src);
+        const cached = metadataCache.get(src);
         if (cached?.width === next.width && cached.height === next.height) return;
-        metadataCache.set(project.src, next);
+        metadataCache.set(src, next);
         setMetadata(next);
-    }, [project.src]);
+    }, [src]);
 
     return [metadata, updateMetadata] as const;
 }
@@ -67,9 +67,15 @@ function getCachedThumbnailState(src: string) {
 
 const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, fit, reduceMotion = false }: MediaPreviewProps) {
     const videoRef = useRef<HTMLVideoElement | null>(null);
-    const [metadata, updateMetadata] = useCachedMetadata(project, kind);
-    const [generatedPoster, setGeneratedPoster] = useState(() => posterCache.get(project.src) ?? "");
-    const [thumbnailState, setThumbnailState] = useState(() => getCachedThumbnailState(project.src));
+    const carouselItems = project.carouselItems ?? [];
+    const hasCarousel = carouselItems.length > 1;
+    const [activeSlide, setActiveSlide] = useState(0);
+    const activeCarouselItem = hasCarousel ? carouselItems[activeSlide % carouselItems.length] : undefined;
+    const mediaSrc = activeCarouselItem?.src ?? project.src;
+    const mediaName = activeCarouselItem?.name ?? project.name;
+    const [metadata, updateMetadata] = useCachedMetadata(mediaSrc, kind);
+    const [generatedPoster, setGeneratedPoster] = useState(() => posterCache.get(mediaSrc) ?? "");
+    const [thumbnailState, setThumbnailState] = useState(() => getCachedThumbnailState(mediaSrc));
     const [paused, setPaused] = useState(true);
     const [hovered, setHovered] = useState(false);
     const [videoRequested, setVideoRequested] = useState(false);
@@ -80,7 +86,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const hasStaticPoster = Boolean(project.posterSrc);
     const objectFit: MediaFit = fit ?? (mode === "thumb" && !isLogo ? "cover" : "contain");
     const showPlayButton = paused || hovered;
-    const loaded = thumbnailState.loaded || posterCache.has(project.src) || (!isVideo && metadataCache.has(project.src));
+    const loaded = thumbnailState.loaded || posterCache.has(mediaSrc) || (!isVideo && metadataCache.has(mediaSrc));
     const imageLoading = mode === "thumb" ? "lazy" : "eager";
     const needsFallbackPoster = isPreviewMode && !posterSource && !thumbnailState.error;
     const shouldLoadVideoSource = (!isPreviewMode && videoRequested) || videoRequested || needsFallbackPoster;
@@ -89,10 +95,10 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const updateThumbnailState = useCallback((next: Partial<{ loaded: boolean; error: boolean; seen: boolean }>) => {
         setThumbnailState((current) => {
             const merged = { ...current, ...next };
-            thumbnailStateCache.set(project.src, merged);
+            thumbnailStateCache.set(mediaSrc, merged);
             return merged;
         });
-    }, [project.src]);
+    }, [mediaSrc]);
 
     const shellStyle = useMemo(() => ({
         aspectRatio: metadata.aspectRatio,
@@ -149,7 +155,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
         if (video.paused) {
             setVideoRequested(true);
             if (!video.currentSrc) {
-                video.src = project.src;
+                video.src = mediaSrc;
                 video.load();
             }
             pauseOtherVideo(video);
@@ -158,7 +164,17 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
         } else {
             pauseVideo();
         }
-    }, [pauseVideo, project.src]);
+    }, [pauseVideo, mediaSrc]);
+
+    const showPreviousSlide = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        setActiveSlide((current) => (current - 1 + carouselItems.length) % carouselItems.length);
+    }, [carouselItems.length]);
+
+    const showNextSlide = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+        event.stopPropagation();
+        setActiveSlide((current) => (current + 1) % carouselItems.length);
+    }, [carouselItems.length]);
 
     const handleImageLoad = useCallback((event: React.SyntheticEvent<HTMLImageElement>) => {
         const img = event.currentTarget;
@@ -173,7 +189,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const handleVideoMetadata = useCallback((event: React.SyntheticEvent<HTMLVideoElement>) => {
         const video = event.currentTarget;
         updateMetadata(video.videoWidth, video.videoHeight);
-        if (!isPreviewMode || posterCache.has(project.src)) {
+        if (!isPreviewMode || posterCache.has(mediaSrc)) {
             updateThumbnailState({ loaded: true, error: false, seen: true });
             return;
         }
@@ -185,7 +201,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
         } catch {
             updateThumbnailState({ loaded: true, error: true, seen: true });
         }
-    }, [hasStaticPoster, isPreviewMode, project.src, updateMetadata, updateThumbnailState]);
+    }, [hasStaticPoster, isPreviewMode, mediaSrc, updateMetadata, updateThumbnailState]);
 
     const capturePoster = useCallback((event: React.SyntheticEvent<HTMLVideoElement>) => {
         if (!isPreviewMode) {
@@ -193,7 +209,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
             return;
         }
 
-        const cachedPoster = posterCache.get(project.src);
+        const cachedPoster = posterCache.get(mediaSrc);
         if (cachedPoster) {
             setGeneratedPoster(cachedPoster);
             updateThumbnailState({ loaded: true, error: false, seen: true });
@@ -218,13 +234,13 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
 
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
             const poster = canvas.toDataURL("image/jpeg", 0.76);
-            posterCache.set(project.src, poster);
+            posterCache.set(mediaSrc, poster);
             setGeneratedPoster(poster);
             updateThumbnailState({ loaded: true, error: false, seen: true });
         } catch {
             updateThumbnailState({ loaded: true, error: true, seen: true });
         }
-    }, [isPreviewMode, project.src, updateThumbnailState]);
+    }, [isPreviewMode, mediaSrc, updateThumbnailState]);
 
     useEffect(() => {
         const video = videoRef.current;
@@ -248,6 +264,19 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
         }, 2500);
         return () => window.clearTimeout(timeout);
     }, [isPreviewMode, isVideo, posterSource, thumbnailState.error, thumbnailState.loaded, updateThumbnailState]);
+
+    useEffect(() => {
+        setGeneratedPoster(posterCache.get(mediaSrc) ?? "");
+        setThumbnailState(getCachedThumbnailState(mediaSrc));
+    }, [mediaSrc]);
+
+    useEffect(() => {
+        if (!hasCarousel || reduceMotion || hovered) return;
+        const interval = window.setInterval(() => {
+            setActiveSlide((current) => (current + 1) % carouselItems.length);
+        }, mode === "modal" ? 3600 : 3000);
+        return () => window.clearInterval(interval);
+    }, [carouselItems.length, hasCarousel, hovered, mode, reduceMotion]);
 
     return (
         <div
@@ -275,7 +304,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                 <>
                     <video
                         ref={videoRef}
-                        src={shouldLoadVideoSource ? project.src : undefined}
+                        src={shouldLoadVideoSource ? mediaSrc : undefined}
                         poster={posterSource || undefined}
                         width={metadata.width}
                         height={metadata.height}
@@ -297,7 +326,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                     {isPreviewMode && posterSource && (
                         <img
                             src={posterSource}
-                            alt={project.name}
+                            alt={mediaName}
                             width={metadata.width}
                             height={metadata.height}
                             loading={imageLoading}
@@ -308,8 +337,8 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                         />
                     )}
                     {showVideoFallback && (
-                        <div className="media-video-fallback" aria-label={`${project.name} preview`}>
-                            <span>{project.name}</span>
+                        <div className="media-video-fallback" aria-label={`${mediaName} preview`}>
+                            <span>{mediaName}</span>
                         </div>
                     )}
                     <button
@@ -331,8 +360,8 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                 </>
             ) : (
                 <img
-                    src={project.src}
-                    alt={project.name}
+                    src={mediaSrc}
+                    alt={mediaName}
                     width={metadata.width}
                     height={metadata.height}
                     loading={imageLoading}
@@ -341,6 +370,43 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                     onError={handleMediaError}
                     style={mediaStyle}
                 />
+            )}
+            {hasCarousel && (
+                <>
+                    <div
+                        aria-hidden
+                        style={{
+                            position: "absolute",
+                            left: 12,
+                            right: 12,
+                            bottom: 12,
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: 5,
+                            pointerEvents: "none",
+                        }}
+                    >
+                        {carouselItems.map((item, index) => (
+                            <span
+                                key={item.src}
+                                style={{
+                                    width: activeSlide === index ? 18 : 6,
+                                    height: 6,
+                                    borderRadius: 999,
+                                    background: activeSlide === index ? "rgba(255,255,255,0.88)" : "rgba(255,255,255,0.32)",
+                                    boxShadow: "0 2px 8px rgba(0,0,0,0.35)",
+                                    transition: reduceMotion ? "none" : "width 0.24s ease, background 0.24s ease",
+                                }}
+                            />
+                        ))}
+                    </div>
+                    <button type="button" aria-label="Previous Mabpost slide" onClick={showPreviousSlide} className="media-carousel-button media-carousel-button-prev">
+                        <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
+                    </button>
+                    <button type="button" aria-label="Next Mabpost slide" onClick={showNextSlide} className="media-carousel-button media-carousel-button-next">
+                        <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6" /></svg>
+                    </button>
+                </>
             )}
             {!isPreviewMode && <div className="media-top-line" />}
         </div>

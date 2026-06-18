@@ -4,9 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: enhance navigation with contact functionality and improve visual styles in components">
-      <change afterPath="$PROJECT_DIR$/src/assets/logos/Glamora.png" afterDir="false" />
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: update workspace configuration with new components and enhance project settings">
+      <change afterPath="$PROJECT_DIR$/src/assets/gallery/IMG_20260618_194609.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/gallery/Messenger_creation_08B84058-07D9-4B6F-BFC4-A41E9E9B5F4E~3.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/gallery/Messenger_creation_1DEF4B90-BDE0-4AD0-817B-6DBDC787C0B0~2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/gallery/Messenger_creation_E9C3E6CA-FD98-49D7-997C-DE0461BE524A.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/gallery/Screenshot 2026-06-18 at 7.34.40 PM.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/gallery/received_1555921088439729~2.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/gallery/received_784441994252731.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/graphics/ADS.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/graphics/ROSIAan.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/graphics/Rosian.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/graphics/mabfb_Post 1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/graphics/mabfb_Post 2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/graphics/mabfb_Post 3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/graphics/mabfb_Post 4.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/AboutMe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/portfolioAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/portfolioAssets.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,11 +99,11 @@
       <recent name="$PROJECT_DIR$/src/assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/assets/web-mobile_demo" />
-      <recent name="$PROJECT_DIR$/src/assets/logos" />
       <recent name="$PROJECT_DIR$/src/assets/graphics" />
+      <recent name="$PROJECT_DIR$/src/assets/gallery" />
+      <recent name="$PROJECT_DIR$/src/assets/logos" />
+      <recent name="$PROJECT_DIR$/src/assets/web-mobile_demo" />
       <recent name="$PROJECT_DIR$/src/assets" />
-      <recent name="$PROJECT_DIR$/src/components/dock" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -131,15 +149,8 @@
       <workItem from="1781626091436" duration="749000" />
       <workItem from="1781679216261" duration="10990000" />
       <workItem from="1781697571725" duration="260000" />
-      <workItem from="1781753891075" duration="344000" />
-    </task>
-    <task id="LOCAL-00003" summary="refactor App component to include Projects and AboutMe pages; update navigation logic and enhance LandingPage with project view options">
-      <option name="closed" value="true" />
-      <created>1773375633982</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1773375633982</updated>
+      <workItem from="1781753891075" duration="1613000" />
+      <workItem from="1781781778716" duration="2212000" />
     </task>
     <task id="LOCAL-00004" summary="style: update AboutMe component with custom scrollbar styles and background color">
       <option name="closed" value="true" />
@@ -525,7 +536,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781694827739</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="feat: update workspace configuration with new components and enhance project settings">
+      <option name="closed" value="true" />
+      <created>1781754405105</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1781754405107</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -558,7 +577,8 @@
     <MESSAGE value="feat: add GitHub link functionality to navigation and enhance visual styles in Dock components" />
     <MESSAGE value="feat: update tech stack and services descriptions, enhance visual components in AboutMe" />
     <MESSAGE value="feat: enhance navigation with contact functionality and improve visual styles in components" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance navigation with contact functionality and improve visual styles in components" />
+    <MESSAGE value="feat: update workspace configuration with new components and enhance project settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: update workspace configuration with new components and enhance project settings" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

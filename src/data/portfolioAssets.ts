@@ -21,18 +21,25 @@ export interface PortfolioAsset {
     kind: PortfolioAssetKind;
     path: string;
     posterSrc?: string;
+    carouselItems?: Array<{
+        src: string;
+        fileName: string;
+        name: string;
+    }>;
 }
 
 const imageExtensions = new Set(["jpg", "jpeg", "png", "svg", "webp", "gif", "avif"]);
 const videoExtensions = new Set(["mp4", "webm", "mov"]);
 const allowedGraphicExtensions = new Set([...imageExtensions]);
+const allowedGalleryExtensions = new Set([...imageExtensions]);
 const allowedLogoExtensions = new Set([...imageExtensions]);
 const allowedDemoExtensions = new Set([...videoExtensions]);
 const graphicPriority = new Map([
     ["mabdoc poster final", 0],
-    ["rosian social media post", 1],
-    ["titan watch", 2],
-    ["seihane magazine cover page", 3],
+    ["mabpost social carousel", 1],
+    ["rosian social media post", 2],
+    ["titan watch", 3],
+    ["seihane magazine cover page", 4],
 ]);
 const currentYear = new Date().getFullYear().toString();
 const assetCopy = new Map<string, Partial<Pick<PortfolioAsset, "tagline" | "description">>>([
@@ -55,6 +62,10 @@ const assetCopy = new Map<string, Partial<Pick<PortfolioAsset, "tagline" | "desc
     ["mabdoc poster final", {
         tagline: "Healthcare campaign visual built around trust and clarity",
         description: "A people-first medical poster designed to make healthcare information feel credible, calm, and easy to understand. The composition supports patients who need quick context without visual noise.",
+    }],
+    ["mabpost social carousel", {
+        tagline: "MABDOC social carousel for patient-facing announcements",
+        description: "A carousel set for MABDOC that turns healthcare updates into a cleaner sequence of social posts. Each frame keeps the message direct, credible, and easy to scan while staying visually connected to the medical brand.",
     }],
     ["rosian social media post", {
         tagline: "Social content designed for quick property discovery",
@@ -139,6 +150,12 @@ const assetCopy = new Map<string, Partial<Pick<PortfolioAsset, "tagline" | "desc
 ]);
 
 const graphicsModules = import.meta.glob("../assets/graphics/*.{jpg,jpeg,png,svg,webp,gif,avif}", {
+    eager: true,
+    query: "?url",
+    import: "default",
+}) as Record<string, string>;
+
+const galleryModules = import.meta.glob("../assets/gallery/*.{jpg,jpeg,png,svg,webp,gif,avif}", {
     eager: true,
     query: "?url",
     import: "default",
@@ -286,6 +303,34 @@ function prioritizeGraphics(assets: PortfolioAsset[]) {
     }));
 }
 
+function groupMabpostCarousel(assets: PortfolioAsset[]) {
+    const mabpostAssets = assets.filter((asset) => priorityKey(asset.name).startsWith("mabfb post"));
+    if (!mabpostAssets.length) return assets;
+
+    const carouselItems = mabpostAssets
+        .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: "base" }))
+        .map((asset) => ({
+            src: asset.src,
+            fileName: asset.fileName,
+            name: asset.name,
+        }));
+    const [cover] = mabpostAssets;
+    const withoutMabpost = assets.filter((asset) => !priorityKey(asset.name).startsWith("mabfb post"));
+
+    return [
+        ...withoutMabpost,
+        {
+            ...cover,
+            name: "Mabpost Social Carousel",
+            tag: "MABDOC",
+            tagline: assetCopy.get("mabpost social carousel")?.tagline ?? cover.tagline,
+            description: assetCopy.get("mabpost social carousel")?.description ?? cover.description,
+            fileName: "mabfb_Post 1-4.png",
+            carouselItems,
+        },
+    ];
+}
+
 export const WEBSITES = buildAssets(
     demoModules,
     "Demo",
@@ -296,13 +341,21 @@ export const WEBSITES = buildAssets(
 );
 
 export const GRAPHICS = prioritizeGraphics(
-    buildAssets(
+    groupMabpostCarousel(buildAssets(
         graphicsModules,
         "Graphic",
         "Visual design asset",
         "Portfolio graphic loaded directly from the graphics assets folder.",
         allowedGraphicExtensions,
-    )
+    ))
+);
+
+export const ABOUT_GALLERY = buildAssets(
+    galleryModules,
+    "Gallery",
+    "Personal gallery moment",
+    "A selected personal gallery image from the About Me collection.",
+    allowedGalleryExtensions,
 );
 
 export const LOGOS = buildAssets(
@@ -314,5 +367,5 @@ export const LOGOS = buildAssets(
 );
 
 export const ASSET_BY_SRC = new Map<string, PortfolioAsset>(
-    [...WEBSITES, ...GRAPHICS, ...LOGOS].map((asset) => [asset.src, asset])
+    [...WEBSITES, ...GRAPHICS, ...LOGOS, ...ABOUT_GALLERY].map((asset) => [asset.src, asset])
 );
