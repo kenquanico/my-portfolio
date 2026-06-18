@@ -5,16 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: add personal gallery component and enhance styling for improved visual presentation">
+      <change afterPath="$PROJECT_DIR$/src/assets/web-mobile_demo/Screen Recording 2026-06-18 at 10.58.20 PM.mov" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/AboutMe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GraphicsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GraphicsSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LogosSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LogosSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Projects.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Projects.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/WebsiteSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/WebsiteSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkProjectModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkProjectModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/portfolioAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/portfolioAssets.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/galleryAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/galleryAssets.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,10 +83,10 @@
       <recent name="$PROJECT_DIR$/src/assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/assets/web-mobile_demo" />
       <recent name="$PROJECT_DIR$/src/assets/graphics" />
       <recent name="$PROJECT_DIR$/src/assets/gallery" />
       <recent name="$PROJECT_DIR$/src/assets/logos" />
-      <recent name="$PROJECT_DIR$/src/assets/web-mobile_demo" />
       <recent name="$PROJECT_DIR$/src/assets" />
     </key>
   </component>
@@ -140,23 +134,7 @@
       <workItem from="1781679216261" duration="10990000" />
       <workItem from="1781697571725" duration="260000" />
       <workItem from="1781753891075" duration="1613000" />
-      <workItem from="1781781778716" duration="2996000" />
-    </task>
-    <task id="LOCAL-00008" summary="style: update AboutMe component with custom scrollbar styles and background color">
-      <option name="closed" value="true" />
-      <created>1780583762095</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1780583762095</updated>
-    </task>
-    <task id="LOCAL-00009" summary="style: update AboutMe component with custom scrollbar styles and background color">
-      <option name="closed" value="true" />
-      <created>1780583766070</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1780583766070</updated>
+      <workItem from="1781781778716" duration="4524000" />
     </task>
     <task id="LOCAL-00010" summary="style: update AboutMe component with custom scrollbar styles and background color">
       <option name="closed" value="true" />
@@ -534,7 +512,23 @@
       <option name="project" value="LOCAL" />
       <updated>1781784666005</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="feat: add personal gallery component and enhance styling for improved visual presentation">
+      <option name="closed" value="true" />
+      <created>1781789907533</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1781789907533</updated>
+    </task>
+    <task id="LOCAL-00058" summary="feat: add personal gallery component and enhance styling for improved visual presentation">
+      <option name="closed" value="true" />
+      <created>1781790014947</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1781790014947</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
