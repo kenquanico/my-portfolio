@@ -112,6 +112,10 @@ const assetCopy = new Map<string, Partial<Pick<PortfolioAsset, "tagline" | "desc
         tagline: "Soft identity mark for an elevated visual mood",
         description: "A logo direction built around lightness, polish, and a more refined emotional tone. It gives the brand room to feel premium without becoming distant.",
     }],
+    ["glamora", {
+        tagline: "Salon app identity for polished beauty booking",
+        description: "Glamora is a salon app identity designed to make beauty bookings feel modern, refined, and easy to trust. The mark supports a mobile-first experience where clients can discover services, book appointments, and connect with salon care in a more polished way.",
+    }],
     ["mabdoc port", {
         tagline: "Healthcare identity mark for trust and access",
         description: "A medical platform logo shaped to feel clear, professional, and approachable. The goal is to support patient confidence before they ever open a clinic profile.",
