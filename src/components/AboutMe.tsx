@@ -680,20 +680,20 @@ function PersonalGallery() {
                 <div style={{ width: 48, height: 1, margin: "0 auto", background: "linear-gradient(90deg, transparent, rgba(160,145,200,0.45), transparent)" }} />
             </div>
 
-            <GlassCard borderRadius={22} padding="18px" animate={false}>
-                <div className="grid grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] gap-3.5 max-[900px]:grid-cols-1">
-                    <div className="group relative min-h-[430px] overflow-hidden rounded-[18px] border border-white/10 bg-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] max-[900px]:min-h-[380px] max-[620px]:min-h-[320px]">
-                        <img className="block h-full w-full object-cover contrast-[1.04] saturate-[0.95] transition duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.045] group-hover:contrast-[1.06] group-hover:saturate-[1.08]" src={feature.previewSrc ?? feature.src} alt={feature.name} width={1200} height={900} loading="lazy" decoding="async" />
-                        <div className="absolute bottom-[18px] left-[18px] right-[18px] rounded-[14px] border border-white/10 bg-black/45 px-4 py-3.5 backdrop-blur-2xl backdrop-saturate-150">
-                            <span className="font-['Syne'] text-[9px] font-semibold uppercase tracking-[0.2em] text-white/60">01</span>
-                            <p className="m-0 mt-1 font-['Playfair_Display'] text-[clamp(18px,2vw,24px)] font-light leading-[1.1] text-white/95">{feature.name}</p>
+            <GlassCard borderRadius={20} padding="14px" animate={false}>
+                <div className="about-gallery-grid">
+                    <div className="about-gallery-feature">
+                        <img src={feature.previewSrc ?? feature.src} alt={feature.name} width={960} height={720} loading="lazy" decoding="async" />
+                        <div className="about-gallery-caption">
+                            <span>01</span>
+                            <p>{feature.name}</p>
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 auto-rows-[136px] gap-3.5 max-[620px]:auto-rows-[120px] max-[620px]:gap-2.5 max-[430px]:grid-cols-1">
+                    <div className="about-gallery-mosaic">
                         {galleryItems.map((item, index) => (
-                            <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] [@media(min-width:431px)]:[&:nth-child(3n+1)]:row-span-2 max-[620px]:rounded-xl" key={item.src}>
-                                <img className="block h-full w-full object-cover contrast-[1.04] saturate-[0.95] transition duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.045] group-hover:contrast-[1.06] group-hover:saturate-[1.08]" src={item.previewSrc ?? item.src} alt={item.name} width={800} height={600} loading="lazy" decoding="async" />
-                                <span className="absolute left-3 top-3 rounded-full border border-white/10 bg-black/40 px-2 py-1 font-['Syne'] text-[9px] font-semibold uppercase tracking-[0.2em] text-white/60 backdrop-blur-xl">{String(index + 2).padStart(2, "0")}</span>
+                            <div className="about-gallery-tile" key={item.src}>
+                                <img src={item.previewSrc ?? item.src} alt={item.name} width={640} height={480} loading="lazy" decoding="async" />
+                                <span>{String(index + 2).padStart(2, "0")}</span>
                             </div>
                         ))}
                     </div>

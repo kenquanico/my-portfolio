@@ -91,7 +91,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const loaded = thumbnailState.loaded || posterCache.has(mediaSrc) || (!isVideo && metadataCache.has(mediaSrc));
     const imageLoading = mode === "thumb" ? "lazy" : "eager";
     const needsFallbackPoster = isPreviewMode && !posterSource && !thumbnailState.error;
-    const shouldLoadVideoSource = !isPreviewMode || videoRequested || needsFallbackPoster;
+    const shouldLoadVideoSource = videoRequested || needsFallbackPoster;
     const showVideoFallback = isVideo && isPreviewMode && thumbnailState.error && !posterSource && paused;
 
     const updateThumbnailState = useCallback((next: Partial<{ loaded: boolean; error: boolean; seen: boolean }>) => {
@@ -162,12 +162,17 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                 video.load();
             }
             pauseOtherVideo(video);
-            await video.play();
-            setPaused(false);
+            try {
+                await video.play();
+                setPaused(false);
+            } catch {
+                setPaused(true);
+                updateThumbnailState({ loaded: true, error: true, seen: true });
+            }
         } else {
             pauseVideo();
         }
-    }, [pauseVideo, mediaSrc]);
+    }, [pauseVideo, mediaSrc, updateThumbnailState]);
 
     const showPreviousSlide = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
         event.stopPropagation();
