@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: add personal gallery component and enhance styling for improved visual presentation">
-      <change afterPath="$PROJECT_DIR$/src/assets/web-mobile_demo/Screen Recording 2026-06-18 at 10.58.20 PM.mov" afterDir="false" />
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: refactor AboutMe component and enhance gallery layout for improved user experience">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AboutMe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/galleryAssets.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/galleryAssets.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,15 +131,8 @@
       <workItem from="1781679216261" duration="10990000" />
       <workItem from="1781697571725" duration="260000" />
       <workItem from="1781753891075" duration="1613000" />
-      <workItem from="1781781778716" duration="4524000" />
-    </task>
-    <task id="LOCAL-00010" summary="style: update AboutMe component with custom scrollbar styles and background color">
-      <option name="closed" value="true" />
-      <created>1780583771987</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1780583771987</updated>
+      <workItem from="1781781778716" duration="6603000" />
+      <workItem from="1781886383235" duration="898000" />
     </task>
     <task id="LOCAL-00011" summary="style: update AboutMe component with custom scrollbar styles and background color">
       <option name="closed" value="true" />
@@ -528,7 +518,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781790014947</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="feat: refactor AboutMe component and enhance gallery layout for improved user experience">
+      <option name="closed" value="true" />
+      <created>1781797861831</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1781797861831</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -563,7 +561,8 @@
     <MESSAGE value="feat: enhance navigation with contact functionality and improve visual styles in components" />
     <MESSAGE value="feat: update workspace configuration with new components and enhance project settings" />
     <MESSAGE value="feat: add personal gallery component and enhance styling for improved visual presentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add personal gallery component and enhance styling for improved visual presentation" />
+    <MESSAGE value="feat: refactor AboutMe component and enhance gallery layout for improved user experience" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: refactor AboutMe component and enhance gallery layout for improved user experience" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

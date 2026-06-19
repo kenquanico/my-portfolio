@@ -44,7 +44,7 @@ export const graphicPriority = new Map([
     ["seihane magazine cover page", 4],
 ]);
 const currentYear = new Date().getFullYear().toString();
-export const assetCopy = new Map<string, Partial<Pick<PortfolioAsset, "tagline" | "description">>>([
+export const assetCopy = new Map<string, Partial<Pick<PortfolioAsset, "name" | "tagline" | "description">>>([
     ["agri demo", {
         tagline: "Rice pest detection and geospatial alert system",
         description: "A capstone project built around YOLOv8m for rice pest detection, with geospatial alarm logging that helps people respond faster to field-level threats. It was recognized as Best Innovation at the STI West Negros University Research Colloquium.",
@@ -60,6 +60,11 @@ export const assetCopy = new Map<string, Partial<Pick<PortfolioAsset, "tagline" 
     ["sti app demo", {
         tagline: "Campus app concept for everyday student workflows",
         description: "A student-focused project concept for STI WNU that brings common campus actions into a cleaner mobile experience. The goal is to make student information, updates, and daily school interactions feel easier to access and less scattered.",
+    }],
+    ["screen recording 2026 06 18 at 10 58 20 pm", {
+        name: "Glamora App Demo",
+        tagline: "Salon booking experience for polished client care",
+        description: "A mobile salon app demo shaped around smooth service discovery, appointment booking, and a more refined way for clients to connect with beauty care.",
     }],
     ["mabdoc poster final", {
         tagline: "Healthcare campaign visual built around trust and clarity",
@@ -227,7 +232,7 @@ export function buildAssets(
         seenSources.add(src);
         assets.push({
             id: assets.length + 1,
-            name: titleFromFileName(fileName),
+            name: copy?.name ?? titleFromFileName(fileName),
             year: currentYear,
             tag,
             tagline: copy?.tagline ?? tagline,
