@@ -167,6 +167,24 @@ const tagStyle = {
     marginTop: 2,
 };
 
+const liveLinkStyle = {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 6,
+    borderRadius: 999,
+    padding: "5px 10px",
+    border: "1px solid rgba(255,255,255,0.16)",
+    background: "rgba(255,255,255,0.07)",
+    color: "rgba(255,255,255,0.78)",
+    fontFamily: "'Syne', sans-serif",
+    fontSize: "9px",
+    fontWeight: 600,
+    letterSpacing: "0.13em",
+    textTransform: "uppercase" as const,
+    textDecoration: "none",
+    whiteSpace: "nowrap" as const,
+};
+
 const glassBase = (hovered: boolean) => ({
     background: "transparent" as const,
     backdropFilter: "blur(24px) saturate(1.3)",
@@ -227,9 +245,16 @@ const WorkGridCard = memo(function WorkGridCard({ project, index, kind, reduceMo
                     {kind === "websites" && <span style={tagStyle}>{project.tag}</span>}
                 </div>
                 <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "clamp(12px, 1.2vw, 13px)", fontWeight: 300, color: "rgba(255,255,255,0.44)", marginBottom: 14, lineHeight: 1.5 }}>{project.tagline}</p>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
                     <span style={{ fontFamily: "'Syne', sans-serif", fontSize: "10px", letterSpacing: "0.16em", color: "rgba(255,255,255,0.27)" }}>{project.year}</span>
-                    <motion.div animate={{ x: hovered && !reduceMotion ? 4 : 0, opacity: hovered ? 1 : 0.38 }} transition={{ duration: 0.2 }} style={{ color: "rgba(255,255,255,0.9)", willChange: "transform, opacity" }}><svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg></motion.div>
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
+                        {project.liveUrl && (
+                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} style={liveLinkStyle}>
+                                Live
+                            </a>
+                        )}
+                        <motion.div animate={{ x: hovered && !reduceMotion ? 4 : 0, opacity: hovered ? 1 : 0.38 }} transition={{ duration: 0.2 }} style={{ color: "rgba(255,255,255,0.9)", willChange: "transform, opacity" }}><svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg></motion.div>
+                    </div>
                 </div>
             </div>
         </motion.div>
@@ -250,9 +275,14 @@ const WorkListRow = memo(function WorkListRow({ project, index, kind, reduceMoti
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
                 <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, fontWeight: 400, color: "rgba(255,255,255,0.97)", letterSpacing: "-0.02em", lineHeight: 1.2, marginBottom: 3, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{project.name}</p>
-                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 300, color: "rgba(255,255,255,0.44)", lineHeight: 1.4 }}>{project.fileName}</p>
+                <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 12, fontWeight: 300, color: "rgba(255,255,255,0.44)", lineHeight: 1.4, display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{project.tagline}</p>
             </div>
             <div className="work-list-meta" style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                {project.liveUrl && (
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()} style={liveLinkStyle}>
+                        Live Demo
+                    </a>
+                )}
                 <span style={{ fontFamily: "'Syne', sans-serif", fontSize: "9px", fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", padding: "3px 9px", borderRadius: 5, flexShrink: 0, background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.13)", color: "rgba(255,255,255,0.65)" }}>{project.tag}</span>
                 <span style={{ fontFamily: "'Syne', sans-serif", fontSize: "10px", letterSpacing: "0.14em", color: "rgba(255,255,255,0.27)", flexShrink: 0 }}>{project.year}</span>
                 <motion.div animate={{ x: hovered && !reduceMotion ? 4 : 0, opacity: hovered ? 1 : 0.32 }} transition={{ duration: 0.2 }} style={{ color: "rgba(255,255,255,0.88)", flexShrink: 0, willChange: "transform, opacity" }}><svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg></motion.div>

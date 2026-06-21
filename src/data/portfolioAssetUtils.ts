@@ -22,6 +22,7 @@ export interface PortfolioAsset {
     path: string;
     posterSrc?: string;
     previewSrc?: string;
+    liveUrl?: string;
     carouselItems?: Array<{
         src: string;
         previewSrc?: string;
@@ -45,6 +46,41 @@ export const graphicPriority = new Map([
 ]);
 const currentYear = new Date().getFullYear().toString();
 export const assetCopy = new Map<string, Partial<Pick<PortfolioAsset, "name" | "tagline" | "description">>>([
+    ["aurora basic e commerce", {
+        name: "Aurora E-commerce Demo",
+        tagline: "Atmospheric storefront experience with cart and product browsing",
+        description: "A compact e-commerce storefront demo focused on fast product discovery, polished browsing, cart interactions, and a dark Aurora-inspired visual system.",
+    }],
+    ["aurora demo", {
+        name: "Aurora Storefront Preview",
+        tagline: "Dark storefront concept with a smooth shopping flow",
+        description: "A storefront preview shaped around a refined dark interface, responsive product browsing, and a clean shopping experience.",
+    }],
+    ["futuresphere saas website", {
+        name: "FutureSphere SaaS Website",
+        tagline: "Futuristic SaaS landing page with focused conversion flow",
+        description: "A SaaS landing page concept built around strong visual hierarchy, polished motion, and a clearer path from product story to action.",
+    }],
+    ["mabdoc ai healthcare assistant", {
+        name: "MABDOC AI Healthcare Assistant",
+        tagline: "Healthcare assistant flow for faster patient guidance",
+        description: "An AI healthcare assistant concept that helps people move through medical questions, clinic discovery, and care-related decisions with less friction.",
+    }],
+    ["pathway dark", {
+        name: "Pathway Dark SaaS",
+        tagline: "Dark productivity SaaS landing page",
+        description: "A productivity SaaS landing page in a darker visual direction, built to keep the product story clear while preserving polish and depth.",
+    }],
+    ["pathway productivity saas", {
+        name: "Pathway Productivity SaaS",
+        tagline: "Productivity SaaS landing page for better workflow clarity",
+        description: "A productivity SaaS landing page designed around focused messaging, clean sections, and an easier path for users to understand the product.",
+    }],
+    ["vaultflow landing page", {
+        name: "VaultFlow Landing Page",
+        tagline: "Fintech landing page with polished SaaS storytelling",
+        description: "A fintech-style SaaS landing page built for fast scanning, strong visual trust, and a direct path into the product value proposition.",
+    }],
     ["agri demo", {
         tagline: "Rice pest detection and geospatial alert system",
         description: "A capstone project built around YOLOv8m for rice pest detection, with geospatial alarm logging that helps people respond faster to field-level threats. It was recognized as Best Innovation at the STI West Negros University Research Colloquium.",
@@ -227,7 +263,8 @@ export function buildAssets(
         const extension = extensionFromPath(fileName);
         if (!allowedExtensions.has(extension)) continue;
         if (imageExtensions.has(extension) && videoStems.has(stemFromFileName(fileName))) continue;
-        const copy = assetCopy.get(priorityKey(fileName.replace(/\.[^/.]+$/, "")));
+        const key = priorityKey(fileName.replace(/\.[^/.]+$/, ""));
+        const copy = assetCopy.get(key);
 
         seenSources.add(src);
         assets.push({
@@ -244,11 +281,19 @@ export function buildAssets(
             path,
             posterSrc: posterByStem.get(stemFromFileName(fileName)),
             previewSrc: previewByStem.get(stemFromFileName(fileName)),
+            liveUrl: liveDemoUrls.get(key),
         });
     }
 
     return assets;
 }
+
+const liveDemoUrls = new Map<string, string>([
+    ["futuresphere saas website", "https://futuresphere-two.vercel.app/"],
+    ["pathway dark", "https://pathway-dark-gbpn.vercel.app/"],
+    ["pathway productivity saas", "https://pathway-mauve-one.vercel.app/"],
+    ["vaultflow landing page", "https://vaultflow-smoky.vercel.app/"],
+]);
 
 export function buildPreviewMap(modules: Record<string, string>) {
     return new Map(

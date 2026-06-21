@@ -683,16 +683,16 @@ function PersonalGallery() {
             <GlassCard borderRadius={20} padding="14px" animate={false}>
                 <div className="about-gallery-grid">
                     <div className="about-gallery-feature">
-                        <img src={feature.previewSrc ?? feature.src} alt={feature.name} width={960} height={720} loading="lazy" decoding="async" />
+                        <img src={feature.previewSrc ?? feature.src} alt="Personal gallery frame 1" width={960} height={720} loading="lazy" decoding="async" />
                         <div className="about-gallery-caption">
                             <span>01</span>
-                            <p>{feature.name}</p>
+                            <p>Selected frame</p>
                         </div>
                     </div>
                     <div className="about-gallery-mosaic">
                         {galleryItems.map((item, index) => (
                             <div className="about-gallery-tile" key={item.src}>
-                                <img src={item.previewSrc ?? item.src} alt={item.name} width={640} height={480} loading="lazy" decoding="async" />
+                                <img src={item.previewSrc ?? item.src} alt={`Personal gallery frame ${index + 2}`} width={640} height={480} loading="lazy" decoding="async" />
                                 <span>{String(index + 2).padStart(2, "0")}</span>
                             </div>
                         ))}

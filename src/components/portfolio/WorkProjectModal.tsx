@@ -88,6 +88,26 @@ const chipStyle = {
     color: "rgba(255,255,255,0.6)",
 } as const;
 
+const liveDemoButtonStyle = {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 9,
+    alignSelf: "flex-start",
+    marginTop: 24,
+    padding: "10px 15px",
+    borderRadius: 999,
+    border: "1px solid rgba(255,255,255,0.18)",
+    background: "rgba(255,255,255,0.08)",
+    color: "rgba(255,255,255,0.88)",
+    fontFamily: "'Syne', sans-serif",
+    fontSize: "10px",
+    fontWeight: 600,
+    letterSpacing: "0.15em",
+    textTransform: "uppercase",
+    textDecoration: "none",
+} as const;
+
 export default function WorkProjectModal({ project, kind, onClose, reduceMotion = false }: WorkProjectModalProps) {
     useEffect(() => {
         const onKey = (event: KeyboardEvent) => {
@@ -136,7 +156,12 @@ export default function WorkProjectModal({ project, kind, onClose, reduceMotion 
                         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 13, fontWeight: 400, color: "rgba(255,255,255,0.5)", marginBottom: 22, lineHeight: 1.5 }}>{project.tagline}</p>
                         <div style={{ height: 1, background: "rgba(255,255,255,0.08)", marginBottom: 22 }} />
                         <p style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "clamp(13px, 1.25vw, 15px)", fontWeight: 300, lineHeight: 1.85, color: "rgba(255,255,255,0.7)" }}>{project.description}</p>
-                        <p style={{ fontFamily: "'Syne', sans-serif", fontSize: "10px", letterSpacing: "0.14em", color: "rgba(255,255,255,0.32)", marginTop: 24 }}>{project.fileName}</p>
+                        {project.liveUrl && (
+                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" style={liveDemoButtonStyle}>
+                                Live Demo
+                                <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                            </a>
+                        )}
                     </div>
                 </div>
             </motion.div>

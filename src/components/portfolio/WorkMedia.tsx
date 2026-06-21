@@ -91,7 +91,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const loaded = thumbnailState.loaded || posterCache.has(mediaSrc) || (!isVideo && metadataCache.has(mediaSrc));
     const imageLoading = mode === "thumb" ? "lazy" : "eager";
     const needsFallbackPoster = isPreviewMode && !posterSource && !thumbnailState.error;
-    const shouldLoadVideoSource = videoRequested || needsFallbackPoster;
+    const shouldLoadVideoSource = !isPreviewMode || videoRequested;
     const showVideoFallback = isVideo && isPreviewMode && thumbnailState.error && !posterSource && paused;
 
     const updateThumbnailState = useCallback((next: Partial<{ loaded: boolean; error: boolean; seen: boolean }>) => {

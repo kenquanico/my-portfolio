@@ -83,6 +83,12 @@ const GLOBAL_CSS = `
       justify-self: start;
       margin-top: -4px;
     }
+
+    .selected-demo-actions {
+      grid-column: 2;
+      justify-self: start;
+      margin-top: -4px;
+    }
   }
 
   .selected-demo-thumb .media-shell-swatch {
@@ -252,29 +258,69 @@ const SelectedDemoCard = memo(function SelectedDemoCard({
                     {project.description}
                 </p>
             </div>
-            <button
-                type="button"
-                onClick={onViewAll}
+            <div
+                className="selected-demo-actions"
                 style={{
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: 9,
-                    border: "none",
-                    background: "transparent",
-                    color: hovered ? "#fff" : "rgba(160,145,200,0.78)",
-                    cursor: "pointer",
-                    padding: 0,
-                    fontFamily: "'Syne', sans-serif",
-                    fontSize: "11px",
-                    fontWeight: 500,
-                    letterSpacing: "0.16em",
-                    textTransform: "uppercase",
-                    transition: "color 0.2s ease",
-                    whiteSpace: "nowrap",
+                    justifyContent: "flex-end",
+                    gap: 10,
+                    flexWrap: "wrap",
                 }}
             >
-                View <Ico path={ICONS.arrow} size={12} />
-            </button>
+                {project.liveUrl && (
+                    <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open live demo for ${project.name}`}
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: 8,
+                            border: "1px solid rgba(160,145,200,0.26)",
+                            background: hovered ? "rgba(160,145,200,0.18)" : "rgba(160,145,200,0.1)",
+                            color: hovered ? "#fff" : "rgba(220,212,245,0.88)",
+                            cursor: "pointer",
+                            padding: "8px 12px",
+                            borderRadius: 999,
+                            fontFamily: "'Syne', sans-serif",
+                            fontSize: "10px",
+                            fontWeight: 600,
+                            letterSpacing: "0.12em",
+                            textTransform: "uppercase",
+                            textDecoration: "none",
+                            transition: "color 0.2s ease, background 0.2s ease, border-color 0.2s ease",
+                            whiteSpace: "nowrap",
+                        }}
+                    >
+                        Live Demo <Ico path={ICONS.arrow} size={11} />
+                    </a>
+                )}
+                <button
+                    type="button"
+                    onClick={onViewAll}
+                    style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 9,
+                        border: "none",
+                        background: "transparent",
+                        color: hovered ? "#fff" : "rgba(160,145,200,0.78)",
+                        cursor: "pointer",
+                        padding: 0,
+                        fontFamily: "'Syne', sans-serif",
+                        fontSize: "11px",
+                        fontWeight: 500,
+                        letterSpacing: "0.16em",
+                        textTransform: "uppercase",
+                        transition: "color 0.2s ease",
+                        whiteSpace: "nowrap",
+                    }}
+                >
+                    View <Ico path={ICONS.arrow} size={12} />
+                </button>
+            </div>
         </motion.div>
     );
 });
