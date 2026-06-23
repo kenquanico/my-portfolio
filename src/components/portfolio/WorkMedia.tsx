@@ -89,9 +89,10 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
     const objectFit: MediaFit = fit ?? (mode === "thumb" && !isLogo ? "cover" : "contain");
     const showPlayButton = paused || hovered;
     const loaded = thumbnailState.loaded || posterCache.has(mediaSrc) || (!isVideo && metadataCache.has(mediaSrc));
-    const imageLoading = mode === "thumb" ? "lazy" : "eager";
-    const needsFallbackPoster = isPreviewMode && !posterSource && !thumbnailState.error;
-    const shouldLoadVideoSource = !isPreviewMode || videoRequested;
+    const imageLoading = mode === "modal" ? "eager" : "lazy";
+    const shouldLoadVideoSource = videoRequested || (!isPreviewMode && !posterSource);
+    const shouldShowPosterImage = Boolean(isVideo && posterSource && paused);
+    const videoPreload = videoRequested || (!isPreviewMode && !posterSource) ? "metadata" : "none";
     const showVideoFallback = isVideo && isPreviewMode && thumbnailState.error && !posterSource && paused;
 
     const updateThumbnailState = useCallback((next: Partial<{ loaded: boolean; error: boolean; seen: boolean }>) => {
@@ -138,10 +139,11 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
 
     const posterStyle = useMemo(() => ({
         ...mediaStyle,
-        opacity: posterSource && paused ? 1 : 0,
+        opacity: shouldShowPosterImage ? 1 : 0,
         position: "absolute" as const,
         inset: 0,
-    }), [mediaStyle, paused, posterSource]);
+        pointerEvents: "none" as const,
+    }), [mediaStyle, shouldShowPosterImage]);
 
     const pauseVideo = useCallback(() => {
         const video = videoRef.current;
@@ -311,8 +313,8 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                         poster={posterSource || undefined}
                         width={metadata.width}
                         height={metadata.height}
-                        preload={needsFallbackPoster ? "metadata" : "none"}
-                        controls={!isPreviewMode}
+                        preload={videoPreload}
+                        controls={!isPreviewMode && videoRequested}
                         playsInline
                         muted
                         onLoadedMetadata={handleVideoMetadata}
@@ -326,7 +328,7 @@ const WorkMediaContent = memo(function WorkMediaContent({ project, mode, kind, f
                         }}
                         style={isPreviewMode ? previewVideoStyle : mediaStyle}
                     />
-                    {isPreviewMode && posterSource && (
+                    {posterSource && (
                         <img
                             src={posterSource}
                             alt={mediaName}

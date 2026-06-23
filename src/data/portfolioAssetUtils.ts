@@ -295,13 +295,30 @@ const liveDemoUrls = new Map<string, string>([
     ["vaultflow landing page", "https://vaultflow-smoky.vercel.app/"],
 ]);
 
+const previewExtensionPriority = new Map<string, number>([
+    ["avif", 0],
+    ["webp", 1],
+    ["jpg", 2],
+    ["jpeg", 2],
+    ["png", 3],
+]);
+
 export function buildPreviewMap(modules: Record<string, string>) {
-    return new Map(
-        Object.entries(modules).map(([path, src]) => {
-            const fileName = path.split("/").pop() ?? "";
-            return [stemFromFileName(fileName), src] as const;
-        })
-    );
+    const previews = new Map<string, { src: string; priority: number }>();
+
+    for (const [path, src] of Object.entries(modules)) {
+        const fileName = path.split("/").pop() ?? "";
+        const extension = extensionFromPath(fileName);
+        const priority = previewExtensionPriority.get(extension) ?? 99;
+        const stem = stemFromFileName(fileName);
+        const existing = previews.get(stem);
+
+        if (!existing || priority < existing.priority) {
+            previews.set(stem, { src, priority });
+        }
+    }
+
+    return new Map(Array.from(previews, ([stem, preview]) => [stem, preview.src] as const));
 }
 
 export const buildPosterMap = buildPreviewMap;

@@ -479,7 +479,7 @@ export default function Portfolio({
                 padding: "20px 56px",
                 display: "flex", alignItems: "center", justifyContent: "space-between",
             }}>
-                <img src={Logo} alt="Ken Aldrey Quanico logo" style={{ height: 42, width: "auto", display: "block" }} />
+                <img src={Logo} alt="Ken Aldrey Quanico logo" width={42} height={42} decoding="async" style={{ height: 42, width: "auto", display: "block" }} />
                 <LiquidGlassDock items={dockItems} />
             </nav>
 
@@ -581,7 +581,7 @@ export default function Portfolio({
                 </section>
 
                 {/* WORK */}
-                <section style={{ paddingBottom: 110, maxWidth: 920, margin: "0 auto" }}>
+                <section style={{ paddingBottom: 110, maxWidth: 920, margin: "0 auto", contentVisibility: "auto", containIntrinsicSize: "900px" }}>
                     <Divider />
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 6 }}>
                         <SectionLabel>Selected Work</SectionLabel>
@@ -613,7 +613,7 @@ export default function Portfolio({
                 </section>
 
                 {/* CONTACT */}
-                <section id="contact" style={{ paddingBottom: 130, maxWidth: 920, margin: "0 auto", scrollMarginTop: 110 }}>
+                <section id="contact" style={{ paddingBottom: 130, maxWidth: 920, margin: "0 auto", scrollMarginTop: 110, contentVisibility: "auto", containIntrinsicSize: "560px" }}>
                     <Divider />
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 44 }}>
                         <div>
@@ -702,7 +702,7 @@ export default function Portfolio({
                             gap: 16,
                         }}>
                             {/* Logo */}
-                            <img src={Logo} alt="Ken Aldrey Quanico logo" style={{ height: 42, width: "auto", display: "block" }} />
+                            <img src={Logo} alt="Ken Aldrey Quanico logo" width={42} height={42} loading="lazy" decoding="async" style={{ height: 42, width: "auto", display: "block" }} />
 
                             {/* Social icons — centered */}
                             <div style={{ display: "flex", alignItems: "left", gap: 10 }}>

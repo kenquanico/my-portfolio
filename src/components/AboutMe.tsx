@@ -330,7 +330,7 @@ export default function AboutMe({
                 padding: "20px 56px",
                 display: "flex", alignItems: "center", justifyContent: "space-between",
             }}>
-                <img src={Logo} alt="Logo" onClick={onNavigateHome} style={{ height: 42, width: "auto", cursor: "pointer" }} />
+                <img src={Logo} alt="Logo" width={42} height={42} decoding="async" onClick={onNavigateHome} style={{ height: 42, width: "auto", cursor: "pointer" }} />
                 <LiquidGlassDock items={dockItems} />
             </nav>
 
@@ -374,7 +374,7 @@ export default function AboutMe({
                                     pointerEvents: "none",
                                 }}
                             />
-                            <img src={profilePhoto} alt="Ken Aldrey" style={{
+                            <img src={profilePhoto} alt="Ken Aldrey" width={172} height={172} decoding="async" style={{
                                 position: "absolute", inset: 4, zIndex: 2,
                                 borderRadius: "80%",
                                 width: "calc(100% - 8px)", height: "calc(100% - 8px)",
@@ -583,7 +583,7 @@ export default function AboutMe({
             </section>
 
             {/* ══ SECTION 2 — Tech Stack Marquee ══ */}
-            <section style={{ position: "relative", zIndex: 10, paddingBottom: 120 }}>
+            <section style={{ position: "relative", zIndex: 10, paddingBottom: 120, contentVisibility: "auto", containIntrinsicSize: "520px" }}>
                 <div style={{ paddingTop: 80 }}>
                     <div className="portfolio-section-pad" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 56px", marginBottom: 56 }}>
                         <motion.div
