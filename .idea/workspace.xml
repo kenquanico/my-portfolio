@@ -4,21 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: refactor AboutMe component and enhance gallery layout for improved user experience">
-      <change afterPath="$PROJECT_DIR$/src/assets/web-mobile_demo/FutureSphere - Saas Website.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/web-mobile_demo/MABDOC - AI Healthcare Assistant.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/web-mobile_demo/Pathway - Dark.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/web-mobile_demo/Pathway - Productivity Saas.mov" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/web-mobile_demo/Vaultflow Landing Page.mov" afterDir="false" />
+    <list default="true" id="3fee4952-bc2d-48b4-b6e6-98172ead01cf" name="Changes" comment="feat: enhance AboutMe and WorkGallery components with live demo links and improved styling">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/web-mobile_demo/Screen Recording 2026-06-18 at 10.58.20 PM.mov" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/web-mobile_demo/AURORA DEMO.mov" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AboutMe.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AboutMe.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LandingPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkGallery.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkMedia.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/portfolio/WorkProjectModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/portfolio/WorkProjectModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/portfolioAssetUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/portfolioAssetUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,23 +134,9 @@
       <workItem from="1781781778716" duration="6603000" />
       <workItem from="1781886383235" duration="3530000" />
       <workItem from="1782025978588" duration="1057000" />
-      <workItem from="1782055870915" duration="1807000" />
-    </task>
-    <task id="LOCAL-00012" summary="style: add new SVG graphic for visual enhancements on the landing page">
-      <option name="closed" value="true" />
-      <created>1780767038807</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1780767038807</updated>
-    </task>
-    <task id="LOCAL-00013" summary="style: add new SVG graphic for visual enhancements on the landing page">
-      <option name="closed" value="true" />
-      <created>1780767177282</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1780767177283</updated>
+      <workItem from="1782055870915" duration="4921000" />
+      <workItem from="1782133539737" duration="19000" />
+      <workItem from="1782139896876" duration="599000" />
     </task>
     <task id="LOCAL-00014" summary="refactor: implement lazy loading for components and optimize navigation">
       <option name="closed" value="true" />
@@ -541,7 +514,23 @@
       <option name="project" value="LOCAL" />
       <updated>1781893517833</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="feat: enhance AboutMe and WorkGallery components with live demo links and improved styling">
+      <option name="closed" value="true" />
+      <created>1782057748616</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1782057748616</updated>
+    </task>
+    <task id="LOCAL-00062" summary="feat: enhance AboutMe and WorkGallery components with live demo links and improved styling">
+      <option name="closed" value="true" />
+      <created>1782057757166</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1782057757166</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -577,7 +566,8 @@
     <MESSAGE value="feat: update workspace configuration with new components and enhance project settings" />
     <MESSAGE value="feat: add personal gallery component and enhance styling for improved visual presentation" />
     <MESSAGE value="feat: refactor AboutMe component and enhance gallery layout for improved user experience" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: refactor AboutMe component and enhance gallery layout for improved user experience" />
+    <MESSAGE value="feat: enhance AboutMe and WorkGallery components with live demo links and improved styling" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance AboutMe and WorkGallery components with live demo links and improved styling" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
