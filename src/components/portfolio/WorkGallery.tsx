@@ -214,10 +214,10 @@ function ViewToggle({ mode, setMode }: { mode: ViewMode; setMode: (mode: ViewMod
 
     return (
         <div style={{ display: "flex", gap: 4, padding: "4px", borderRadius: 10, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}>
-            <button onClick={setGrid} title="grid view" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 30, height: 26, borderRadius: 7, border: "none", cursor: "pointer", background: mode === "grid" ? "rgba(255,255,255,0.14)" : "transparent", color: mode === "grid" ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.38)", transition: "transform 0.2s ease, background 0.2s ease" }}>
+            <button type="button" onClick={setGrid} aria-label="Show projects in a grid" aria-pressed={mode === "grid"} title="Grid view" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 30, height: 26, borderRadius: 7, border: "none", cursor: "pointer", background: mode === "grid" ? "rgba(255,255,255,0.14)" : "transparent", color: mode === "grid" ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.38)", transition: "transform 0.2s ease, background 0.2s ease" }}>
                 <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5" /><rect x="13" y="3" width="8" height="8" rx="1.5" /><rect x="3" y="13" width="8" height="8" rx="1.5" /><rect x="13" y="13" width="8" height="8" rx="1.5" /></svg>
             </button>
-            <button onClick={setList} title="list view" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 30, height: 26, borderRadius: 7, border: "none", cursor: "pointer", background: mode === "list" ? "rgba(255,255,255,0.14)" : "transparent", color: mode === "list" ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.38)", transition: "transform 0.2s ease, background 0.2s ease" }}>
+            <button type="button" onClick={setList} aria-label="Show projects in a list" aria-pressed={mode === "list"} title="List view" style={{ display: "flex", alignItems: "center", justifyContent: "center", width: 30, height: 26, borderRadius: 7, border: "none", cursor: "pointer", background: mode === "list" ? "rgba(255,255,255,0.14)" : "transparent", color: mode === "list" ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.38)", transition: "transform 0.2s ease, background 0.2s ease" }}>
                 <svg width={15} height={15} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="5" rx="1.5" /><rect x="3" y="10" width="18" height="5" rx="1.5" /><rect x="3" y="17" width="18" height="5" rx="1.5" /></svg>
             </button>
         </div>
@@ -231,9 +231,16 @@ const WorkGridCard = memo(function WorkGridCard({ project, index, kind, reduceMo
     const handleLeave = useCallback(() => setHovered(false), []);
     const badge = kind === "websites" ? project.kind : project.extension;
     const transition = useMemo(() => cardTransition(index, reduceMotion), [index, reduceMotion]);
+    const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.target !== event.currentTarget) return;
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onSelect(project);
+        }
+    }, [onSelect, project]);
 
     return (
-        <motion.div className="work-card" initial={reduceMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={transition} onMouseEnter={handleEnter} onMouseLeave={handleLeave} onClick={handleClick} style={{ borderRadius: 20, overflow: "hidden", cursor: "pointer", transform: hovered ? "translate3d(0,-4px,0)" : "translate3d(0,0,0)", ...glassBase(hovered) }}>
+        <motion.div className="work-card" role="button" tabIndex={0} aria-label={`View ${project.name}`} initial={reduceMotion ? false : { opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={transition} onMouseEnter={handleEnter} onMouseLeave={handleLeave} onClick={handleClick} onKeyDown={handleKeyDown} style={{ borderRadius: 20, overflow: "hidden", cursor: "pointer", transform: hovered ? "translate3d(0,-4px,0)" : "translate3d(0,0,0)", ...glassBase(hovered) }}>
             <div className="work-card-media" style={{ padding: kind === "logos" ? 18 : 0 }}>
                 <WorkMedia project={project} kind={kind} mode="thumb" fit={kind === "logos" ? "contain" : "cover"} reduceMotion={reduceMotion} />
                 <div style={{ position: "absolute", top: 14, right: 14, fontFamily: "'Syne', sans-serif", fontSize: "9px", fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", padding: "4px 10px", borderRadius: 6, background: "rgba(0,0,0,0.45)", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.88)" }}>{badge}</div>
@@ -267,9 +274,16 @@ const WorkListRow = memo(function WorkListRow({ project, index, kind, reduceMoti
     const handleEnter = useCallback(() => setHovered(true), []);
     const handleLeave = useCallback(() => setHovered(false), []);
     const transition = useMemo(() => cardTransition(index, reduceMotion), [index, reduceMotion]);
+    const handleKeyDown = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.target !== event.currentTarget) return;
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onSelect(project);
+        }
+    }, [onSelect, project]);
 
     return (
-        <motion.div className="work-list-row work-card" initial={reduceMotion ? false : { opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={transition} onMouseEnter={handleEnter} onMouseLeave={handleLeave} onClick={handleClick} style={{ display: "flex", alignItems: "center", gap: 20, padding: "14px 20px", borderRadius: 14, cursor: "pointer", ...glassBase(hovered) }}>
+        <motion.div className="work-list-row work-card" role="button" tabIndex={0} aria-label={`View ${project.name}`} initial={reduceMotion ? false : { opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={transition} onMouseEnter={handleEnter} onMouseLeave={handleLeave} onClick={handleClick} onKeyDown={handleKeyDown} style={{ display: "flex", alignItems: "center", gap: 20, padding: "14px 20px", borderRadius: 14, cursor: "pointer", ...glassBase(hovered) }}>
             <div style={{ width: 56, height: 56, borderRadius: 12, flexShrink: 0, border: "1px solid rgba(255,255,255,0.12)", overflow: "hidden", background: kind === "logos" ? "#fff" : "rgba(255,255,255,0.04)" }}>
                 <WorkMedia project={project} kind={kind} mode="swatch" fit={kind === "logos" ? "contain" : "cover"} reduceMotion={reduceMotion} />
             </div>

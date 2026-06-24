@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">JustHome real-estate marketplace preview</title>
+  <desc id="desc">A warm editorial property marketplace preview with modern homes.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#dbeaff"/>
+      <stop offset=".62" stop-color="#f7eee2"/>
+      <stop offset="1" stop-color="#d6c0a3"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffffff" stop-opacity=".86"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity=".52"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#sky)"/>
+  <circle cx="1260" cy="170" r="105" fill="#fff7d6" opacity=".9"/>
+  <path d="M0 760 330 545l225 175 254-285 315 260 218-162 258 202v265H0Z" fill="#adb7a1"/>
+  <path d="M0 820 360 620l210 150 245-250 300 250 210-150 275 176v204H0Z" fill="#6f7d68"/>
+  <g transform="translate(835 370)">
+    <path d="m0 214 310-214 350 214v330H0Z" fill="#efe9df"/>
+    <path d="m-48 220 360-250 394 250-46 56L310 42 0 276Z" fill="#2e302b"/>
+    <rect x="64" y="270" width="188" height="274" fill="#b87954"/>
+    <rect x="327" y="260" width="260" height="174" fill="#25333a"/>
+    <rect x="354" y="286" width="206" height="120" fill="#9bc0d3"/>
+  </g>
+  <rect x="76" y="64" width="1448" height="110" rx="55" fill="url(#glass)" stroke="#fff" stroke-opacity=".7"/>
+  <text x="128" y="135" fill="#1d241f" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="800">JustHome</text>
+  <text x="106" y="324" fill="#1d241f" font-family="Georgia, serif" font-size="92" font-weight="700">
+    <tspan x="106" dy="0">BELIEVE IN</tspan>
+    <tspan x="106" dy="102">FINDING IT</tspan>
+  </text>
+  <text x="112" y="556" fill="#344038" font-family="Arial, Helvetica, sans-serif" font-size="29">Search properties for sale and rent across the UAE.</text>
+  <rect x="106" y="622" width="570" height="92" rx="46" fill="#fff" fill-opacity=".9"/>
+  <text x="154" y="680" fill="#687269" font-family="Arial, Helvetica, sans-serif" font-size="25">Search properties</text>
+  <circle cx="623" cy="668" r="32" fill="#1d241f"/>
+  <path d="m613 668 9 9 16-19" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

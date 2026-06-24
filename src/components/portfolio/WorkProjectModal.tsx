@@ -139,7 +139,7 @@ export default function WorkProjectModal({ project, kind, onClose, reduceMotion 
             >
                 <div style={topLineStyle} />
                 <div style={headerStyle}>
-                    <button onClick={onClose} style={backButtonStyle}>
+                    <button type="button" onClick={onClose} style={backButtonStyle}>
                         <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6" /></svg>
                         Back
                     </button>

@@ -12,9 +12,21 @@ const screenFallback = (
 function App() {
   const [view, setView] = useState<'home' | 'projects' | 'aboutme'>('home')
   const [pendingContact, setPendingContact] = useState(false)
-  const navigateHome = useCallback(() => setView('home'), [])
-  const navigateProjects = useCallback(() => setView('projects'), [])
-  const navigateAbout = useCallback(() => setView('aboutme'), [])
+  const navigateHome = useCallback(() => {
+    setPendingContact(false)
+    setView('home')
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [])
+  const navigateProjects = useCallback(() => {
+    setPendingContact(false)
+    setView('projects')
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [])
+  const navigateAbout = useCallback(() => {
+    setPendingContact(false)
+    setView('aboutme')
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [])
   const navigateContact = useCallback(() => {
     setPendingContact(true)
     setView('home')

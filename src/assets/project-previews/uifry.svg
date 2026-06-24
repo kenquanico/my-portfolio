@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Uifry finance app preview</title>
+  <desc id="desc">A bold black, white, and coral finance landing page preview.</desc>
+  <defs>
+    <radialGradient id="glow" cx="73%" cy="40%" r="52%">
+      <stop offset="0" stop-color="#ff6257" stop-opacity=".95"/>
+      <stop offset=".5" stop-color="#ff6257" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#ff6257" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="phone" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#191919"/>
+      <stop offset="1" stop-color="#050505"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="#f7f7f4"/>
+  <circle cx="1190" cy="420" r="520" fill="url(#glow)"/>
+  <path d="M0 870 550 520l220 350Z" fill="#ff6257" opacity=".88"/>
+  <text x="105" y="126" fill="#080808" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="800">uifry</text>
+  <text x="105" y="300" fill="#080808" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="900">
+    <tspan x="105" dy="0">MAKE THE BEST</tspan>
+    <tspan x="105" dy="102">FINANCIAL</tspan>
+    <tspan x="105" dy="102">DECISIONS</tspan>
+  </text>
+  <text x="112" y="665" fill="#444" font-family="Arial, Helvetica, sans-serif" font-size="28">A premium finance experience built for clear choices.</text>
+  <g transform="translate(1030 178) rotate(7)">
+    <rect width="335" height="665" rx="54" fill="#090909" stroke="#2c2c2c" stroke-width="12"/>
+    <rect x="22" y="24" width="291" height="617" rx="38" fill="url(#phone)"/>
+    <rect x="112" y="42" width="112" height="18" rx="9" fill="#333"/>
+    <text x="54" y="130" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="23">Welcome back</text>
+    <text x="54" y="174" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">$12,480</text>
+    <rect x="52" y="220" width="231" height="132" rx="24" fill="#ff6257"/>
+    <circle cx="90" cy="266" r="17" fill="#fff" opacity=".9"/>
+    <rect x="54" y="388" width="227" height="22" rx="11" fill="#2f2f2f"/>
+    <rect x="54" y="432" width="176" height="22" rx="11" fill="#242424"/>
+    <rect x="54" y="502" width="64" height="80" rx="18" fill="#ff6257" opacity=".9"/>
+    <rect x="134" y="468" width="64" height="114" rx="18" fill="#fff" opacity=".85"/>
+    <rect x="214" y="532" width="64" height="50" rx="18" fill="#ff6257" opacity=".55"/>
+  </g>
+</svg>

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">TasteNet food delivery preview</title>
+  <desc id="desc">A bright red and cream fast-food landing page preview with a burger.</desc>
+  <defs>
+    <radialGradient id="hero" cx="72%" cy="47%" r="44%">
+      <stop offset="0" stop-color="#ffdf8a"/>
+      <stop offset=".58" stop-color="#ef3129"/>
+      <stop offset="1" stop-color="#b91217"/>
+    </radialGradient>
+    <linearGradient id="bun" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#ffc65c"/>
+      <stop offset="1" stop-color="#de7f20"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="#f8efe0"/>
+  <rect width="1600" height="1000" fill="url(#hero)"/>
+  <path d="M0 0h625v1000H0Z" fill="#f8efe0"/>
+  <text x="90" y="124" fill="#17130f" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="900">TasteNest</text>
+  <text x="90" y="290" fill="#e52b24" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="800" letter-spacing="4">ORDER YOUR BEST FOOD</text>
+  <text x="88" y="405" fill="#17130f" font-family="Arial, Helvetica, sans-serif" font-size="86" font-weight="900">
+    <tspan x="88" dy="0">HOT SPICY</tspan>
+    <tspan x="88" dy="92">CHICKEN</tspan>
+    <tspan x="88" dy="92">BURGER</tspan>
+  </text>
+  <rect x="90" y="690" width="220" height="74" rx="37" fill="#e52b24"/>
+  <text x="142" y="738" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="800">ORDER NOW</text>
+  <g transform="translate(810 204) rotate(-5)">
+    <ellipse cx="335" cy="620" rx="340" ry="64" fill="#5c0708" opacity=".33"/>
+    <path d="M54 269C67 94 190 20 337 20s270 74 283 249Z" fill="url(#bun)"/>
+    <path d="M92 204c75-62 419-62 490 0" fill="none" stroke="#ffd984" stroke-width="28" stroke-linecap="round" opacity=".7"/>
+    <path d="M42 292c94-50 500-49 596 0l-46 82H88Z" fill="#65a42c"/>
+    <path d="m74 365 530-9-28 108-472 8Z" fill="#f6cd35"/>
+    <path d="M74 446c82-72 456-74 530-2l-34 129H112Z" fill="#773015"/>
+    <path d="M88 554c90-50 425-50 505 0l-42 72H126Z" fill="#ef3b29"/>
+    <path d="M104 615h468c-18 119-120 165-234 165S124 734 104 615Z" fill="url(#bun)"/>
+    <g fill="#fff0b5">
+      <ellipse cx="214" cy="96" rx="10" ry="5" transform="rotate(20 214 96)"/>
+      <ellipse cx="330" cy="75" rx="10" ry="5" transform="rotate(-15 330 75)"/>
+      <ellipse cx="455" cy="112" rx="10" ry="5" transform="rotate(28 455 112)"/>
+      <ellipse cx="510" cy="176" rx="10" ry="5" transform="rotate(-12 510 176)"/>
+      <ellipse cx="150" cy="168" rx="10" ry="5" transform="rotate(12 150 168)"/>
+    </g>
+  </g>
+</svg>
