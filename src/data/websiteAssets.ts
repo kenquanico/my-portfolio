@@ -7,6 +7,7 @@ import {
 import uifryPreview from "../assets/project-previews/uifry.svg";
 import justHomePreview from "../assets/project-previews/justhome.svg";
 import tasteNetPreview from "../assets/project-previews/tastenet.svg";
+import shopCoPreview from "../assets/project-previews/shopco.svg";
 
 const demoModules = import.meta.glob("../assets/web-mobile_demo/*.{mp4,webm,mov}", {
     eager: true,
@@ -32,6 +33,21 @@ const recordedWebsites = buildAssets(
 const currentYear = new Date().getFullYear().toString();
 
 const linkedWebsites: PortfolioAsset[] = [
+    {
+        id: 10_000,
+        name: "ShopCo Fashion Marketplace",
+        year: currentYear,
+        tag: "Live Website",
+        tagline: "Full fashion storefront for browsing, accounts, and checkout",
+        description: "A responsive fashion e-commerce experience with product discovery, categories, search, sale and new-arrival collections, customer accounts, cart interactions, and a polished editorial storefront.",
+        src: shopCoPreview,
+        previewSrc: shopCoPreview,
+        fileName: "shopco.svg",
+        extension: "svg",
+        kind: "image",
+        path: "../assets/project-previews/shopco.svg",
+        liveUrl: "https://shopco-kappa-three.vercel.app/",
+    },
     {
         id: 10_001,
         name: "Uifry Finance Landing Page",
